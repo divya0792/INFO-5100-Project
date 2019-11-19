@@ -32,6 +32,7 @@ public class DemoViewPanel extends JFrame implements AbstractViewPanel {
     this.setSize(400,500);//400 width and 500 height
     this.setLayout(null);//using no layout managers
     this.setVisible(true);//making the frame visible
+    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
   }
   private void localInitialization() {
 
