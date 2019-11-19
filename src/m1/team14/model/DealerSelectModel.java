@@ -16,8 +16,4 @@ class DealerSelectModel extends AbstractModel {
   public int getCurrentDealerId() {
     return currentDealerId;
   }
-
-  public DealerSelectModel() {
-
-  }
 }

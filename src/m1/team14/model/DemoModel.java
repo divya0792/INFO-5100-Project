@@ -17,8 +17,4 @@ public class DemoModel extends AbstractModel {
   public int getTotalNumber() {
     return totalNumber;
   }
-
-  public DemoModel() {
-
-  }
 }

@@ -17,7 +17,7 @@ public class DemoViewPanel extends JFrame implements AbstractViewPanel {
     this.localInitialization();
   }
   private void initComponent() {
-    this.btn=new JButton("add");//creating instance of JButton
+    this.btn=new JButton("add");
     this.btn.addActionListener(e -> {
       this.demoController.addNumber(this.textField.getText());
     });
@@ -26,12 +26,12 @@ public class DemoViewPanel extends JFrame implements AbstractViewPanel {
     this.textField.setBounds(130,40,100, 40);//x axis, y axis, width, height
     this.label = new JLabel("0");
     this.label.setBounds(130,200,100, 40);//x axis, y axis, width, height
-    this.add(this.btn);//adding button in JFrame
-    this.add(this.textField);//adding button in JFrame
-    this.add(this.label);//adding button in JFrame
-    this.setSize(400,500);//400 width and 500 height
-    this.setLayout(null);//using no layout managers
-    this.setVisible(true);//making the frame visible
+    this.add(this.btn);
+    this.add(this.textField);
+    this.add(this.label);
+    this.setSize(400,500);
+    this.setLayout(null);
+    this.setVisible(true);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
   }
   private void localInitialization() {
