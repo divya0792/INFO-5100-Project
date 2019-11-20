@@ -1,5 +1,7 @@
 package dataproto;
 
+import java.util.Collection;
+
 public class Dealer extends DataObject {
   private String name;
   // private Address address;
