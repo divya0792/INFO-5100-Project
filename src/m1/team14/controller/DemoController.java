@@ -7,8 +7,9 @@ public class DemoController extends AbstractController {
       int currentNumber = Integer.parseInt(val);
       currentNumber++;
       this.setModelProperty("TotalNumber", currentNumber);
-    } catch(Exception e) {
-      System.out.println("DemoController.addNumber Error: " + e);
+    } catch(Exception ex) {
+      //  Handle exception.
+      ex.printStackTrace();
     }
   }
 }
