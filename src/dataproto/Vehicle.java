@@ -2,7 +2,7 @@ package dataproto;
 
 import java.util.Collection;
 
-public class Dealer extends DataObject{
+public class Vehicle extends DataObject{
   private String dealerId;
   private String brand;//Honda
   private String model;//Accord
