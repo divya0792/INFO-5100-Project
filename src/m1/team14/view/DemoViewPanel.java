@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import m1.team14.controller.DemoController;
 
-public class DemoViewPanel extends JFrame implements AbstractViewPanel {
+public class DemoViewPanel extends JFrame implements IViewPanel {
   private DemoController demoController;
   private JButton btn;
   private JTextField textField;

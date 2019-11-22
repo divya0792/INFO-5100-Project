@@ -4,16 +4,16 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import m1.team14.model.AbstractModel;
-import m1.team14.view.AbstractViewPanel;
+import m1.team14.view.IViewPanel;
 import java.lang.reflect.Method;
 
 public abstract class AbstractController implements PropertyChangeListener {
 
-    private ArrayList<AbstractViewPanel> registeredViews;
+    private ArrayList<IViewPanel> registeredViews;
     private ArrayList<AbstractModel> registeredModels;
 
     public AbstractController() {
-        registeredViews = new ArrayList<AbstractViewPanel>();
+        registeredViews = new ArrayList<IViewPanel>();
         registeredModels = new ArrayList<AbstractModel>();
     }
 
@@ -27,17 +27,17 @@ public abstract class AbstractController implements PropertyChangeListener {
         model.removePropertyChangeListener(this);
     }
 
-    public void addView(AbstractViewPanel view) {
+    public void addView(IViewPanel view) {
         registeredViews.add(view);
     }
 
-    public void removeView(AbstractViewPanel view) {
+    public void removeView(IViewPanel view) {
         registeredViews.remove(view);
     }
     //  Use this to observe property changes from registered models
     //  and propagate them on to all the views.
     public void propertyChange(PropertyChangeEvent evt) {
-        for (AbstractViewPanel view: registeredViews) {
+        for (IViewPanel view: registeredViews) {
             view.modelPropertyChange(evt);
         }
     }
@@ -57,7 +57,7 @@ public abstract class AbstractController implements PropertyChangeListener {
         for (AbstractModel model: registeredModels) {
             try {
                 Method method = model.getClass().
-                    getMethod("setTotalNumber", new Class[] {
+                    getMethod("set" + propertyName, new Class[] {
                                                       newValue.getClass()
                                                   }
                              );
