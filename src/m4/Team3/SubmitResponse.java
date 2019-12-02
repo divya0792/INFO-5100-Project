@@ -20,18 +20,6 @@ import javax.swing.JTextField;
 public class SubmitResponse {
 
 	public JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
 	private JTextField textField_12;
 	private JTextField textField_13;
 	private JTextField textField_14;
@@ -118,7 +106,7 @@ public class SubmitResponse {
 					popup.setLocationRelativeTo(frame);
 					popup.setVisible(true);
 				}else {
-				Confirm dialog = new Confirm();
+				ConfirmNew dialog = new ConfirmNew();
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setLocationRelativeTo(frame);
 				dialog.setVisible(true);
