@@ -98,7 +98,8 @@ class ContentEditorView extends JFrame {
         initData();
         // default
         comboBox_Position.setSelectedItem(POSITION.HEADER);
-        initConfigData(rTextTop);
+        editingRichText = rTextTop;
+        initConfigData(editingRichText);
     }
 
     private void newHeaderPanel() {
