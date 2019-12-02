@@ -254,7 +254,7 @@ public class ContentPage extends JFrame {
 	public void initConfigData(RichText rText) {
 		Boolean isBold, isItalic;
         int size;		
-		int temp = 0;
+		//int temp = 0;
 		
 		isBold = rText.isBold;
 		isItalic = rText.isItalic;
@@ -262,17 +262,18 @@ public class ContentPage extends JFrame {
 		
 		if(isBold) {
 			chckbxIsBold.setSelected(true);
-			temp += Font.BOLD;
+			//temp += Font.BOLD;
 		}else {
 			chckbxIsBold.setSelected(false);
 		}
 		if(isItalic) {
 			chckbxIsItalic.setSelected(true);
-			temp += Font.ITALIC;
+			//temp += Font.ITALIC;
 		}else {
 			chckbxIsItalic.setSelected(false);
 		}
-		Font f = new Font("Default", temp,size);
+		txtpnPlaintext.setText(rText.plainText);
+		//Font f = new Font("Default", temp, size);
 		comboBox_Size.setSelectedItem("" + size);
 	}
 	
