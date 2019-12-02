@@ -1,9 +1,8 @@
+package FinalProject;
 
 public class Main {
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {	
 		SubmitResponse window = new SubmitResponse();
-		window.frame.setVisible(true);
-		
+		window.frame.setVisible(true);		
 	}
 }
