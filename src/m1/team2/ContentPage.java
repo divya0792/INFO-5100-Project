@@ -114,7 +114,7 @@ public class ContentPage extends JFrame {
 		panel_Header.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		contentPane.add(panel_Header, BorderLayout.NORTH);
 		panel_Header.setLayout(new GridLayout(1, 2, 0, 0));
-		setTxtPaneText(txtpnHeaderData, rTextTop.plainText, rTextTop.isBold, rTextTop.isItalic, rTextTop.fontSize);
+		txtpnHeaderData.setText(rTextTop.plainText);
 		panel_Header.add(txtpnHeaderData);
 	}
 	private void newContent_1Panel() {
@@ -124,7 +124,7 @@ public class ContentPage extends JFrame {
 		panel_Content_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		contentPane.add(panel_Content_1, BorderLayout.WEST);
 		panel_Content_1.setLayout(new GridLayout(0, 1, 0, 0));		
-		setTxtPaneText(txtpnContent_1, rTextLeft.plainText, rTextLeft.isBold, rTextLeft.isItalic, rTextLeft.fontSize);
+		txtpnContent_1.setText(rTextLeft.plainText);
 		panel_Content_1.add(txtpnContent_1);
 	}
 	private void newContent_2Panel() {
@@ -134,7 +134,7 @@ public class ContentPage extends JFrame {
 		panel_Content_2.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		contentPane.add(panel_Content_2, BorderLayout.EAST);
 		panel_Content_2.setLayout(new GridLayout(0, 1, 0, 0));
-		setTxtPaneText(txtpnContent_2, rTextRight.plainText, rTextRight.isBold, rTextRight.isItalic, rTextRight.fontSize);
+		txtpnContent_2.setText(rTextRight.plainText);
 		panel_Content_2.add(txtpnContent_2);
 	}
 	private void newFootenPanel() {
@@ -144,7 +144,7 @@ public class ContentPage extends JFrame {
 		panel_Footen.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		contentPane.add(panel_Footen, BorderLayout.SOUTH);
 		panel_Footen.setLayout(new GridLayout(0, 1, 0, 0));
-		setTxtPaneText(txtpnFootenData, rTextBot.plainText, rTextBot.isBold, rTextBot.isItalic, rTextBot.fontSize);
+		txtpnFootenData.setText(rTextBot.plainText);
 		panel_Footen.add(txtpnFootenData);
 	}
 	private void newFontAreaPanel() {
@@ -186,7 +186,6 @@ public class ContentPage extends JFrame {
 		btnReset = new JButton("Reset");
 		
 		panel_PreviewArea.setLayout(new BorderLayout(0, 0));
-		setTxtPaneText(txtpnPlaintext, txtpnHeaderData.getText(), txtpnHeaderData.getFont().isBold(), txtpnHeaderData.getFont().isItalic(), txtpnHeaderData.getFont().getSize() );
 		panel_PreviewArea.add(txtpnPlaintext, BorderLayout.CENTER);
 		btnSubmit.addMouseListener(new MouseAdapter() {
 			@Override
@@ -217,8 +216,7 @@ public class ContentPage extends JFrame {
 		panel_Center.add(panel_FontArea, BorderLayout.NORTH);
 		panel_Center.add(panel_ButtonArea, BorderLayout.SOUTH);
 		panel_Center.add(panel_PreviewArea, BorderLayout.CENTER);
-		setTxtPaneText(txtpnPlaintext, txtpnHeaderData.getText(), txtpnHeaderData.getFont().isBold(), txtpnHeaderData.getFont().isItalic(), txtpnHeaderData.getFont().getSize());
-		setFontArea(chckbxIsBold, chckbxIsItalic, comboBox_Size, txtpnHeaderData.getFont().isBold(), txtpnHeaderData.getFont().isItalic(), txtpnHeaderData.getFont().getSize());
+		setFontArea(txtpnPlaintext, txtpnHeaderData.getText(), chckbxIsBold, chckbxIsItalic, comboBox_Size, rTextTop.isBold, rTextTop.isItalic, rTextTop.fontSize);
 	}
 	private void newCheckBoxAreaPanel() {
 		panel_CheckBoxArea = new JPanel();
@@ -237,17 +235,13 @@ public class ContentPage extends JFrame {
 						case ItemEvent.SELECTED: 
 							String item = e.getItem().toString();
 							if(item.equals("Header Data")) {
-								setTxtPaneText(txtpnPlaintext, txtpnHeaderData.getText(), txtpnHeaderData.getFont().isBold(), txtpnHeaderData.getFont().isItalic(), txtpnHeaderData.getFont().getSize());
-								setFontArea(chckbxIsBold, chckbxIsItalic, comboBox_Size, txtpnHeaderData.getFont().isBold(), txtpnHeaderData.getFont().isItalic(), txtpnHeaderData.getFont().getSize());
+								setFontArea(txtpnPlaintext, txtpnHeaderData.getText(), chckbxIsBold, chckbxIsItalic, comboBox_Size, rTextTop.isBold, rTextTop.isItalic, rTextTop.fontSize);
 							}else if(item.equals("Content 1")) {
-								setTxtPaneText(txtpnPlaintext, txtpnContent_1.getText(), txtpnContent_1.getFont().isBold(), txtpnContent_1.getFont().isItalic(), txtpnContent_1.getFont().getSize());
-								setFontArea(chckbxIsBold, chckbxIsItalic, comboBox_Size, txtpnContent_1.getFont().isBold(), txtpnContent_1.getFont().isItalic(), txtpnContent_1.getFont().getSize());
+								setFontArea(txtpnPlaintext, txtpnContent_1.getText(), chckbxIsBold, chckbxIsItalic, comboBox_Size, rTextLeft.isBold, rTextLeft.isItalic, rTextLeft.fontSize);
 							}else if(item.equals("Content 2")) {
-								setTxtPaneText(txtpnPlaintext, txtpnContent_2.getText(), txtpnContent_2.getFont().isBold(), txtpnContent_2.getFont().isItalic(), txtpnContent_2.getFont().getSize());
-								setFontArea(chckbxIsBold, chckbxIsItalic, comboBox_Size, txtpnContent_2.getFont().isBold(), txtpnContent_2.getFont().isItalic(), txtpnContent_2.getFont().getSize());
-							}else if(item.equals("Footen Data")) {
-								setTxtPaneText(txtpnPlaintext, txtpnFootenData.getText(), txtpnFootenData.getFont().isBold(), txtpnFootenData.getFont().isItalic(), txtpnFootenData.getFont().getSize());
-								setFontArea(chckbxIsBold, chckbxIsItalic, comboBox_Size, txtpnFootenData.getFont().isBold(), txtpnFootenData.getFont().isItalic(), txtpnFootenData.getFont().getSize());
+								setFontArea(txtpnPlaintext, txtpnContent_2.getText(), chckbxIsBold, chckbxIsItalic, comboBox_Size, rTextRight.isBold, rTextRight.isItalic, rTextRight.fontSize);
+							}else if(item.equals("Footen Data")) {								
+								setFontArea(txtpnPlaintext, txtpnFootenData.getText(), chckbxIsBold, chckbxIsItalic, comboBox_Size, rTextBot.isBold, rTextBot.isItalic, rTextBot.fontSize);
 							}
 						break;
 					}
@@ -256,32 +250,26 @@ public class ContentPage extends JFrame {
 		comboBox_Position.setModel(new DefaultComboBoxModel(new String[] {"Header Data", "Content 1", "Content 2", "Footen Data"}));
 		
 	}
-	
-	public void setTxtPaneText(JTextPane textPane, String text, Boolean isBold, Boolean isItalic, int size) {
+
+	public void setFontArea(JTextPane textPane, String text, JCheckBox chckbxIsBold, JCheckBox chckbxIsItalic, JComboBox comboBox_Size, Boolean isBold, Boolean isItalic, int size) {
 		textPane.setText(text);
-		int temp = 0;		
-		if(isBold) {
-			temp += Font.BOLD;
-		}
-		if(isItalic) {
-			temp += Font.ITALIC;
-		}
-		Font f = new Font("Default", temp,size);
-		textPane.setFont(f);
-	}
-	public void setFontArea(JCheckBox chckbxIsBold, JCheckBox chckbxIsItalic, JComboBox comboBox_Size, Boolean isBold, Boolean isItalic, int size) {
+		int temp = 0;	
 		if(isBold) {
 			chckbxIsBold.setSelected(true);
+			temp += Font.BOLD;
 		}else {
 			chckbxIsBold.setSelected(false);
 		}
 		if(isItalic) {
 			chckbxIsItalic.setSelected(true);
+			temp += Font.ITALIC;
 		}else {
 			chckbxIsItalic.setSelected(false);
 		}
+		Font f = new Font("Default", temp,size);
+		textPane.setFont(f);
 		comboBox_Size.setSelectedItem("" + size);
 	}
-
+	
 	
 }
