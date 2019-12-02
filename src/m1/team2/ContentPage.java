@@ -216,7 +216,7 @@ public class ContentPage extends JFrame {
 		panel_Center.add(panel_FontArea, BorderLayout.NORTH);
 		panel_Center.add(panel_ButtonArea, BorderLayout.SOUTH);
 		panel_Center.add(panel_PreviewArea, BorderLayout.CENTER);
-		setFontArea(txtpnPlaintext, txtpnHeaderData.getText(), chckbxIsBold, chckbxIsItalic, comboBox_Size, rTextTop);
+		initConfigData(rTextTop);
 	}
 	private void newCheckBoxAreaPanel() {
 		panel_CheckBoxArea = new JPanel();
@@ -235,13 +235,13 @@ public class ContentPage extends JFrame {
 						case ItemEvent.SELECTED: 
 							String item = e.getItem().toString();
 							if(item.equals("Header Data")) {
-								setFontArea(txtpnPlaintext, txtpnHeaderData.getText(), chckbxIsBold, chckbxIsItalic, comboBox_Size, rTextTop);
+								initConfigData(rTextTop);
 							}else if(item.equals("Content 1")) {
-								setFontArea(txtpnPlaintext, txtpnContent_1.getText(), chckbxIsBold, chckbxIsItalic, comboBox_Size, rTextLeft);
+								initConfigData(rTextLeft);
 							}else if(item.equals("Content 2")) {
-								setFontArea(txtpnPlaintext, txtpnContent_2.getText(), chckbxIsBold, chckbxIsItalic, comboBox_Size, rTextRight);
+								initConfigData(rTextRight);
 							}else if(item.equals("Footen Data")) {								
-								setFontArea(txtpnPlaintext, txtpnFootenData.getText(), chckbxIsBold, chckbxIsItalic, comboBox_Size, rTextBot);
+								initConfigData(rTextBot);
 							}
 						break;
 					}
@@ -251,12 +251,11 @@ public class ContentPage extends JFrame {
 		
 	}
 
-	public void setFontArea(JTextPane textPane, String text, JCheckBox chckbxIsBold, JCheckBox chckbxIsItalic, JComboBox comboBox_Size, RichText rText) {
+	public void initConfigData(RichText rText) {
 		Boolean isBold, isItalic;
         int size;		
 		int temp = 0;
 		
-		textPane.setText(text);
 		isBold = rText.isBold;
 		isItalic = rText.isItalic;
 		size = rText.fontSize;
@@ -274,7 +273,6 @@ public class ContentPage extends JFrame {
 			chckbxIsItalic.setSelected(false);
 		}
 		Font f = new Font("Default", temp,size);
-		textPane.setFont(f);
 		comboBox_Size.setSelectedItem("" + size);
 	}
 	
