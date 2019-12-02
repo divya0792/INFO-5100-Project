@@ -1,5 +1,7 @@
 package m1.team2;
 
+import dataproto.RichText;
+
 class HTMLGenerator {
     /**
      * **

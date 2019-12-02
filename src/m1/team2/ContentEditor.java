@@ -10,12 +10,12 @@ class ContentEditor {
 
     public void openEditor(Dealer dealer) {
         ContentEditorView view = new ContentEditorView(dealer);
-        view.show();
+        view.display();
     }
 
     public static void main(String[] args) {
         Dealer dealer = new Dealer();
-        dealer.id = "123";
+        dealer.setId("123");
         ContentEditor.INSTANCE.openEditor(dealer);
     }
 }

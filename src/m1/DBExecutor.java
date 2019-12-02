@@ -2,11 +2,13 @@ package m1;
 
 import dataproto.*;
 
+import java.util.List;
 
-class DBExecutor {
+
+public class DBExecutor {
     // use singleton
     // the only way to call api is like DBExecutor.INSTANCE.getContent();
-    public static final INSTANCE = new DBExecutor();
+    public static final DBExecutor INSTANCE = new DBExecutor();
 
     // prevent other class create instance
     private DBExecutor() {
@@ -23,3 +25,8 @@ class DBExecutor {
         return true;
     }
 }
+
+
+
+
+
