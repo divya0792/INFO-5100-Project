@@ -36,10 +36,30 @@ public class ContentPage extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		rTextTop = new RichText();
+		rTextTop.plainText = "Header Data : ";
+		rTextTop.isBold = true;
+		rTextTop.isItalic = false;
+		rTextTop.fontSize = 12;
+		rTextBot = new RichText();
+		rTextBot.plainText = "Footer Data : ";
+		rTextBot.isBold = true;
+		rTextBot.isItalic = true;
+		rTextBot.fontSize = 12;
+		rTextLeft = new RichText();
+		rTextLeft.plainText = "Content 1 : ";
+		rTextLeft.isBold = false;
+		rTextLeft.isItalic = false;
+		rTextLeft.fontSize = 12;
+		rTextRight = new RichText();
+		rTextRight.plainText = "Content 2 : ";
+		rTextRight.isBold = false;
+		rTextRight.isItalic = true;
+		rTextRight.fontSize = 12;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ContentPage frame = new ContentPage();
+					ContentPage frame = new ContentPage(rTextTop, rTextBot, rTextLeft, rTextRight);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,11 +78,12 @@ public class ContentPage extends JFrame {
 
 	private JButton btnSubmit, btnPreview, btnReset;
 
+	static private RichText rTextTop, rTextBot, rTextLeft, rTextRight;
 	
 	/**
 	 * Create the frame.
 	 */
-	public ContentPage() {
+	public ContentPage(RichText rTextTop, RichText rTextBot, RichText rTextLeft, RichText rTextRight) {
 		setTitle("Content Editing");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 587, 502);
@@ -91,7 +112,7 @@ public class ContentPage extends JFrame {
 		panel_Header.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		contentPane.add(panel_Header, BorderLayout.NORTH);
 		panel_Header.setLayout(new GridLayout(1, 2, 0, 0));
-		txtpnHeaderData.setText("Header Data : ");
+		setTxtPaneText(txtpnHeaderData, rTextTop.plainText, rTextTop.isBold, rTextTop.isItalic, rTextTop.fontSize);
 		panel_Header.add(txtpnHeaderData);
 	}
 	private void newContent_1Panel() {
@@ -101,7 +122,7 @@ public class ContentPage extends JFrame {
 		panel_Content_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		contentPane.add(panel_Content_1, BorderLayout.WEST);
 		panel_Content_1.setLayout(new GridLayout(0, 1, 0, 0));		
-		txtpnContent_1.setText("Content 1: ");
+		setTxtPaneText(txtpnContent_1, rTextLeft.plainText, rTextLeft.isBold, rTextLeft.isItalic, rTextLeft.fontSize);
 		panel_Content_1.add(txtpnContent_1);
 	}
 	private void newContent_2Panel() {
@@ -111,7 +132,7 @@ public class ContentPage extends JFrame {
 		panel_Content_2.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		contentPane.add(panel_Content_2, BorderLayout.EAST);
 		panel_Content_2.setLayout(new GridLayout(0, 1, 0, 0));
-		txtpnContent_2.setText("Content 2: ");
+		setTxtPaneText(txtpnContent_2, rTextRight.plainText, rTextRight.isBold, rTextRight.isItalic, rTextRight.fontSize);
 		panel_Content_2.add(txtpnContent_2);
 	}
 	private void newFootenPanel() {
@@ -121,7 +142,7 @@ public class ContentPage extends JFrame {
 		panel_Footen.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		contentPane.add(panel_Footen, BorderLayout.SOUTH);
 		panel_Footen.setLayout(new GridLayout(0, 1, 0, 0));
-		txtpnFootenData.setText("Footen Data : ");
+		setTxtPaneText(txtpnFootenData, rTextBot.plainText, rTextBot.isBold, rTextBot.isItalic, rTextBot.fontSize);
 		panel_Footen.add(txtpnFootenData);
 	}
 	private void newFontAreaPanel() {
