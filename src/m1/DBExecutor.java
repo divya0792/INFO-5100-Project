@@ -14,7 +14,7 @@ public class DBExecutor {
     private DBExecutor() {
         // init, connect DB
     }
-
+ // [top, left, right, bottom]
     public List<RichText> getContent(Dealer dealer) {
         // TODO
         return null;
