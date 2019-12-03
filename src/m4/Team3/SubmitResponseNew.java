@@ -1,23 +1,19 @@
-package FinalProject;
+//package FinalProject;
+package m4.Team3;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.GroupLayout;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
-import javax.swing.JTextField;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class SubmitResponseNew extends JFrame {
 
@@ -137,6 +133,15 @@ public class SubmitResponseNew extends JFrame {
 							"alert", JOptionPane.OK_CANCEL_OPTION);
 					if (result == 0) {
 						JOptionPane.showMessageDialog(null, "Response has been sent to customer");
+						try {
+							// can add auto response string to response when sending email:
+//							SendEmail.gmailSender(user.getEmail(), "You got a response from dealer!", HTMLGenerator());
+
+							SendEmail.gmailSender(customerEmailTextField.getText(), "You got a response from dealer!", HTMLGenerator());
+							JOptionPane.showMessageDialog(null, "Response sent! An email also sent to customer.");
+						} catch (Exception exp) {
+							JOptionPane.showMessageDialog(null, exp.getMessage());
+						}
 					}
 				}
 			}
@@ -174,4 +179,36 @@ public class SubmitResponseNew extends JFrame {
 		frame.getContentPane().setLayout(groupLayout);
 	}
 
+
+	private String HTMLGenerator() {
+		SAXReader reader = new SAXReader();
+		org.dom4j.Document htmlDocument = null;
+		String path = "src/m4/Team3/src/emailTemplate.html";
+		File file = new File(path);
+		String emailContent = "";
+		try {
+			htmlDocument = reader.read(file);
+			Element root = htmlDocument.getRootElement();
+			Element name = SendEmail.getNodes(root, "id", "name");
+			Element dealermessage = SendEmail.getNodes(root, "id", "dealermessage");
+// ----------------------insert auto generated message here-------------------------
+//            Element automessage = SendEmail.getNodes(root, "id", "automessage");
+//            automessage.setText(autoResponseGenerator());
+//			name.setText(user.getFirstName());
+			name.setText(customerFirstNameTextField.getText());
+//			dealermessage.setText(dResponseField.getText());
+			dealermessage.setText(dealerResponseTextArea.getText());
+			FileWriter fwriter = new FileWriter("src/temp.html");
+			XMLWriter writer = new XMLWriter(fwriter);
+			writer.write(htmlDocument);
+			writer.flush();
+			FileReader in = new FileReader("src/temp.html");
+			char[] buff = new char[1024 * 10];
+			in.read(buff);
+			emailContent = new String(buff);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return emailContent;
+	}
 }
