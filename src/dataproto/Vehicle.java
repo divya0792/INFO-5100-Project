@@ -8,7 +8,7 @@ public class Vehicle extends DataObject{
   private String model;//Accord
   private int year;
   private String type;//SEDAN, SUV, VAN, PICKUP; private VehicleType type;
-  private Category category;//enum Category{ NEW, USED };
+  private VehicleCategory category;//enum Category{ NEW, USED };
   private String color;
   private float price;
   private float mileage;
