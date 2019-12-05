@@ -21,20 +21,25 @@ public class DBExecutor {
         table = new HashMap<>();
         RichText left = new RichText();
         left.setPlainText("left");
+        left.setHtmlString("left");
         RichText right = new RichText();
-        left.setPlainText("right");
+        right.setPlainText("right");
+        right.setHtmlString("right");
         RichText header = new RichText();
-        left.setPlainText("header");
+        header.setPlainText("header");
+        header.setHtmlString("header");
         RichText footer = new RichText();
-        left.setPlainText("footer");
+        footer.setPlainText("footer");
+        footer.setHtmlString("footer");
         List<RichText> row = new ArrayList<>();
         row.add(header);
-        row.add(footer);
         row.add(left);
         row.add(right);
+        row.add(footer);
         table.put("ch", row);
     }
 
+    // [top, left, right, bottom]
     public List<RichText> getContent(Dealer dealer) {
         if (!table.containsKey(dealer.getId())) {
             return null;
