@@ -37,8 +37,10 @@ class ContentEditorView extends JFrame {
         initData();
         createComponents();
     }
+
     public void initData() {
         List<RichText> richTexts = DBExecutor.INSTANCE.getContent(this.dealer);
+        System.out.println("get returns " + richTexts);
         rTextTop = richTexts.get(0) == null ? new RichText() : richTexts.get(0);
         rTextLeft = richTexts.get(1) == null ? new RichText() : richTexts.get(1);
         rTextRight = richTexts.get(2) == null ? new RichText() : richTexts.get(2);
@@ -77,6 +79,8 @@ class ContentEditorView extends JFrame {
         editingRichText.setItalic(chckbxIsItalic.isSelected());
         editingRichText.setFontSize(Integer.parseInt(comboBox_Size.getSelectedItem().toString()));
         editingRichText.setPlainText(txtpnPlaintext.getText());
+        editingRichText.setBackgroundColor(comboBox_BackGroundColor.getSelectedItem().toString());
+        editingRichText.setFontColor(comboBox_Color.getSelectedItem().toString());
         editingRichText.setHtmlString(HTMLGenerator.generateHTML(editingRichText));
         updatePreviewData();
     }
@@ -87,10 +91,13 @@ class ContentEditorView extends JFrame {
         editingRichText.setFontSize(Integer.parseInt(comboBox_Size.getSelectedItem().toString()));
         editingRichText.setPlainText(txtpnPlaintext.getText());
         editingRichText.setHtmlString(HTMLGenerator.generateHTML(editingRichText));
+        editingRichText.setBackgroundColor(comboBox_BackGroundColor.getSelectedItem().toString());
+        editingRichText.setFontColor(comboBox_Color.getSelectedItem().toString());
         DBExecutor.INSTANCE.submitContentChange(dealer, rTextTop, rTextBot, rTextLeft, rTextRight);
     }
 
     private void resetEventHandler() {
+        System.out.println("start reset");
         initData();
         // default
         comboBox_Position.setSelectedItem(POSITION.HEADER);
@@ -162,13 +169,13 @@ class ContentEditorView extends JFrame {
         panelFontArea.add(panel_CheckBoxArea);
 
         // TODO not available now
-//        panelFontArea.add(newHorizontalCenterAlignLabel("Font Color"));
-//        comboBox_Color.setModel(new DefaultComboBoxModel(new String[] {"red", "black", "white", "green", "blue"}));
-//        panelFontArea.add(comboBox_Color);
-//
-//        panelFontArea.add(newHorizontalCenterAlignLabel("BackGround Color"));
-//        comboBox_BackGroundColor.setModel(new DefaultComboBoxModel<String>(new String[] {"black", "white", "grey"}));
-//        panelFontArea.add(comboBox_BackGroundColor);
+        panelFontArea.add(newHorizontalCenterAlignLabel("Font Color"));
+        comboBox_Color.setModel(new DefaultComboBoxModel(new String[] {"red", "black", "white", "green", "blue"}));
+        panelFontArea.add(comboBox_Color);
+
+        panelFontArea.add(newHorizontalCenterAlignLabel("BackGround Color"));
+        comboBox_BackGroundColor.setModel(new DefaultComboBoxModel<String>(new String[] {"black", "white", "grey"}));
+        panelFontArea.add(comboBox_BackGroundColor);
     }
 
     private JLabel newHorizontalCenterAlignLabel(String name) {
@@ -261,10 +268,13 @@ class ContentEditorView extends JFrame {
     }
 
     private void initConfigData(RichText rText) {
+        System.out.println("init rText" + rText);
         chckbxIsBold.setSelected(rText.isBold());
         chckbxIsItalic.setSelected(rText.isItalic());
         txtpnPlaintext.setText(rText.getPlainText());
         comboBox_Size.setSelectedItem(String.valueOf(rText.getFontSize()));
+        comboBox_Color.setSelectedItem(rText.getFontColor());
+        comboBox_BackGroundColor.setSelectedItem(rText.getBackgroundColor());
     }
 
     public static void main(String[] args) {

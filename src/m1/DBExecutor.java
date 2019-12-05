@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class DBExecutor {
@@ -44,17 +45,32 @@ public class DBExecutor {
         if (!table.containsKey(dealer.getId())) {
             return null;
         }
-        return table.get(dealer.getId());
+        List<RichText> l = table.get(dealer.getId());
+        return l.stream().map(this::copy).collect(Collectors.toList());
     }
 
     public boolean submitContentChange(Dealer dealer, RichText header, RichText footer, RichText left, RichText right) {
+        System.out.println("submit data");
         List<RichText> row = new ArrayList<>();
-        row.add(header);
-        row.add(footer);
-        row.add(left);
-        row.add(right);
+        row.add(copy(header));
+        row.add(copy(footer));
+        row.add(copy(left));
+        row.add(copy(right));
         table.put(dealer.getId(), row);
         return true;
+    }
+
+    public RichText copy(RichText input) {
+        RichText copy = new RichText();
+        copy.setId(input.getId());
+        copy.setFontColor(input.getFontColor());
+        copy.setBackgroundColor(input.getBackgroundColor());
+        copy.setHtmlString(input.getHtmlString());
+        copy.setPlainText(input.getPlainText());
+        copy.setFontSize(input.getFontSize());
+        copy.setItalic(input.isItalic());
+        copy.setBold(input.isBold());
+        return copy;
     }
 }
 

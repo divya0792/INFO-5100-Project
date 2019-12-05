@@ -33,10 +33,24 @@ class HTMLGenerator {
         if(richText.isBold())
             script.insert(0, "<b>").append("</b>");
 
+
+
+        if(richText.getFontColor() != null) {
+            script.insert(0, "<font color=\""+richText.getFontColor()+"\">").append("</font>");
+        }
+
+        // background color should be the outest
+        if(richText.getBackgroundColor() != null) {
+            script.insert(0, "<body bgcolor=\""+richText.getBackgroundColor()+"\">").append("</body>");
+        }
+
         // insert opening and closing <html> tag
         script.insert(0, "<html>").append("</html>");
 
+
+
         // convert the generated html stript to string and return it
+        System.out.println("gen html string \n" + script.toString());
         return script.toString();
     }
 }
