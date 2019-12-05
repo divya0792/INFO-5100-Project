@@ -9,6 +9,8 @@ import m3.model.filter.Filter;
 import m3.model.offer.DiscountOffer;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class IncentiveManager implements IncentiveManagement {
@@ -28,10 +30,46 @@ public class IncentiveManager implements IncentiveManagement {
 
     private List<List<Incentive>> splitAndSortIncentivesByOfferType(List<Incentive> incentives) {
         //discount first then cash off (sorted)
-        Incentive incentive = new Incentive();
-        boolean test = incentive.getOffer().getClass() == DiscountOffer.class;
-        return null;
+
+        List<Incentive> discountIncentives = new ArrayList<>();
+        List<Incentive> cashOffIncentives = new ArrayList<>();
+        //split
+        for(Incentive incentive: incentives) {
+            boolean isDiscount = incentive.getOffer().getClass() == DiscountOffer.class;
+            if(isDiscount) {
+                discountIncentives.add(incentive);
+            } else {
+                cashOffIncentives.add(incentive);
+            }
+        }
+
+        //sort
+        descendingSort(discountIncentives);
+        descendingSort(cashOffIncentives);
+
+        discountIncentives.add(null);
+        cashOffIncentives.add(null);
+
+        List<List<Incentive>> result = new ArrayList<>();
+        result.add(discountIncentives);
+        result.add(cashOffIncentives);
+        return result;
     }
+
+    private void descendingSort(List<Incentive> list){
+        if(list == null || list.size() <= 1) {
+            return;
+        }
+
+        Collections.sort(list, new Comparator<Incentive>() {
+
+            @Override
+            public int compare(Incentive o1, Incentive o2) {
+                return (int) (o2.getOffer().getValue() - o1.getOffer().getValue());
+            }
+        });
+    }
+
 
     public boolean checkVehicleIncentive(Vehicle vehicle, Incentive incentive) {
         for (Filter condition : incentive.getConditions()) {
