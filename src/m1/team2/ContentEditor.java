@@ -15,7 +15,7 @@ class ContentEditor {
 
     public static void main(String[] args) {
         Dealer dealer = new Dealer();
-        dealer.setId("123");
+        dealer.setId("ch");
         ContentEditor.INSTANCE.openEditor(dealer);
     }
 }
