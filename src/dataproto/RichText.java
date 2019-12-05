@@ -5,8 +5,29 @@ public class RichText extends DataObject {
     private String plainText;
     private int fontSize;
     private boolean isBold;
+
+
+
     private boolean isItalic;
-    
+    private String backgroundColor;
+    private String fontColor;
+
+    public String getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    public String getFontColor() {
+        return fontColor;
+    }
+
+    public void setFontColor(String fontColor) {
+        this.fontColor = fontColor;
+    }
+
     public String getHtmlString() {
         return htmlString;
     }
@@ -45,6 +66,19 @@ public class RichText extends DataObject {
 
     public void setItalic(boolean italic) {
         isItalic = italic;
+    }
+
+    @Override
+    public String toString() {
+        return "RichText{" +
+                "htmlString='" + htmlString + '\'' +
+                ", plainText='" + plainText + '\'' +
+                ", fontSize=" + fontSize +
+                ", isBold=" + isBold +
+                ", isItalic=" + isItalic +
+                ", backgroundColor='" + backgroundColor + '\'' +
+                ", fontColor='" + fontColor + '\'' +
+                '}';
     }
 }
 
