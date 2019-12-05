@@ -1,22 +1,39 @@
 //package FinalProject;
 package m4.Team3;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-import org.dom4j.io.XMLWriter;
-
-import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.LineBorder;
-import java.awt.*;
+//package FinalProject;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.sql.ResultSet;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.LineBorder;
+
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
+
+import utils.JDBC;
 
 public class SubmitResponseNew extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6375909820518138040L;
 	public JFrame frame;
 	private JTextField carBrandTextField, carTypeTextField, carYearTextField, carModelTextField, customerFirstNameTextField, customerLastNameTextField, customerEmailTextField, customerPhoneNumberTextField;
 	private JTextArea customerQueryTextArea, dealerResponseTextArea ;
@@ -29,9 +46,51 @@ public class SubmitResponseNew extends JFrame {
 	JLabel labels[] = {carInfoLabel, carBrand, carModel, carYear, carType, customerInfoLabel, customerFirstName, customerLastName, customerEmailId, customerPhoneNo, customerQueryLabel, dealerResponseLabel};
 	String str[] = {"Car Information","Car Brand", "Car Model", "Car Year", "Car Type", "Customer Information", "First Name", "Last Name","Email ID", "Phone No", "Query from customer:", "Reply to customer:"};   
 
+	private String leadId;
+	
 	public SubmitResponseNew() {
 		initializeAndAddComponents();
 		setLayout();
+	}
+	
+	public SubmitResponseNew(String leadId) {
+		this();
+		this.leadId = leadId;
+		fillData();
+	}
+
+	private void fillData() {
+		try {
+			String leadSql = String.format("select * from dbo.CustomerRequest where leadId = '%s'", leadId);
+			ResultSet leadInfo = JDBC.getInstance().getResults(leadSql);
+			if(!leadInfo.next()) {
+				System.out.println("customerrequest cannot be found in database: " + leadId);
+				return;
+			}
+			
+			textFields[4].setText(leadInfo.getString("firstName"));
+			textFields[5].setText(leadInfo.getString("lastName"));
+			textFields[6].setText(leadInfo.getString("email"));
+			textFields[7].setText(leadInfo.getString("contactNo"));
+			textAreas[0].setText(leadInfo.getString("comment"));
+			textAreas[1].setText(leadInfo.getString("dealerComment"));
+			
+			
+			String vehicleId = leadInfo.getString("vehicleId");
+			String vehicleSql = String.format("select * from dbo.CarInventory where vechileId = '%s'", vehicleId);
+			ResultSet vehicleInfo = JDBC.getInstance().getResults(vehicleSql);
+			if(!vehicleInfo.next()) {
+				System.out.println("vehicle cannot be found in database: " + vehicleId);
+				return;
+			}
+			textFields[0].setText(vehicleInfo.getString("brand"));
+			textFields[1].setText(vehicleInfo.getString("type"));
+			textFields[2].setText(vehicleInfo.getString("dateofmanufacturing"));
+			textFields[3].setText(vehicleInfo.getString("model"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void initializeAndAddComponents() {
@@ -129,17 +188,22 @@ public class SubmitResponseNew extends JFrame {
 				if(textAreas[1].getText().isEmpty()) {					
 					JOptionPane.showMessageDialog(frame, "Response field is empty");
 				}else {
-					int result = JOptionPane.showConfirmDialog((Component) null, "are you sure you want to send response?",
+					int result = JOptionPane.showConfirmDialog(frame, "are you sure you want to send response?",
 							"alert", JOptionPane.OK_CANCEL_OPTION);
 					if (result == 0) {
-						JOptionPane.showMessageDialog(null, "Response has been sent to customer");
+						//JOptionPane.showMessageDialog(null, "Response has been sent to customer");
 						try {
 							// can add auto response string to response when sending email:
 //							SendEmail.gmailSender(user.getEmail(), "You got a response from dealer!", HTMLGenerator());
-
-							SendEmail.gmailSender(customerEmailTextField.getText(), "You got a response from dealer!", HTMLGenerator());
-							JOptionPane.showMessageDialog(null, "Response sent! An email also sent to customer.");
+							String updateSql = String.format("update dbo.CustomerRequest set dealerComment = '%s' where leadId = '%s'", textAreas[1].getText(), leadId);
+							JDBC.getInstance().update(updateSql);
+							
+							SendEmailTest2.gmailSender(textFields[6].getText(), "You got a response from dealer!", HTMLGenerator());
+							JOptionPane.showMessageDialog(frame, "Response sent! An email also sent to customer.");
+							//如果需要关闭原窗口
+							//frame.setVisible(false);
 						} catch (Exception exp) {
+							exp.printStackTrace();
 							JOptionPane.showMessageDialog(null, exp.getMessage());
 						}
 					}
@@ -189,11 +253,11 @@ public class SubmitResponseNew extends JFrame {
 		try {
 			htmlDocument = reader.read(file);
 			Element root = htmlDocument.getRootElement();
-			Element name = SendEmail.getNodes(root, "id", "name");
-			Element dealermessage = SendEmail.getNodes(root, "id", "dealermessage");
-// ----------------------insert auto generated message here-------------------------
-//            Element automessage = SendEmail.getNodes(root, "id", "automessage");
-//            automessage.setText(autoResponseGenerator());
+			Element name = null; //SendEmail.getNodes(root, "id", "name");
+			Element dealermessage = null; //SendEmail.getNodes(root, "id", "dealermessage");
+//----------------------insert auto generated message here-------------------------
+//          Element automessage = SendEmail.getNodes(root, "id", "automessage");
+//          automessage.setText(autoResponseGenerator());
 //			name.setText(user.getFirstName());
 			name.setText(customerFirstNameTextField.getText());
 //			dealermessage.setText(dResponseField.getText());
