@@ -13,6 +13,8 @@ public abstract class ListFilter<T> extends Filter<T> {
         this.list = list;
     }
 
+    protected abstract void setValue(String string);
+    
     @Override
     public boolean isApplicable(Vehicle vehicle) {
         for (T t : list) {
