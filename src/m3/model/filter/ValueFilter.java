@@ -7,10 +7,12 @@ public abstract class ValueFilter<T> extends Filter<T> {
     private T value;
 
 
-    public ValueFilter(T value, Checker<T> checker) {
+    public ValueFilter(String string, Checker<T> checker) {
         super(checker);
-        this.value = value;
+        this.setValue(string);
     }
+    
+    protected abstract void setValue(String string);
 
     @Override
     public boolean isApplicable(Vehicle vehicle) {
