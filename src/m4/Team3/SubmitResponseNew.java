@@ -1,32 +1,22 @@
 //package FinalProject;
 package m4.Team3;
 //package FinalProject;
-import java.awt.Color;
-import java.awt.Font;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
+import utils.JDBC;
+
+import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.sql.ResultSet;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.LineBorder;
-
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-import org.dom4j.io.XMLWriter;
-
-import utils.JDBC;
 
 public class SubmitResponseNew extends JFrame {
 
@@ -74,7 +64,7 @@ public class SubmitResponseNew extends JFrame {
 			textFields[7].setText(leadInfo.getString("contactNo"));
 			textAreas[0].setText(leadInfo.getString("comment"));
 			textAreas[1].setText(leadInfo.getString("dealerComment"));
-			
+
 			
 			String vehicleId = leadInfo.getString("vehicleId");
 			String vehicleSql = String.format("select * from dbo.CarInventory where vechileId = '%s'", vehicleId);
@@ -87,6 +77,10 @@ public class SubmitResponseNew extends JFrame {
 			textFields[1].setText(vehicleInfo.getString("type"));
 			textFields[2].setText(vehicleInfo.getString("dateofmanufacturing"));
 			textFields[3].setText(vehicleInfo.getString("model"));
+
+			for(JTextField tf:textFields){
+				tf.setEditable(false);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -193,15 +187,15 @@ public class SubmitResponseNew extends JFrame {
 					if (result == 0) {
 						//JOptionPane.showMessageDialog(null, "Response has been sent to customer");
 						try {
-							// can add auto response string to response when sending email:
-//							SendEmail.gmailSender(user.getEmail(), "You got a response from dealer!", HTMLGenerator());
 							String updateSql = String.format("update dbo.CustomerRequest set dealerComment = '%s' where leadId = '%s'", textAreas[1].getText(), leadId);
 							JDBC.getInstance().update(updateSql);
 							
 							SendEmailTest2.gmailSender(textFields[6].getText(), "You got a response from dealer!", HTMLGenerator());
+//							SendEmailTest2.gmailSender("info5100finaltestr@gmail.com", "You got a response from dealer!", HTMLGenerator());
+
 							JOptionPane.showMessageDialog(frame, "Response sent! An email also sent to customer.");
-							//如果需要关闭原窗口
-							//frame.setVisible(false);
+							//close the window after submit:
+							frame.setVisible(false);
 						} catch (Exception exp) {
 							exp.printStackTrace();
 							JOptionPane.showMessageDialog(null, exp.getMessage());
@@ -253,20 +247,16 @@ public class SubmitResponseNew extends JFrame {
 		try {
 			htmlDocument = reader.read(file);
 			Element root = htmlDocument.getRootElement();
-			Element name = null; //SendEmail.getNodes(root, "id", "name");
-			Element dealermessage = null; //SendEmail.getNodes(root, "id", "dealermessage");
-//----------------------insert auto generated message here-------------------------
-//          Element automessage = SendEmail.getNodes(root, "id", "automessage");
-//          automessage.setText(autoResponseGenerator());
-//			name.setText(user.getFirstName());
-			name.setText(customerFirstNameTextField.getText());
-//			dealermessage.setText(dResponseField.getText());
-			dealermessage.setText(dealerResponseTextArea.getText());
-			FileWriter fwriter = new FileWriter("src/temp.html");
+			Element name = SendEmail.getNodes(root, "id", "name");
+			Element dealermessage = SendEmail.getNodes(root, "id", "dealermessage");
+			name.setText(textFields[4].getText());
+			dealermessage.setText(textAreas[1].getText());
+
+			FileWriter fwriter = new FileWriter("src/m4/Team3/src/temp.html");
 			XMLWriter writer = new XMLWriter(fwriter);
 			writer.write(htmlDocument);
 			writer.flush();
-			FileReader in = new FileReader("src/temp.html");
+			FileReader in = new FileReader("src/m4/Team3/src/temp.html");
 			char[] buff = new char[1024 * 10];
 			in.read(buff);
 			emailContent = new String(buff);

@@ -21,7 +21,8 @@ public class SendEmailTest2 {
      */
     private static void gmailssl(Properties props) {
         final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
-        props.put("mail.debug", "true");
+//        props.put("mail.debug", "true");
+        props.put("mail.debug", "false");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.ssl.enable", "true");
         props.put("mail.smtp.socketFactory.class", SSL_FACTORY);
@@ -56,7 +57,8 @@ public class SendEmailTest2 {
             msg.setFrom(new InternetAddress(username));
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
             msg.setSubject(subject);
-            msg.setText(content);
+//            msg.setText(content);
+            msg.setContent(content,"text/html");
             msg.setSentDate(new Date());
             Transport.send(msg);
         } catch (AddressException e) {
