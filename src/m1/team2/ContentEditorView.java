@@ -77,10 +77,17 @@ class ContentEditorView extends JFrame {
     private void previewEventHandler() {
         editingRichText.setBold(chckbxIsBold.isSelected());
         editingRichText.setItalic(chckbxIsItalic.isSelected());
-        editingRichText.setFontSize(Integer.parseInt(comboBox_Size.getSelectedItem().toString()));
+
+        if (comboBox_Size.getSelectedItem() != null) {
+            editingRichText.setFontSize(Integer.parseInt(comboBox_Size.getSelectedItem().toString()));
+        }
+        if (comboBox_BackGroundColor.getSelectedItem() != null) {
+            editingRichText.setBackgroundColor(comboBox_BackGroundColor.getSelectedItem().toString());
+        }
+        if (comboBox_Color.getSelectedItem() != null ){
+            editingRichText.setFontColor(comboBox_Color.getSelectedItem().toString());
+        }
         editingRichText.setPlainText(txtpnPlaintext.getText());
-        editingRichText.setBackgroundColor(comboBox_BackGroundColor.getSelectedItem().toString());
-        editingRichText.setFontColor(comboBox_Color.getSelectedItem().toString());
         editingRichText.setHtmlString(HTMLGenerator.generateHTML(editingRichText));
         updatePreviewData();
     }
@@ -88,11 +95,21 @@ class ContentEditorView extends JFrame {
     private void submitEventHandler() {
         editingRichText.setBold(chckbxIsBold.isSelected());
         editingRichText.setItalic(chckbxIsItalic.isSelected());
-        editingRichText.setFontSize(Integer.parseInt(comboBox_Size.getSelectedItem().toString()));
         editingRichText.setPlainText(txtpnPlaintext.getText());
+
+        if (comboBox_Size.getSelectedItem() != null) {
+            editingRichText.setFontSize(Integer.parseInt(comboBox_Size.getSelectedItem().toString()));
+        }
+        if (comboBox_BackGroundColor.getSelectedItem() != null) {
+            editingRichText.setBackgroundColor(comboBox_BackGroundColor.getSelectedItem().toString());
+        }
+        if (comboBox_Color.getSelectedItem() != null ){
+            editingRichText.setFontColor(comboBox_Color.getSelectedItem().toString());
+        }
+
+
         editingRichText.setHtmlString(HTMLGenerator.generateHTML(editingRichText));
-        editingRichText.setBackgroundColor(comboBox_BackGroundColor.getSelectedItem().toString());
-        editingRichText.setFontColor(comboBox_Color.getSelectedItem().toString());
+
         DBExecutor.INSTANCE.submitContentChange(dealer, rTextTop, rTextBot, rTextLeft, rTextRight);
     }
 
@@ -161,14 +178,13 @@ class ContentEditorView extends JFrame {
         panelFontArea.add(comboBox_Position);
 
         panelFontArea.add(newHorizontalCenterAlignLabel("Font Size"));
-        comboBox_Size.setModel(new DefaultComboBoxModel<String>(new String[] {"9", "10", "11", "12", "13"}));
+        comboBox_Size.setModel(new DefaultComboBoxModel<String>(new String[] {"4","8", "12", "15", "20"}));
         panelFontArea.add(comboBox_Size);
 
         panelFontArea.add(newHorizontalCenterAlignLabel("Format"));
         newCheckBoxAreaPanel();
         panelFontArea.add(panel_CheckBoxArea);
 
-        // TODO not available now
         panelFontArea.add(newHorizontalCenterAlignLabel("Font Color"));
         comboBox_Color.setModel(new DefaultComboBoxModel<String>(new String[] {"red", "black", "white", "green", "blue"}));
         panelFontArea.add(comboBox_Color);

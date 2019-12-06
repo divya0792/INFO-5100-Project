@@ -23,7 +23,10 @@ class HTMLGenerator {
         StringBuilder script = new StringBuilder(plainText);
 
         // insert opening and closing <font size> tag
-        script.insert(0, "<font size=\""+richText.getFontSize()+"\">").append("</font>");
+        if(richText.getFontSize() != null) {
+            script.insert(0, "<font size=\""+richText.getFontSize()+"\">").append("</font>");
+        }
+
 
         // if isItalic() method returns true, insert opening and closing italic tag
         if(richText.isItalic())
