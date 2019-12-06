@@ -19,7 +19,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
+import m1.team3.Dealers;
 
 public class RegisterPage1 {
 
@@ -158,14 +160,14 @@ public class RegisterPage1 {
 				    	   return;
 					}
 //
-				     ArrayList<Dealer> list=new ArrayList<Dealer>();
-				     Dealer a= new Dealer();
-				     a.setName(formattedTextField.getText());
-				     a.setId(formattedTextField_1.getText());
-				     a.setEmailId(formattedTextField_2.getText());
-				     a.setAddress(formattedTextField_4.getText());
-				     a.setPhone(formattedTextField_3.getText());
-				     a.setPassword(formattedTextField_5.getText());
+				     Dealer dealer = new Dealer();
+				     dealer.setName(formattedTextField.getText());
+				     dealer.setId(formattedTextField_1.getText());
+				     dealer.setEmailId(formattedTextField_2.getText());
+				     dealer.setAddress(formattedTextField_4.getText());
+				     dealer.setPhone(formattedTextField_3.getText());
+				     dealer.setPassword(formattedTextField_5.getText());
+             Dealers.getInstance().add(dealer);
 //				     这里不知道密码的怎么加
 //
 
@@ -217,4 +219,5 @@ public class RegisterPage1 {
 
         panel.setBackground(Color.LIGHT_GRAY);    //background color
 	}
+
 }
