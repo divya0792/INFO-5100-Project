@@ -111,7 +111,8 @@ public class SecondHalfViewPanel extends JPanel implements IViewPanel {
       if (row != null) {
         for (int i = 0; i < widgets.length; ++i) {
           RichText content = row.get(i);
-          widgets[i].setText(content == null ? "" : content.toString());
+          widgets[i].setContentType("text/html");
+          widgets[i].setText(content == null ? "" : content.toHTMLString());
         }
       }
     }
