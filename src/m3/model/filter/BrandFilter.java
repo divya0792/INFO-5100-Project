@@ -21,11 +21,19 @@ public class BrandFilter extends ValueFilter<String> {
 			  if(Character.isDigit(ch[i])) {
 				  throw new InputException("A brand name cannot contain any number.");
 			  }
+			  else
+				 value = string;
 			   
 		  }catch(InputException Ie){
 			  System.out.println(Ie);
 		  }
 	  }
+	}
+
+	@Override
+	public boolean isApplicable(String value) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

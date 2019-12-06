@@ -4,8 +4,13 @@ import m3.mock.Vehicle;
 import m3.model.checker.Checker;
 
 public abstract class ValueFilter<T> extends Filter<T> {
-    private T value;
+    protected T value;
 
+    
+    
+    public T getValue() {
+    	return value;
+    }
 
     public ValueFilter(String string, Checker<T> checker) {
         super(checker);
@@ -16,11 +21,6 @@ public abstract class ValueFilter<T> extends Filter<T> {
 
     @Override
     public boolean isApplicable(Vehicle vehicle) {
-        return this.isApplicable(this.getVehicleValue(vehicle));
-    }
-
-    @Override
-    public boolean isApplicable(T value) {
-        return this.checker.check(value, this.value);
+        return this.checker.check(this.getVehicleValue(vehicle), this.value);
     }
 }
