@@ -1,12 +1,14 @@
 package m4.Team4;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
  
 public class UserUI extends JFrame{
+	private static Map<String, Lead> leadMap;
+	private static LeadSearchImp leadManager;
 	private static int count=0;
 	private static JButton button1;
 	private static JButton button2;
@@ -55,10 +57,12 @@ public class UserUI extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				String phoneNumber=jtext1.getText(); 
-				
-				if(phoneNumber.equals("2068905085"))
+				leadManager = new LeadSearchImp();
+				leadManager.getLead(phoneNumber);
+				leadMap = leadManager.getLeadMap();
+				if(leadMap.size() != 0)
 				{
-					VehicleManageFrame ml=new VehicleManageFrame(phoneNumber);
+					VehicleManageFrame ml=new VehicleManageFrame(leadMap);
 					userUI.jFrame.dispose();
 				}
 				else {

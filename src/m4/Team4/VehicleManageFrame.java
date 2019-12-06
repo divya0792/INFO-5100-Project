@@ -1,8 +1,5 @@
 package m4.Team4;
 
-
-import m4.Team4.Vehicle.Category;
-
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
@@ -26,48 +23,45 @@ public class VehicleManageFrame extends JFrame {
 	private JTable vehiclesTable;
 	private VehicleInformationSystem model;
 	private JScrollPane jscrollPane;
-	private LeadSearchImp leadManager;
 	private JLabel jNameLable;
 	private JLabel jPhoneNumLable;
 	private JLabel jLeadNumLable;
 	private Vehicle vehicle;
 
-	public VehicleManageFrame(String phoneNumber) {
+	public VehicleManageFrame(Map<String, Lead> leadMap) {
 		font = new Font("PLAIN", Font.PLAIN, 20);
-		create(phoneNumber);
+		create(leadMap);
 		create();
 		addListeners();
 		makeItVisible();
 	}
 
-	public void create(String phoneNumber) {
-		leadManager = new LeadSearchImp();
-		leadManager.getLead(phoneNumber);
-		leadMap = new HashMap<String, Lead>();
-		leadMap = leadManager.getLeadMap();
+	public void create(Map<String, Lead> leadMap) {
+		this.leadMap = leadMap;
 		List<String> leadId = new ArrayList<String>(leadMap.keySet());
-		feakDate();
-
+		VehicleSearchImp vehicleManager = new VehicleSearchImp();
+		
 		try {
 			vehiclesMap = new HashMap<String, Vehicle>();
-			for (String l : leadId) {
-				vehiclesMap.put(l, vehicle);
+			for (String l : leadId) {				
+				vehicleManager.getVehicle(leadMap.get(l).getVehicleId());				
+				vehiclesMap.put(l, vehicleManager.getVehicle());
 			}
-			model = new VehicleInformationSystem(vehiclesMap);
+			model = new VehicleInformationSystem(leadMap, vehiclesMap);
 		} catch (Exception e) {
 		}
 		vehiclesTable = new JTable(model);
 
 		jNameLable = new JLabel("Name: " + leadMap.get(leadId.get(0)).getFirstName() + " " + leadMap.get(leadId.get(0)).getLastName());
-		jNameLable.setBounds(300, 30, 350, 50);
+		jNameLable.setBounds(250, 30, 350, 50);
 		jNameLable.setFont(font);
 
 		jPhoneNumLable = new JLabel("Phone Number: " + leadMap.get(leadId.get(0)).getContactNo());
-		jPhoneNumLable.setBounds(300, 80, 350, 50);
+		jPhoneNumLable.setBounds(250, 80, 350, 50);
 		jPhoneNumLable.setFont(font);
 
 		jLeadNumLable = new JLabel("Numbers of Lead: " + leadMap.size());
-		jLeadNumLable.setBounds(300, 130, 350, 50);
+		jLeadNumLable.setBounds(250, 130, 350, 50);
 		jLeadNumLable.setFont(font);
 
 	}
@@ -78,26 +72,26 @@ public class VehicleManageFrame extends JFrame {
 
 		ImageIcon background = new ImageIcon(VehicleManageFrame.class.getResource("user.PNG"));
 		iconLable = new JLabel(background);
-		iconLable.setBounds(60, 10, background.getIconWidth(), background.getIconHeight());
+		iconLable.setBounds(30, 10, background.getIconWidth(), background.getIconHeight());
 
 		vehiclesTable.getColumnModel().getColumn(0).setCellRenderer(new MyRender(0));
-		vehiclesTable.getColumnModel().getColumn(10).setCellRenderer(new MyRender(12));
+		
+		vehiclesTable.getColumnModel().getColumn(6).setCellRenderer(new MyRender(6));
+		
+		
 
 		vehiclesTable.addMouseListener(new java.awt.event.MouseAdapter() {
 
 			public void mouseClicked(MouseEvent e) {
 				int r = vehiclesTable.getSelectedRow();
-				int c = vehiclesTable.getSelectedColumn();
-				Component leadId = vehiclesTable.getComponentAt(r, c);
-				Object value = vehiclesTable.getValueAt(r, c);
-				DetailInfo frame = new DetailInfo(value.toString(), leadMap.get(value.toString()));
-
+				Object value = vehiclesTable.getValueAt(r, 1);				
+				LeadInformation frame = new LeadInformation(leadMap.get(value.toString()), vehiclesMap.get(value.toString()));
 			}
 
 		});
 
 		jscrollPane = new JScrollPane(vehiclesTable);
-		jscrollPane.setBounds(0, 220, 800, 350);
+		jscrollPane.setBounds(5, 220, 595, 350);
 		jLable.add(iconLable);
 		jLable.add(jscrollPane);
 		jLable.add(jNameLable);
@@ -115,28 +109,12 @@ public class VehicleManageFrame extends JFrame {
 		con.add(jLable);
 	}
 
-	public void feakDate() {
-		vehicle = new Vehicle();
-		vehicle.setVehicleId("011");
-		vehicle.setDealerId("001");
-		vehicle.setBrand("Honda");
-		vehicle.setModel("Accord");
-		vehicle.setYear(2019);
-		vehicle.setType("SUV");
-		vehicle.setCategory(Category.NEW);
-		vehicle.setColor("Black");
-		vehicle.setPrice(20000.0f);
-		vehicle.setMileage(100.0f);
-		vehicle.setSalePrice(18000.0f);
-		vehicle.setPeopleExpressingInterestInThisCar(10);
-	}
-
 	public void addListeners() {
 
 	}
 
 	public void makeItVisible() {
-		jFrame.setSize(800, 600);
+		jFrame.setSize(600, 600);
 		jFrame.setVisible(true);
 	}
 
@@ -163,7 +141,10 @@ public class VehicleManageFrame extends JFrame {
 		@Override
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
 				int row, int column) {
-			// TODO Auto-generated method stub
+			Object object = vehiclesTable.getValueAt(row, column);
+			if ( object == null) {
+				return null;
+			}
 			return iconLable;
 		}
 
@@ -176,10 +157,6 @@ public class VehicleManageFrame extends JFrame {
 				int column) {
 			return iconLable;
 		}
-	}
-
-	public static void main(String[] args) {
-		VehicleManageFrame vmf = new VehicleManageFrame("206-890-5085");
 	}
 
 }

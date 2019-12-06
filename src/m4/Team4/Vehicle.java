@@ -1,11 +1,10 @@
 package m4.Team4;
 
-
 public class Vehicle extends DataObject{
 	  private String dealerId;
 	  private String brand;//Honda
 	  private String model;//Accord
-	  private int year;
+	  private String year;
 	  private String type;//SEDAN, SUV, VAN, PICKUP; private VehicleType type;
 	  private Category category;//enum Category{ NEW, USED };
 	  private String color;
@@ -51,11 +50,11 @@ public class Vehicle extends DataObject{
 		this.model = model;
 	}
 
-	public int getYear() {
+	public String getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 

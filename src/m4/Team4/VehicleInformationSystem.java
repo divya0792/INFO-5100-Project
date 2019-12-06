@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 public class VehicleInformationSystem implements TableModel {
-	Map<String, Vehicle> vehicleManager;
-	List<String> keyList;
+	private Map<String, Lead> leadMap;
+	private Map<String, Vehicle> vehicleManager;
+	private List<String> keyList;
 	
-	VehicleInformationSystem(Map<String, Vehicle> vehiclesMap){
+	VehicleInformationSystem(Map<String, Lead> leadMap, Map<String, Vehicle> vehiclesMap){
+		this.leadMap = leadMap;
 		this.vehicleManager = vehiclesMap;
 		keyList = getLeadId(vehiclesMap);
 	}
@@ -21,13 +23,13 @@ public class VehicleInformationSystem implements TableModel {
 	}
 
 	public int getColumnCount() {
-		return 11;
+		return 7;
 	}
 	
 	public String getColumnName(int columnIndex) {
 		switch (columnIndex) {
 		case 0:
-			return "      Icon";
+			return "       Icon";
 		case 1:
 			return "LeadId";
 		case 2:
@@ -35,17 +37,9 @@ public class VehicleInformationSystem implements TableModel {
 		case 3:
 			return "Brand";
 		case 4:
-			return "Model";
-		case 5:
-			return "Year";
-		case 6:
-			return "Type";
-		case 7:
-			return "Category";
-		case 8:
-			return "Color";
-		case 9:
 			return "SalePrice";
+		case 5:
+			return "InterestedPeople";
 		default:
 			return "DealerComment";
 		}
@@ -61,6 +55,7 @@ public class VehicleInformationSystem implements TableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		String leadId = keyList.get(rowIndex);
 		Vehicle vehicle = vehicleManager.get(leadId);
+		Lead lead = leadMap.get(leadId);
 		switch (columnIndex) {
 		case 1:
 			return leadId;
@@ -69,19 +64,11 @@ public class VehicleInformationSystem implements TableModel {
 		case 3:
 			return vehicle.getBrand();
 		case 4:
-			return vehicle.getModel();
+			return String.valueOf(vehicle.getPrice());
 		case 5:
-			return String.valueOf(vehicle.getYear());
+			return String.valueOf(vehicle.getPeopleExpressingInterestInThisCar());
 		case 6:
-			return vehicle.getType();
-		case 7:
-			return vehicle.getCategory();
-		case 8:
-			return vehicle.getColor();
-		case 9:
-			return String.valueOf(vehicle.getSalePrice());
-		case 10:
-			return "";
+			return (lead.getDealerComment() == null) ? null : "";
 		default:
 			return "Invalid Information";
 		}
