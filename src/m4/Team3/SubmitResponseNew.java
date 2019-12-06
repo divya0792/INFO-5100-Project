@@ -265,8 +265,10 @@ public class SubmitResponseNew extends JFrame {
 			htmlDocument = reader.read(file);
 			Element root = htmlDocument.getRootElement();
 			Element name = SendEmail.getNodes(root, "id", "name");
+			Element customerquery = SendEmail.getNodes(root, "id", "customerquery");
 			Element dealermessage = SendEmail.getNodes(root, "id", "dealermessage");
 			name.setText(textFields[4].getText());
+			customerquery.setText(textAreas[0].getText());
 			dealermessage.setText(textAreas[1].getText());
 
 			FileWriter fwriter = new FileWriter("src/m4/Team3/src/temp.html");
