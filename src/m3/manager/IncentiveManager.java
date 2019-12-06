@@ -71,10 +71,10 @@ public class IncentiveManager implements IncentiveManagement {
         }
 
         List<Incentive> bestIncentives = new ArrayList<>();
-        if (maxCashBack != null)
-            bestIncentives.add(maxCashBack);
         if (maxDiscount != null)
             bestIncentives.add(maxDiscount);
+        if (maxCashBack != null)
+            bestIncentives.add(maxCashBack);
         return new IncentivesFinalPrice(bestIncentives, minPrice);
     }
 
