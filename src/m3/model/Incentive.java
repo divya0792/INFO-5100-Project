@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Incentive {
+    private String IncentiveID;
     private Date startDate;
     private Date endDate;
     private String title;
@@ -21,7 +22,8 @@ public class Incentive {
     public Incentive() {
     }
 
-    public Incentive(Date startDate, Date endDate, String title, String disclaimer, String dealerID, Offer offer, List<Filter> conditions) {
+    public Incentive(String IncentiveID, Date startDate, Date endDate, String title, String disclaimer, String dealerID, Offer offer, List<Filter> conditions) {
+        this.IncentiveID = IncentiveID;
         this.startDate = startDate;
         this.endDate = endDate;
         this.title = title;
@@ -33,6 +35,14 @@ public class Incentive {
 
     public List<Filter> getConditions() {
         return conditions;
+    }
+
+    public void setIncentiveID(String ID){
+        this.IncentiveID = ID;
+    }
+
+    public String getIncentiveID(){
+        return IncentiveID;
     }
 
     public void setConditions(List<Filter> conditions) {
