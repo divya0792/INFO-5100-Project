@@ -7,23 +7,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Date;
 
-import javax.imageio.spi.ServiceRegistry.Filter;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import com.toedter.calendar.*;
 
-import com.toedter.calendar.JDateChooser;
-
-import m3.model.Incentive;
-import m3.model.filter.BrandFilter;
-import m3.model.filter.ColorFilter;
+import m3.model.*;
 import m3.model.offer.CashBackOffer;
 import m3.model.offer.DiscountOffer;
 
@@ -37,12 +25,8 @@ public class SecondUI {
 	JButton cancel,create,edit,delete,ok;
 	JDateChooser startDateChooser,endDateChooser;
 	FirstUI fui;
-
 	int rowIndex;
 	JLabel offerLabel;
-
-	FilterEditUI filterUI;
-
 	
 	SecondUI(FirstUI fui, int rowIndex){
 		this.fui = fui;
@@ -142,23 +126,38 @@ public class SecondUI {
         ok = new JButton("OK");
         ok.setBounds(240, 520, 120, 25);
         panel.add(ok);
+   
+        startDateChooser.addMouseListener(
+        		new MouseListener(){
+        	@Override
+        	public void mousePressed(MouseEvent e){	
+        	}
 
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
 
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				endDateChooser.setSelectableDateRange(startDateChooser.getDate(), null);
+			}
+        }
+        );
+		create.addActionListener(e -> addToTableBelow() );   // Third UI start function here
         
-    }
-    
-	private void addListeners() {
-		create.addActionListener(e -> {
-		openFilterEditUI();
-		filterUI.addWindowStateListener(l -> {addToTableBelow(filterUI.toSecondUIFilter());});
-
-		//addToTableBelow(filterUI.toSecondUIFilter())
-		}
-				);
-		
-		  // Third UI start function here
         
-		
     	// edit.addActionListener(e -> );   // Third UI start function here
         
         
@@ -230,7 +229,6 @@ public class SecondUI {
     			iw.setOffer(new CashBackOffer(Double.parseDouble(offerText.getText())));
     		}
     		iw.setDisclaimer(disclaimerText.getText());
-
     		if(rowIndex == -1){
     			IncentiveList.addIncentive(iw);
     		}else{
@@ -247,18 +245,6 @@ public class SecondUI {
 	
 
 	private void createTable(){
-
-    		fui.addToTable(iw);
-    		//frame.setVisible(false);
-    	});		
-	}
-	
-	private void openFilterEditUI() {
-		filterUI = new FilterEditUI(this);
-	}
-    
-    private void createTable(){
-
 		dm = (DefaultTableModel) table.getModel();
 		dm.addColumn("Name");
 		dm.addColumn("Type");
@@ -275,23 +261,12 @@ public class SecondUI {
 		}
     }
     
-    public void addToTableBelow(m3.model.filter.Filter filter) {
-		dm.addRow(filterToString(filter));
-
+    private void addToTableBelow() {
+		String[] s1 = { "Brand", "Hyundai", "500"};
+		String[] s2 = {"Colour", "Red", "40"};
+		String[] s3 = {"Price", "Nissan", "3000"};
+		dm.addRow(s1);
+		dm.addRow(s2);
+		dm.addRow(s3);
 	}
-    
-    private String[] filterToString(m3.model.filter.Filter filter) {
-    	switch (filter.getClass().getSimpleName()) {
-		case ("BrandFilter"):
-		{	
-			return new String[] {"Brand",((BrandFilter)filter).checkerToString(),((BrandFilter)filter).getValue()};
-			}
-		case("ColorFilter"):{
-			return new String[] {"Color", ((ColorFilter)filter).checkerToString(),((ColorFilter)filter).getValue()};
-		}
-
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + filter.getClass());
-		}
-    }
 }
