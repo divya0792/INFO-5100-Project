@@ -36,7 +36,7 @@ public class SubmitResponseNew extends JFrame {
 	JPanel panels[] = {panel, panel_1};
 	JTextField textFields[] = {carBrandTextField, carTypeTextField, carYearTextField, carModelTextField, customerFirstNameTextField, customerLastNameTextField, customerEmailTextField, customerPhoneNumberTextField};
 	JLabel labels[] = {carInfoLabel, carBrand, carModel, carYear, carType, customerInfoLabel, customerFirstName, customerLastName, customerEmailId, customerPhoneNo, customerQueryLabel, dealerResponseLabel};
-	String str[] = {"Car Information","Car Brand", "Car Model", "Car Year", "Car Type", "Customer Information", "First Name", "Last Name","Email ID", "Phone No", "Query from customer:", "Reply to customer:"};   
+	String str[] = {"Car Information","Car Brand", "Car Model", "Car Year", "Car Type", "Customer Information", "First Name", "Last Name","Email ID", "Phone No", "Query from customer:", "Reply to customer:"};
 
 	private String leadId;
 	private Lead lead;
@@ -105,7 +105,7 @@ public class SubmitResponseNew extends JFrame {
 
 	public void initializeAndAddComponents() {
 		frame = new JFrame();
-		frame.setBounds(70, 70, 782, 778);
+		frame.setBounds(70, 70, 600, 650);
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		Font defaultFont = new Font("Tahoma", Font.PLAIN, 20);
@@ -139,7 +139,7 @@ public class SubmitResponseNew extends JFrame {
 					textFields[i].setBounds(133, 81, 96, 30);
 				} else if( i == 3) {
 					textFields[i].setBounds(399, 81, 96, 30);
-				} 
+				}
 				panels[0].add(textFields[i]);
 			} else {			
 				if( i == 4) {
@@ -170,7 +170,7 @@ public class SubmitResponseNew extends JFrame {
 					labels[i].setBounds(25, 81, 69, 30);
 				}else {
 					labels[i].setBounds(311, 52, 69, 30);
-				}		
+				}
 				panels[0].add(labels[i]);
 			} else if( i > 4 & i < 10) {
 				if( i == 5) {
@@ -247,9 +247,9 @@ public class SubmitResponseNew extends JFrame {
 		groupLayout.setVerticalGroup(
 				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(panels[0], GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE).addGap(33)
-						.addComponent(panels[1], GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE).addGap(18).addComponent(labels[10]).addGap(18)
-						.addComponent(textAreas[0], GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE).addGap(32).addComponent(labels[11]).addGap(18)
-						.addComponent(textAreas[1], GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE).addGap(29).addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(panels[1], GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE).addGap(18).addComponent(labels[10]).addGap(2)
+						.addComponent(textAreas[0], GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE).addGap(2).addComponent(labels[11]).addGap(2)
+						.addComponent(textAreas[1], GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE).addGap(2).addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(resetButton).addComponent(submitButton)).addGap(87)));
 		frame.getContentPane().setLayout(groupLayout);
 	}
