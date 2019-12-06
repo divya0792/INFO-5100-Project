@@ -27,11 +27,6 @@ public abstract class ValueFilter<T> extends Filter<T> {
 
     @Override
     public boolean isApplicable(Vehicle vehicle) {
-        return this.isApplicable(this.getVehicleValue(vehicle));
-    }
-
-    @Override
-    public boolean isApplicable(T value) {
-        return this.checker.check(value, this.value);
+        return this.checker.check(this.getVehicleValue(vehicle), this.value);
     }
 }
