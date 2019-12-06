@@ -1,10 +1,15 @@
 package m1.team14.controller;
-
+import java.util.List;
+import dataproto.Dealer;
+import m1.team3.Dealers;
+import m1.team3.login.VMSLoginFrame;
 // For demo///////////////////
 import javax.swing.JOptionPane;
 //////////////////////////////
 public class HomePageController extends AbstractController {
-
+  public List<Dealer> getDealers() {
+    return Dealers.getInstance().getAllDealers();
+  }
   public void changeDealer(String val) {
     try {
       this.setModelProperty("DealerId", val);
@@ -13,10 +18,13 @@ public class HomePageController extends AbstractController {
     }
   }
   public void gotoLogin() {
-    //TODO
+    new VMSLoginFrame();
   }
   public void gotoHistory() {
-    //TODO
+    // For demo///////////////////
+    JOptionPane.showMessageDialog(null, "Go to customers' contact history enterance page");
+    //////////////////////////////
+
   }
   public void gotoSearch() {
     // For demo///////////////////

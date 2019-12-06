@@ -1,6 +1,5 @@
 package m1.team14.view;
 
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -10,7 +9,9 @@ import java.util.List;
 import java.net.URL;
 import m1.team14.controller.HomePageController;
 import m1.team14.controller.AbstractController;
-import m1.team14.view.SecondHalfViewPanel ;
+import m1.team14.view.SecondHalfViewPanel;
+import dataproto.Dealer;
+
 
 public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
     // dealer icon image path(absolute path)
@@ -18,8 +19,6 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
     private final String scrollIconPath = "../../images/businessman32px.png";
     // private final String curDealerIconPath = "/INFO-5100-Project/src/m1/team14/images/businessman64px.png";
     // private final String scrollIconPath = "/INFO-5100-Project/src/m1/team14/images/businessman32px.png";
-    private List<String> dealers;
-    private static int numOfDealers = 8;  // for test
     private static final long serialVersionUID = 4L;
 
     List<String> getDealers(int num){
@@ -114,10 +113,9 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
     }
 
     private void addViewPanel(JPanel viewPanel) {
-        this.dealers = getDealers(numOfDealers);
-
-        for (String dealer : dealers){
-            viewPanel.add(createIconPanel(dealer));
+      List<Dealer> dealers = homepageUpCtrl.getDealers();
+        for (Dealer dealer : dealers){
+            viewPanel.add(createIconPanel(dealer.getName()));
         }
     }
 

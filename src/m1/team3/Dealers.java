@@ -17,7 +17,7 @@ public class Dealers {
   private Dealers() {
     l = new ArrayList<Dealer>();
   }
-  public List getAllDealers() {
+  public List<Dealer> getAllDealers() {
     return l;
   }
   public boolean add(Dealer dealer) {

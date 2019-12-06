@@ -103,7 +103,6 @@ public class SecondHalfViewPanel extends JPanel implements IViewPanel {
   @Override
   @SuppressWarnings("unchecked")
   public void modelPropertyChange(final PropertyChangeEvent evt) {
-    //TODO
     if (evt.getPropertyName().equals(Events.DEALER_TEXT_CHANGE)) {
       List<RichText> row = (List<RichText>)evt.getNewValue();
       JEditorPane[] widgets = new JEditorPane[]{HeadEdp, Sec1Edp, Sec2Edp, FootEdp};
