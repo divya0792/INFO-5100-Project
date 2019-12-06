@@ -1,6 +1,7 @@
 package m1.team14.view;
 
 import dataproto.RichText;
+import dataproto.Dealer;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -103,8 +104,9 @@ public class SecondHalfViewPanel extends JPanel implements IViewPanel {
   @Override
   @SuppressWarnings("unchecked")
   public void modelPropertyChange(final PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals(Events.DEALER_TEXT_CHANGE)) {
-      List<RichText> row = (List<RichText>)evt.getNewValue();
+    if (evt.getPropertyName().equals(Events.DEALER_ID_CHANGE)) {
+      Dealer newDealer = (Dealer)evt.getNewValue();
+      List<RichText> row = controller.getRichTextsByDealer(newDealer);
       JEditorPane[] widgets = new JEditorPane[]{HeadEdp, Sec1Edp, Sec2Edp, FootEdp};
       if (row != null) {
         for (int i = 0; i < widgets.length; ++i) {

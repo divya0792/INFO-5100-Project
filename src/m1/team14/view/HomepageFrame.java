@@ -115,11 +115,11 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
     private void addViewPanel(JPanel viewPanel) {
       List<Dealer> dealers = homepageUpCtrl.getDealers();
         for (Dealer dealer : dealers){
-            viewPanel.add(createIconPanel(dealer.getName()));
+            viewPanel.add(createIconPanel(dealer));
         }
     }
 
-    private JPanel createIconPanel(String dealer) {
+    private JPanel createIconPanel(Dealer dealer) {
         JPanel padPanel = new JPanel();
         padPanel.setBorder(new EmptyBorder(2,1,2,1));
 
@@ -127,11 +127,20 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
 
         JPanel iconPanel = new JPanel();
         ImageIcon dealImg = new ImageIcon(getClass().getResource(scrollIconPath));
-        JLabel iconLabel = new JLabel(dealImg);
+        JButton iconLabel = new JButton(dealImg);
+        iconLabel.setFocusPainted(false);
+        iconLabel.setMargin(new Insets(0, 0, 0, 0));
+        iconLabel.setContentAreaFilled(false);
+        iconLabel.setBorderPainted(false);
+        iconLabel.setOpaque(false);
+        iconLabel.addActionListener(e->{
+          this.homepageUpCtrl.changeDealer(dealer);
+        });
+
         iconPanel.add(iconLabel);
 
         JPanel labelPanel = new JPanel();
-        JLabel dealerIdLabel = new JLabel(dealer);
+        JLabel dealerIdLabel = new JLabel(dealer.getName());
         labelPanel.add(dealerIdLabel);
 
         dealerPanel.add(iconPanel, BorderLayout.CENTER);
