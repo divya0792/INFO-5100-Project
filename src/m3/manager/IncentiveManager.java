@@ -9,6 +9,8 @@ import m3.model.filter.Filter;
 import m3.model.offer.DiscountOffer;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class IncentiveManager implements IncentiveManagement {
@@ -28,9 +30,36 @@ public class IncentiveManager implements IncentiveManagement {
 
     private List<List<Incentive>> splitAndSortIncentivesByOfferType(List<Incentive> incentives) {
         //discount first then cash off (sorted)
-        Incentive incentive = new Incentive();
-        boolean test = incentive.getOffer().getClass() == DiscountOffer.class;
-        return null;
+
+        List<Incentive> discountIncentives = new ArrayList<>();
+        List<Incentive> cashBackIncentives = new ArrayList<>();
+
+        //split
+        for(Incentive incentive: incentives) {
+            boolean isDiscount = incentive.getOffer().getClass() == DiscountOffer.class;
+            if(isDiscount) {
+                discountIncentives.add(incentive);
+            } else {
+                cashBackIncentives.add(incentive);
+
+            }
+        }
+
+        //sort
+        discountIncentives.sort((Incentive o1, Incentive o2) ->
+                (int)(o2.getOffer().getValue() - o1.getOffer().getValue()));
+
+        cashBackIncentives.sort((Incentive o1, Incentive o2) ->
+                (int)(o2.getOffer().getValue() - o1.getOffer().getValue()));
+
+
+        discountIncentives.add(null);
+        cashBackIncentives.add(null);
+
+        List<List<Incentive>> result = new ArrayList<>();
+        result.add(discountIncentives);
+        result.add(cashBackIncentives);
+        return result;
     }
 
     public boolean checkVehicleIncentive(Vehicle vehicle, Incentive incentive) {
