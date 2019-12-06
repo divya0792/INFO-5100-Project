@@ -1,5 +1,6 @@
 package m3.model.checker;
 
+
 public class GreaterChecker extends Checker<Double> {
 
     @Override
