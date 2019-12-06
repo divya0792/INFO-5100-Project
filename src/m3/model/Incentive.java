@@ -19,9 +19,15 @@ public class Incentive {
 
     private List<Filter> conditions;
 
-    //just use for test
-    public Incentive( Offer offer) {
+    public Incentive(Date startDate, Date endDate, String title,
+                     String disclaimer, Dealer dealer, Offer offer, List<Filter> conditions) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.title = title;
+        this.disclaimer = disclaimer;
+        this.dealer = dealer;
         this.offer = offer;
+        this.conditions = conditions;
     }
 
     public List<Filter> getConditions() {

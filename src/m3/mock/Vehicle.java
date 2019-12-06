@@ -9,7 +9,6 @@ public class Vehicle {
     private String model;
     private Integer year;
 
-
     public Vehicle(String brand, int id, Dealer dealer, double price, String color, String model, Integer year) {
         this.brand = brand;
         this.id = id;
