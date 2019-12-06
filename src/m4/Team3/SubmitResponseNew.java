@@ -1,6 +1,8 @@
 //package FinalProject;
 package m4.Team3;
 //package FinalProject;
+//import dataproto.Lead;
+import m4.Team2.Lead;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -37,6 +39,7 @@ public class SubmitResponseNew extends JFrame {
 	String str[] = {"Car Information","Car Brand", "Car Model", "Car Year", "Car Type", "Customer Information", "First Name", "Last Name","Email ID", "Phone No", "Query from customer:", "Reply to customer:"};   
 
 	private String leadId;
+	private Lead lead;
 	
 	public SubmitResponseNew() {
 		initializeAndAddComponents();
@@ -47,26 +50,40 @@ public class SubmitResponseNew extends JFrame {
 		this();
 		this.leadId = leadId;
 		fillData();
+        this.frame.setVisible(true);
 	}
+
+    public SubmitResponseNew(Lead lead) {
+        this();
+        this.lead = lead;
+
+        fillData();
+        this.frame.setVisible(true);
+    }
 
 	private void fillData() {
 		try {
-			String leadSql = String.format("select * from dbo.CustomerRequest where leadId = '%s'", leadId);
-			ResultSet leadInfo = JDBC.getInstance().getResults(leadSql);
-			if(!leadInfo.next()) {
-				System.out.println("customerrequest cannot be found in database: " + leadId);
-				return;
-			}
+//			String leadSql = String.format("select * from dbo.CustomerRequest where leadId = '%s'", leadId);
+//			ResultSet leadInfo = JDBC.getInstance().getResults(leadSql);
+//			if(!leadInfo.next()) {
+//				System.out.println("customerrequest cannot be found in database: " + leadId);
+//				return;
+//			}
 			
-			textFields[4].setText(leadInfo.getString("firstName"));
-			textFields[5].setText(leadInfo.getString("lastName"));
-			textFields[6].setText(leadInfo.getString("email"));
-			textFields[7].setText(leadInfo.getString("contactNo"));
-			textAreas[0].setText(leadInfo.getString("comment"));
-			textAreas[1].setText(leadInfo.getString("dealerComment"));
+//			textFields[4].setText(leadInfo.getString("firstName"));
+//			textFields[5].setText(leadInfo.getString("lastName"));
+//			textFields[6].setText(leadInfo.getString("email"));
+//			textFields[7].setText(leadInfo.getString("contactNo"));
+            textFields[4].setText(lead.getFirstName());
+            textFields[5].setText(lead.getLastName());
+            textFields[6].setText(lead.getEmail());
+            textFields[7].setText(lead.getContactNo());
+			textAreas[0].setText(lead.getComment());
+			textAreas[1].setText(lead.getDealerComment());
 
 			
-			String vehicleId = leadInfo.getString("vehicleId");
+//			String vehicleId = leadInfo.getString("vehicleId");
+            String vehicleId = lead.getVehicleId();
 			String vehicleSql = String.format("select * from dbo.CarInventory where vechileId = '%s'", vehicleId);
 			ResultSet vehicleInfo = JDBC.getInstance().getResults(vehicleSql);
 			if(!vehicleInfo.next()) {
@@ -77,7 +94,6 @@ public class SubmitResponseNew extends JFrame {
 			textFields[1].setText(vehicleInfo.getString("type"));
 			textFields[2].setText(vehicleInfo.getString("dateofmanufacturing"));
 			textFields[3].setText(vehicleInfo.getString("model"));
-
 			for(JTextField tf:textFields){
 				tf.setEditable(false);
 			}
@@ -90,7 +106,7 @@ public class SubmitResponseNew extends JFrame {
 	public void initializeAndAddComponents() {
 		frame = new JFrame();
 		frame.setBounds(70, 70, 782, 778);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		Font defaultFont = new Font("Tahoma", Font.PLAIN, 20);
 
@@ -116,24 +132,24 @@ public class SubmitResponseNew extends JFrame {
 			textFields[i] = new JTextField(10);
 			if( i < 4) {
 				if( i == 0) {
-					textFields[i].setBounds(133, 53, 96, 20);
+					textFields[i].setBounds(133, 53, 96, 30);
 				} else if( i == 1) {
-					textFields[i].setBounds(399, 53, 96, 20);
+					textFields[i].setBounds(399, 53, 96, 30);
 				} else if( i == 2) {
-					textFields[i].setBounds(133, 81, 96, 20);
+					textFields[i].setBounds(133, 81, 96, 30);
 				} else if( i == 3) {
-					textFields[i].setBounds(399, 81, 96, 20);
+					textFields[i].setBounds(399, 81, 96, 30);
 				} 
 				panels[0].add(textFields[i]);
 			} else {			
 				if( i == 4) {
-					textFields[i].setBounds(133, 52, 96, 20);
+					textFields[i].setBounds(133, 52, 96, 30);
 				} else if( i == 5) {
-					textFields[i].setBounds(399, 52, 96, 20);
+					textFields[i].setBounds(399, 52, 96, 30);
 				} else if( i == 6) {
-					textFields[i].setBounds(133, 83, 169, 20);
+					textFields[i].setBounds(133, 83, 300, 30);
 				}else {
-					textFields[i].setBounds(133, 119, 169, 20);
+					textFields[i].setBounds(133, 119, 96, 30);
 				}
 				panels[1].add(textFields[i]);
 			}
@@ -145,29 +161,29 @@ public class SubmitResponseNew extends JFrame {
 			if( i < 5) {
 				if( i == 0) {
 					labels[i].setFont(defaultFont);
-					labels[i].setBounds(10, 11, 219, 20);
+					labels[i].setBounds(10, 11, 219, 30);
 				} else if( i == 1) {
-					labels[i].setBounds(25, 53, 69, 20);
+					labels[i].setBounds(25, 53, 69, 30);
 				} else if( i == 2) {
-					labels[i].setBounds(311, 81, 69, 20);
+					labels[i].setBounds(311, 81, 69, 30);
 				}else if( i == 3){
-					labels[i].setBounds(25, 81, 69, 20);
+					labels[i].setBounds(25, 81, 69, 30);
 				}else {
-					labels[i].setBounds(311, 52, 69, 20);
+					labels[i].setBounds(311, 52, 69, 30);
 				}		
 				panels[0].add(labels[i]);
 			} else if( i > 4 & i < 10) {
 				if( i == 5) {
 					labels[i].setFont(defaultFont);
-					labels[i].setBounds(15, 16, 242, 20);
+					labels[i].setBounds(15, 16, 242, 30);
 				} else if( i == 6) {
-					labels[i].setBounds(25, 52, 69, 20);
+					labels[i].setBounds(25, 52, 69, 30);
 				} else if( i == 7) {
-					labels[i].setBounds(311, 52, 69, 20);
+					labels[i].setBounds(311, 52, 69, 30);
 				}else if( i == 8){
-					labels[i].setBounds(25, 83, 69, 20);
+					labels[i].setBounds(25, 83, 69, 30);
 				}else {
-					labels[i].setBounds(25, 119, 69, 20);
+					labels[i].setBounds(25, 119, 69, 30);
 				}					
 				panels[1].add(labels[i]);
 			}else {
@@ -187,7 +203,8 @@ public class SubmitResponseNew extends JFrame {
 					if (result == 0) {
 						//JOptionPane.showMessageDialog(null, "Response has been sent to customer");
 						try {
-							String updateSql = String.format("update dbo.CustomerRequest set dealerComment = '%s' where leadId = '%s'", textAreas[1].getText(), leadId);
+							String updateSql = String.format("update dbo.CustomerRequest set dealerComment = '%s' where leadId = '%s'", textAreas[1].getText(), lead.getLeadId());
+//							System.out.println(lead.getDealerId());
 							JDBC.getInstance().update(updateSql);
 							
 							SendEmailTest2.gmailSender(textFields[6].getText(), "You got a response from dealer!", HTMLGenerator());
@@ -195,7 +212,7 @@ public class SubmitResponseNew extends JFrame {
 
 							JOptionPane.showMessageDialog(frame, "Response sent! An email also sent to customer.");
 							//close the window after submit:
-							frame.setVisible(false);
+//							frame.setVisible(false);
 						} catch (Exception exp) {
 							exp.printStackTrace();
 							JOptionPane.showMessageDialog(null, exp.getMessage());
