@@ -2,7 +2,7 @@ package m1.team2;
 
 import dataproto.Dealer;
 
-class ContentEditor {
+public class ContentEditor {
 
     public final static ContentEditor INSTANCE = new ContentEditor();
 

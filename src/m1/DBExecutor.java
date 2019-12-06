@@ -39,11 +39,31 @@ public class DBExecutor {
         row.add(footer);
         table.put("ch", row);
     }
+    private void addNewItem(String id) {
+      RichText left = new RichText();
+      left.setPlainText("left");
+      left.setHtmlString("left");
+      RichText right = new RichText();
+      right.setPlainText("right");
+      right.setHtmlString("right");
+      RichText header = new RichText();
+      header.setPlainText("header");
+      header.setHtmlString("header");
+      RichText footer = new RichText();
+      footer.setPlainText("footer");
+      footer.setHtmlString("footer");
+      List<RichText> row = new ArrayList<>();
+      row.add(header);
+      row.add(left);
+      row.add(right);
+      row.add(footer);
+      table.put(id, row);
+    }
 
     // [top, left, right, bottom]
     public List<RichText> getContent(Dealer dealer) {
         if (!table.containsKey(dealer.getId())) {
-            return null;
+          addNewItem(dealer.getId());
         }
         List<RichText> l = table.get(dealer.getId());
         return l.stream().map(this::copy).collect(Collectors.toList());
@@ -73,8 +93,3 @@ public class DBExecutor {
         return copy;
     }
 }
-
-
-
-
-

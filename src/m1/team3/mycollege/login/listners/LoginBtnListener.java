@@ -1,5 +1,6 @@
 package m1.team3.mycollege.login.listners;
-
+import dataproto.*;
+import m1.team2.ContentEditor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,7 +15,7 @@ import m1.team3.mycollege.login.MainPageFrame;
 
 public class LoginBtnListener implements ActionListener{
 	private LoginService loginService = new LoginServiceImpl();
-	
+
 	JTextField txtUserId = null;
     JPasswordField txtPWD = null;
     JCheckBox rememberMe = null;
@@ -27,13 +28,14 @@ public class LoginBtnListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(loginService.validateLogin(txtUserId.getText(), String.valueOf(txtPWD.getPassword()))) {
-             //TODO here you need to integrate with actual main page
-			new MainPageFrame("Main Page");
+        Dealer dealer = new Dealer();
+        dealer.setId(txtUserId.getText());
+        ContentEditor.INSTANCE.openEditor(dealer);
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Login Failed ");
 		}
-		
+
 	}
 
 }
