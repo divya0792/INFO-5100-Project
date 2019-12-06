@@ -6,21 +6,32 @@ import m3.model.checker.Checker;
 public abstract class ValueFilter<T> extends Filter<T> {
     protected T value;
 
-    
-    
-    public T getValue() {
-    	return value;
+    public ValueFilter(Checker<T> checker) {
+        super(checker);
     }
 
-    public ValueFilter(String string, Checker<T> checker) {
+    public ValueFilter(T value, Checker<T> checker) {
         super(checker);
-        this.setValue(string);
+        this.value = value;
     }
-    
-    protected abstract void setValue(String string);
+
+    public T getValue() {
+        return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
+    }
+
+    public abstract void setValueFromString(String string) throws InputException;
 
     @Override
     public boolean isApplicable(Vehicle vehicle) {
-        return this.checker.check(this.getVehicleValue(vehicle), this.value);
+        return this.isApplicable(this.getVehicleValue(vehicle));
+    }
+
+    @Override
+    public boolean isApplicable(T value) {
+        return this.checker.check(value, this.value);
     }
 }
