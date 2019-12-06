@@ -5,6 +5,7 @@ import java.util.Collection;
 public class Dealer extends DataObject {
   private String name;
   // private Address address;
+  private String password;
   private String address;
   private String phone;
   private Collection<Vehicle> vehicles;
@@ -87,5 +88,12 @@ public class Dealer extends DataObject {
 
   public void setRightInfoId(String rightInfoId) {
     this.rightInfoId = rightInfoId;
+  }
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 }
