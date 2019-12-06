@@ -11,6 +11,7 @@ import m1.team14.controller.HomePageController;
 import m1.team14.controller.AbstractController;
 import m1.team14.view.SecondHalfViewPanel;
 import dataproto.Dealer;
+import m1.team14.Events;
 
 
 public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
@@ -20,17 +21,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
     // private final String curDealerIconPath = "/INFO-5100-Project/src/m1/team14/images/businessman64px.png";
     // private final String scrollIconPath = "/INFO-5100-Project/src/m1/team14/images/businessman32px.png";
     private static final long serialVersionUID = 4L;
-
-    List<String> getDealers(int num){
-        List<String> allDealers = new ArrayList<>();
-
-        for (int i = 1; i <= num; i++){
-            String dealerId = "Dealer " + i;
-            allDealers.add(dealerId);
-        }
-
-        return allDealers;
-    }
+    private Dealer initDealer;
 
     // include the header part, like current dealer img, search, login, history
     private JPanel headPanel;
@@ -59,7 +50,6 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
 
     public HomepageFrame(HomePageController homepageUpCtrl, SecondHalfViewPanel secondHalfViewPanel) {
         super(homepageUpCtrl, secondHalfViewPanel);
-        System.out.println(secondHalfViewPanel);
     }
     @Override void init(AbstractController controller, JPanel view) {
         this.homepageUpCtrl = (HomePageController)controller;
@@ -75,7 +65,17 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         curDealerIconPanel = new JPanel();
         curDealerIcon = new ImageIcon(getClass().getResource(curDealerIconPath));
         curDealerImg = new JLabel(curDealerIcon);
-        curDealerLabel = new JLabel("Current Dealer");
+        String label = "Current Dealer";
+        try {
+          if (initDealer != null) {
+            label = initDealer.getName();
+          } else {
+            label = homepageUpCtrl.getInitDealer().getName();
+          }
+        } catch(Exception e) {
+          e.printStackTrace();
+        }
+        curDealerLabel = new JLabel(label);
 
         // button components
         buttonPanel = new JPanel();
@@ -117,6 +117,8 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         for (Dealer dealer : dealers){
             viewPanel.add(createIconPanel(dealer));
         }
+        initDealer = dealers.get(0);
+        this.homepageUpCtrl.changeDealer(dealers.get(0));
     }
 
     private JPanel createIconPanel(Dealer dealer) {
@@ -159,7 +161,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         hbox1.add(buttonPanel);
 
         scrollPanel = new JScrollPane(viewPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPanel.setPreferredSize(new Dimension(400, 100));
+        scrollPanel.setPreferredSize(new Dimension(400, 120));
         hbox2.add(scrollPanel);
         hbox3.add(secondHalfViewPanel);
 
@@ -233,6 +235,10 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
 
     @Override
     public void modelPropertyChange(PropertyChangeEvent evt) {
-
+      if (evt.getPropertyName().equals(Events.DEALER_ID_CHANGE)) {
+        Dealer newDealer = (Dealer)evt.getNewValue();
+        String name = newDealer.getName();
+        curDealerLabel.setText(name);
+      }
     }
 }

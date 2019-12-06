@@ -9,9 +9,11 @@ import m1.DBExecutor;
 import javax.swing.JOptionPane;
 //////////////////////////////
 public class HomePageController extends AbstractController {
+  public Dealer getInitDealer() {
+    return Dealers.getInstance().getAllDealers().get(0);
+  }
   public List<Dealer> getDealers() {
     List<Dealer> ret = Dealers.getInstance().getAllDealers();
-
     return ret;
   }
   public List<RichText> getRichTextsByDealer(Dealer dealer) {
