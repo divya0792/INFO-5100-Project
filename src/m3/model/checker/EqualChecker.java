@@ -1,9 +1,9 @@
 package m3.model.checker;
 
-public class EqualChecker extends Checker<Object> {
+public class EqualChecker<T> extends Checker<T> {
 
     @Override
-    public boolean check(Object o1, Object o2) {
+    public boolean check(T o1, T o2) {
         return o1.equals(o2);
     }
 }
