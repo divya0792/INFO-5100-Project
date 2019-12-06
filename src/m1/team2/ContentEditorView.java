@@ -161,7 +161,7 @@ class ContentEditorView extends JFrame {
         panelFontArea.add(comboBox_Position);
 
         panelFontArea.add(newHorizontalCenterAlignLabel("Font Size"));
-        comboBox_Size.setModel(new DefaultComboBoxModel(new String[] {"9", "10", "11", "12", "13"}));
+        comboBox_Size.setModel(new DefaultComboBoxModel<String>(new String[] {"9", "10", "11", "12", "13"}));
         panelFontArea.add(comboBox_Size);
 
         panelFontArea.add(newHorizontalCenterAlignLabel("Format"));
@@ -170,7 +170,7 @@ class ContentEditorView extends JFrame {
 
         // TODO not available now
         panelFontArea.add(newHorizontalCenterAlignLabel("Font Color"));
-        comboBox_Color.setModel(new DefaultComboBoxModel(new String[] {"red", "black", "white", "green", "blue"}));
+        comboBox_Color.setModel(new DefaultComboBoxModel<String>(new String[] {"red", "black", "white", "green", "blue"}));
         panelFontArea.add(comboBox_Color);
 
         panelFontArea.add(newHorizontalCenterAlignLabel("BackGround Color"));
