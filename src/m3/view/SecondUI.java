@@ -2,6 +2,10 @@ package m3.view;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Date;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -13,45 +17,56 @@ import m3.model.offer.DiscountOffer;
 
 public class SecondUI {
 	
-	JFrame frame = new JFrame();
+	JFrame frame;
 	JTable table = new JTable();
 	DefaultTableModel dm;
 	JTextField titleText, disclaimerText,offerText;
 	JComboBox offerChoice;
 	JButton cancel,create,edit,delete,ok;
-	JDateChooser startDateChooser,endDateChooser;	
-	Incentive iw = new Incentive();
+	JDateChooser startDateChooser,endDateChooser;
 	FirstUI fui;
+	int rowIndex;
+	JLabel offerLabel;
 	
-	SecondUI(FirstUI fui){
+	SecondUI(FirstUI fui, int rowIndex){
 		this.fui = fui;
+		this.rowIndex = rowIndex;
 	}
 	
+	//public SecondUI(FirstUI firstUI, String title, String string2, String string3, String disclaimer) {
+		
+	//}
+
 	public void start(){
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         frame.setSize(450, 600);
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
         frame.add(panel);
         placeComponent(panel);
-        addListeners();
+        //addListeners();
         frame.setVisible(true);
     }
 
 
 	public void placeComponent(JPanel panel){
+		Incentive i = rowIndex == -1 ? null : IncentiveList.getIncentiveByIndex(rowIndex);
         panel.setLayout(null);
         JLabel title = new JLabel("Title");
         title.setBounds(50, 25, 200, 25);
         panel.add(title);
         titleText = new JTextField();
+        String s = i == null ? "" : i.getTitle(); 
+        titleText.setText(s);
         titleText.setBounds(150, 25, 250, 25);
         panel.add(titleText);
         panel.setLayout(null);
         JLabel startDate = new JLabel("Start Date");
         startDate.setBounds(50, 65, 200, 25);
-        panel.add(startDate);   
+        panel.add(startDate);  
         startDateChooser = new JDateChooser();
+        Date d = i == null ? null : i.getStartDate();
+        startDateChooser.setDate(d);
         startDateChooser.setBounds(150, 65, 250, 25);
         panel.add(startDateChooser);
         
@@ -60,13 +75,17 @@ public class SecondUI {
         panel.add(endDate);
         
         endDateChooser = new JDateChooser();
-        endDateChooser.setSelectableDateRange(startDateChooser.getDate(), null);
+        d = i == null ? null : i.getEndDate();
+        endDateChooser.setDate(d);
+        
         endDateChooser.setBounds(150, 105, 250, 25);
         panel.add(endDateChooser);
         JLabel disclaimer = new JLabel("Disclaimer");
         disclaimer.setBounds(50, 145, 200, 25);
         panel.add(disclaimer);
         disclaimerText = new JTextField();
+        s = i == null ? "" : i.getDisclaimer();
+        disclaimerText.setText(s);
         disclaimerText.setBounds(150, 145, 250, 75);
         panel.add(disclaimerText);
         JLabel offer = new JLabel("Offer");
@@ -74,13 +93,16 @@ public class SecondUI {
         panel.add(offer);
         offerChoice = new JComboBox();
         offerChoice.setBounds(150, 235, 115, 25);
-        offerChoice.addItem("");
         offerChoice.addItem("Discount");
         offerChoice.addItem("Cashback");
         panel.add(offerChoice);
         offerText = new JTextField();
         offerText.setBounds(285, 235, 115, 25);
         panel.add(offerText);
+        offerLabel = new JLabel();
+        offerLabel.setBounds(150,255,300,25);
+        panel.add(offerLabel);
+        
         JLabel conditions = new JLabel("Conditions");
         conditions.setBounds(50, 295, 200, 25);
         panel.add(conditions);
@@ -104,11 +126,35 @@ public class SecondUI {
         ok = new JButton("OK");
         ok.setBounds(240, 520, 120, 25);
         panel.add(ok);
-        
-        
-    }
-    
-	private void addListeners() {
+   
+        startDateChooser.addMouseListener(
+        		new MouseListener(){
+        	@Override
+        	public void mousePressed(MouseEvent e){	
+        	}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				endDateChooser.setSelectableDateRange(startDateChooser.getDate(), null);
+			}
+        }
+        );
 		create.addActionListener(e -> addToTableBelow() );   // Third UI start function here
         
         
@@ -118,55 +164,60 @@ public class SecondUI {
     	delete.addActionListener(e -> deleteSelectedRow());
     	
     	
-    	cancel.addActionListener(e -> System.exit(0));
+    	cancel.addActionListener(e -> {
+    		frame.dispose();
+    		fui.frame.setEnabled(true);
+    	});
+    	
     	
     	offerChoice.addActionListener(e -> {
     		String st = offerChoice.getSelectedItem().toString();
 	    	if(st.equals("Discount")){
-	    		JOptionPane.showMessageDialog(null, "Enter percentage of discount and press Enter");
+	    		offerLabel.setText("Enter percentage of discount and press Enter");
 	    	}else if(st.equals("Cashback")) {
-	    		JOptionPane.showMessageDialog(null, "Enter amount of cashback in $ and press Enter");
+	    		offerLabel.setText("Enter amount of cashback in $ and press Enter");
 	    	}
     	});
     	
     	offerText.addKeyListener(
-    			new KeyListener(){
-					@Override
-					public void keyPressed(KeyEvent e) {
-						String st = offerChoice.getSelectedItem().toString();
-						String offerValue = offerText.getText();
-						if(e.getKeyCode() == KeyEvent.VK_ENTER && st.equals("Cashback")){
-							char[] offerArray = offerValue.toCharArray();
-							for(char c : offerArray){
-								if(Character.isAlphabetic(c)){
-									offerText.setText("");
-									JOptionPane.showMessageDialog(null, "Enter a valid Cashback");
-								}
-							}
-						}
-						if(e.getKeyCode() == KeyEvent.VK_ENTER && st.equals("Discount")){
-							if(Integer.parseInt(offerValue) < 0 || Integer.parseInt(offerValue) > 100){
+			new KeyListener(){
+				@Override
+				public void keyPressed(KeyEvent e) {
+					String st = offerChoice.getSelectedItem().toString();
+					String offerValue = offerText.getText();
+					if(e.getKeyCode() == KeyEvent.VK_ENTER && st.equals("Cashback")){
+						char[] offerArray = offerValue.toCharArray();
+						for(char c : offerArray){
+							if(Character.isAlphabetic(c)){
 								offerText.setText("");
-								JOptionPane.showMessageDialog(null, "Enter a Discount value between 1 & 100!");
+								JOptionPane.showMessageDialog(null, "Enter a valid Cashback");
 							}
 						}
 					}
-
-					@Override
-					public void keyReleased(KeyEvent e) {
-						// TODO Auto-generated method stub
-						
+					if(e.getKeyCode() == KeyEvent.VK_ENTER && st.equals("Discount")){
+						if(Integer.parseInt(offerValue) < 0 || Integer.parseInt(offerValue) > 100){
+							offerText.setText("");
+							JOptionPane.showMessageDialog(null, "Enter a Discount value between 1 & 100!");
+						}
 					}
+				}
 
-					@Override
-					public void keyTyped(KeyEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-    			}
-    			); 
+				@Override
+				public void keyReleased(KeyEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void keyTyped(KeyEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			}
+			); 
     	
     	ok.addActionListener(e -> {
+    		Incentive iw = new Incentive();
     		iw.setTitle(titleText.getText());
     		iw.setStartDate(startDateChooser.getDate());
     		iw.setEndDate(endDateChooser.getDate());
@@ -178,20 +229,27 @@ public class SecondUI {
     			iw.setOffer(new CashBackOffer(Double.parseDouble(offerText.getText())));
     		}
     		iw.setDisclaimer(disclaimerText.getText());
-    		fui.addToTable(iw);
-    		//frame.setVisible(false);
-    	});		
-	}
-    
-    private void createTable(){
+    		if(rowIndex == -1){
+    			IncentiveList.addIncentive(iw);
+    		}else{
+    			IncentiveList.deleteIncentive(rowIndex);
+    			IncentiveList.addIncentive(iw, rowIndex);
+    		}
+    		frame.dispose();
+    		fui.frame.setEnabled(true);
+    		fui.refreshTableContents();
+    	});
+        
+        
+    }
+	
+
+	private void createTable(){
 		dm = (DefaultTableModel) table.getModel();
 		dm.addColumn("Name");
 		dm.addColumn("Type");
 		dm.addColumn("Value");       
 	}
-    
-    
-	
     
     private void deleteSelectedRow(){
     	dm = (DefaultTableModel) table.getModel();
