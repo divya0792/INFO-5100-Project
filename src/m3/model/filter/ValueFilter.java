@@ -4,7 +4,7 @@ import m3.mock.Vehicle;
 import m3.model.checker.Checker;
 
 public abstract class ValueFilter<T> extends Filter<T> {
-    private T value;
+    protected T value;
 
     public ValueFilter(Checker<T> checker) {
         super(checker);

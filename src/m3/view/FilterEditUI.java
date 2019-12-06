@@ -1,4 +1,4 @@
-package m3.userInterface;
+package m3.view;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -14,9 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import m3.model.checker.EqualChecker;
+import m3.model.checker.GreaterChecker;
+import m3.model.checker.LessChecker;
 import m3.model.filter.BrandFilter;
+import m3.model.filter.ColorFilter;
+import m3.model.checker.Checker;
 import m3.model.filter.Filter;
 import m3.model.filter.VehicleIDsFilter;
+import m3.model.filter.YearFilter;
 
 public class FilterEditUI extends BasicUI{
 
@@ -26,7 +31,11 @@ public class FilterEditUI extends BasicUI{
 	private JComboBox Type;
 	private JTextField value;
 	private JButton cancle, ok;	
+	private SecondUI sui;
 	
+	FilterEditUI(SecondUI sui){
+		this.sui = sui;
+	}
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
@@ -134,36 +143,46 @@ public class FilterEditUI extends BasicUI{
 		
 		cancle.addActionListener((e) -> this.dispose());
 		ok.addActionListener((e) -> {addFilter(Name.getSelectedItem().toString(),Type.getSelectedItem().toString(), value.getText());
-										//this.dispose();
-		System.out.println(addFilter(Name.getSelectedItem().toString(),Type.getSelectedItem().toString(), value.getText()).getClass());
+										sui.addToTableBelow(toSecondUIFilter());
+										this.dispose();
+										
+		System.out.println(addFilter(Name.getSelectedItem().toString(),Type.getSelectedItem().toString(), value.getText()).checkerToString());
 		});
 	}
 	
 	
 	
-	public Filter addFilter(String name, String type, String value) {
+	private Filter addFilter(String name, String type, String value) {
 		return FilterFinder(name, type, value);
 	}
+	
+	public Filter toSecondUIFilter()
+	{
+		return addFilter(Name.getSelectedItem().toString(),Type.getSelectedItem().toString(), value.getText());
+		
+	}
+	
+	
 	
 	private Filter FilterFinder(String name, String type, String value) {
 		switch(name) {
 		case("Brand"):{
-				return new BrandFilter(value, new EqualChecker());
+				return new BrandFilter(value, (Checker) new EqualChecker());
 		}
 		case("Color"):{
-			//return new ColorFilter(value, new EqualChecker());
-			break;
+			return new ColorFilter(value, (Checker)new EqualChecker());
+			
 		}
 		case("VehicleIDs"):{
 			//return new VehicleIDsFilter(value, new EqualChecker());
 		}
 		case("Year"):{
 			if(type.equals("<"))
-				//return new YearFilter(value, new GreaterChecker()); 
-				break;
+				return new YearFilter(value,(Checker) new GreaterChecker()); 
+				
 			else
-				break;
-				//return new YearFilter(value, new LessChecker());
+				
+				return new YearFilter(value, (Checker)new LessChecker());
 		}
 		}
 		return null;

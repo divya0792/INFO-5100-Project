@@ -28,6 +28,7 @@ public class Vehicle {
         this.brand = brand;
     }
 
+
     public int getId() {
         return id;
     }
