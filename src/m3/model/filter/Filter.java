@@ -12,7 +12,7 @@ public abstract class Filter<T> {
 
     abstract public T getVehicleValue(Vehicle vehicle);
 
-    abstract public boolean isApplicable(Vehicle vehicle);
+
 
     abstract public boolean isApplicable(T value);
     
@@ -20,4 +20,5 @@ public abstract class Filter<T> {
     {
     	return checker.ToString();
     }
+
 }

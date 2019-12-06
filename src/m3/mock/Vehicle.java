@@ -15,13 +15,11 @@ public class Vehicle {
     }
 
 
+
     public int getId() {
         return id;
     }
 
 
-	public String getColor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }
