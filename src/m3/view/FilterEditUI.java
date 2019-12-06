@@ -1,4 +1,4 @@
-package m3.userInterface;
+package m3.view;
 
 import java.awt.BorderLayout;
 import java.awt.Container;

@@ -3,11 +3,20 @@ package m3.view;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import com.toedter.calendar.*;
 
-import m3.model.*;
+import com.toedter.calendar.JDateChooser;
+
+import m3.model.Incentive;
 import m3.model.offer.CashBackOffer;
 import m3.model.offer.DiscountOffer;
 
@@ -109,8 +118,11 @@ public class SecondUI {
     }
     
 	private void addListeners() {
-		create.addActionListener(e -> addToTableBelow() );   // Third UI start function here
+		create.addActionListener(e -> {addToTableBelow();
+		openFilterEditUI();
+		} );   // Third UI start function here
         
+		
         
     	// edit.addActionListener(e -> );   // Third UI start function here
         
@@ -181,6 +193,10 @@ public class SecondUI {
     		fui.addToTable(iw);
     		//frame.setVisible(false);
     	});		
+	}
+	
+	private void openFilterEditUI() {
+		FilterEditUI filterUI = new FilterEditUI();
 	}
     
     private void createTable(){
