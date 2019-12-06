@@ -2,13 +2,15 @@ package m1.team14.view;
 
 import javax.swing.*;
 import java.awt.*;
+import m1.team14.controller.AbstractController;
+
 
 public abstract class BaseGuiFrame extends JFrame {
     static final int WIDTH = 600;
     static final int HEIGHT = 800;
 
     // init
-    public void init(){
+    void init(AbstractController controller, JPanel view){
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenDimension = toolkit.getScreenSize();
         int x = (screenDimension.width - WIDTH) / 2;
@@ -29,14 +31,11 @@ public abstract class BaseGuiFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
-    public BaseGuiFrame(){
-        init();
+    public BaseGuiFrame(AbstractController controller, JPanel view){
+        init(controller, view);
         create();
-
         Container container = getContentPane();
         add(container);
-
         makeVisible();
     }
-
 }
