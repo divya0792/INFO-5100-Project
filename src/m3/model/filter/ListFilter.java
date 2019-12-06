@@ -17,8 +17,13 @@ public abstract class ListFilter<T> extends Filter<T> {
     
     @Override
     public boolean isApplicable(Vehicle vehicle) {
+        return this.isApplicable(this.getVehicleValue(vehicle));
+    }
+
+    @Override
+    public boolean isApplicable(T value) {
         for (T t : list) {
-            if (this.checker.check(this.getVehicleValue(vehicle), t))
+            if (this.checker.check(value, t))
                 return true;
         }
         return false;

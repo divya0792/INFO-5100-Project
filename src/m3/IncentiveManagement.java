@@ -11,6 +11,4 @@ public interface IncentiveManagement {
     public List<List<Incentive>> getVehicleIncentives(Vehicle[] vehicles);
 
     public List<IncentivesFinalPrice> getVehicleFinalIncentives(Vehicle[] vehicles);
-
-    IncentivesFinalPrice getBestIncentives(Vehicle vehicle, List<Incentive> incentives);
 }
