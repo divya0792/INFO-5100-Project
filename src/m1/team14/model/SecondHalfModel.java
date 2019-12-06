@@ -1,5 +1,7 @@
 package m1.team14.model;
 
+import dataproto.Dealer;
+
 import m1.team14.Events;
 import java.lang.Integer;
 
@@ -8,6 +10,12 @@ public class SecondHalfModel extends AbstractModel {
   private int width;
   private Dealer dealer;
 
+  public SecondHalfModel() {
+    super();
+    this.width = 0;
+    this.dealer = new Dealer();
+    this.rawData = getData();
+  }
   public SecondHalfModel(Dealer dealer) {
     super();
     this.width = 0;
