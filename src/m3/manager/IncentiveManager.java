@@ -182,5 +182,5 @@ public class IncentiveManager implements IncentiveManagement {
         List<IncentivesFinalPrice> incentivesFinalPrices = incentiveManagement.getVehicleFinalIncentives(cars);
         System.out.println("hello");
     }
-
 }
+
