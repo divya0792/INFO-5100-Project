@@ -1,4 +1,4 @@
-package m1.team3.mycollege.login.listners;
+package m1.team3.login.listners;
 import dataproto.*;
 import m1.team2.ContentEditor;
 import java.awt.event.ActionEvent;
@@ -9,9 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import m1.team3.mycollege.login.LoginService;
-import m1.team3.mycollege.login.LoginServiceImpl;
-import m1.team3.mycollege.login.MainPageFrame;
+import m1.team3.login.LoginService;
+import m1.team3.login.LoginServiceImpl;
+import m1.team3.login.MainPageFrame;
 
 public class LoginBtnListener implements ActionListener{
 	private LoginService loginService = new LoginServiceImpl();

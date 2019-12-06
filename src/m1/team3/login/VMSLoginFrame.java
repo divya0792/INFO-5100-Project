@@ -1,4 +1,4 @@
-package m1.team3.mycollege.login;
+package m1.team3.login;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,10 +19,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import m1.team3.mycollege.login.listners.ForgotPWDListner;
-import m1.team3.mycollege.login.listners.LoginBtnListener;
-import m1.team3.mycollege.login.listners.RememberMeListner;
-import m1.team3.mycollege.login.listners.SignUpListner;
+import m1.team3.login.listners.ForgotPWDListner;
+import m1.team3.login.listners.LoginBtnListener;
+import m1.team3.login.listners.RememberMeListner;
+import m1.team3.login.listners.SignUpListner;
 
 public class VMSLoginFrame extends JFrame{
 	/**
@@ -52,7 +52,7 @@ public class VMSLoginFrame extends JFrame{
         // String iconURL = "/images/dealerLogin.jpg";
         java.net.URL iconURL = null;
         try {
-          iconURL = getClass().getResource("../../../images/dealerLogin.jpg");
+          iconURL = getClass().getResource("../../images/dealerLogin.jpg");
           setContentPane(new JLabel(new ImageIcon(iconURL)));
         } catch(Exception e) {
           e.printStackTrace();

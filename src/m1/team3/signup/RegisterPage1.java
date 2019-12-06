@@ -1,4 +1,4 @@
-package m1.team3.mycollege.signup;
+package m1.team3.signup;
 
 import dataproto.*;
 

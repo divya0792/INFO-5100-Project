@@ -1,4 +1,4 @@
-package m1.team3.mycollege.login;
+package m1.team3.login;
 
 public interface LoginService {
 	

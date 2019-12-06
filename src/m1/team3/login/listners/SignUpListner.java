@@ -1,10 +1,10 @@
-package m1.team3.mycollege.login.listners;
+package m1.team3.login.listners;
 
-import m1.team3.mycollege.signup.*;
+import m1.team3.signup.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import m1.team3.mycollege.login.MainPageFrame;
+import m1.team3.login.MainPageFrame;
 
 public class SignUpListner implements ActionListener{
 

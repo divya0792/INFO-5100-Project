@@ -1,4 +1,4 @@
-package m1.team3.mycollege.login;
+package m1.team3.login;
 
 import java.util.ArrayList;
 import java.util.List;
