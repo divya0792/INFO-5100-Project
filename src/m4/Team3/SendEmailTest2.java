@@ -10,6 +10,7 @@ import java.util.Properties;
 public class SendEmailTest2 {
     public static void main(String[] args) {
         String recipient = "info5100finaltestr@gmail.com";
+//        String recipient = "info5100f@gmail.com";
         String subject = "subject test";
         String content = "content test";
 
