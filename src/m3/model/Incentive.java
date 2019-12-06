@@ -19,6 +19,11 @@ public class Incentive {
 
     private List<Filter> conditions;
 
+    //just use for test
+    public Incentive( Offer offer) {
+        this.offer = offer;
+    }
+
     public List<Filter> getConditions() {
         return conditions;
     }
