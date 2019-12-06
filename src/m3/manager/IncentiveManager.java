@@ -32,44 +32,35 @@ public class IncentiveManager implements IncentiveManagement {
         //discount first then cash off (sorted)
 
         List<Incentive> discountIncentives = new ArrayList<>();
-        List<Incentive> cashOffIncentives = new ArrayList<>();
+        List<Incentive> cashBackIncentives = new ArrayList<>();
+
         //split
         for(Incentive incentive: incentives) {
             boolean isDiscount = incentive.getOffer().getClass() == DiscountOffer.class;
             if(isDiscount) {
                 discountIncentives.add(incentive);
             } else {
-                cashOffIncentives.add(incentive);
+                cashBackIncentives.add(incentive);
+
             }
         }
 
         //sort
-        descendingSort(discountIncentives);
-        descendingSort(cashOffIncentives);
+        discountIncentives.sort((Incentive o1, Incentive o2) ->
+                (int)(o2.getOffer().getValue() - o1.getOffer().getValue()));
+
+        cashBackIncentives.sort((Incentive o1, Incentive o2) ->
+                (int)(o2.getOffer().getValue() - o1.getOffer().getValue()));
+
 
         discountIncentives.add(null);
-        cashOffIncentives.add(null);
+        cashBackIncentives.add(null);
 
         List<List<Incentive>> result = new ArrayList<>();
         result.add(discountIncentives);
-        result.add(cashOffIncentives);
+        result.add(cashBackIncentives);
         return result;
     }
-
-    private void descendingSort(List<Incentive> list){
-        if(list == null || list.size() <= 1) {
-            return;
-        }
-
-        Collections.sort(list, new Comparator<Incentive>() {
-
-            @Override
-            public int compare(Incentive o1, Incentive o2) {
-                return (int) (o2.getOffer().getValue() - o1.getOffer().getValue());
-            }
-        });
-    }
-
 
     public boolean checkVehicleIncentive(Vehicle vehicle, Incentive incentive) {
         for (Filter condition : incentive.getConditions()) {
