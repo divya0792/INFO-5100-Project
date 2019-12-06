@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.Date;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import m3.mock.Dealer;
 import m3.model.Incentive;
 import m3.model.filter.Filter;
 import m3.model.offer.Offer;
@@ -61,7 +60,6 @@ public class TableOperations {
      */
     public void Create(Incentive I) throws SQLException, JsonProcessingException {
         CreateConnection(); //get connection;
-        String DealerID = I.getDealer().getDealerID(); //get DealerID
 
         // convert format
         String filterList = DataFormatConversion.FilterToString(I);
@@ -69,11 +67,11 @@ public class TableOperations {
         Date startDate = DateToSqlDatetime.JavaStartDateToSqlDate(I);
         Date endDate = DateToSqlDatetime.JavaEndDateToSqlDate(I);
 
-        String sql = new StringBuilder().append("if not exists (select * from sysobjects where name='").append(DealerID).append("' and xtype='U')").
-                append("create table ").append(DealerID).append(" (").append("IncentiveID VARCHAR(225) primary key,").append("startDate DATETIME,").append("endDate DATETIME,").
-                append("Title VARCHAR(max),").append("Disclaimer VARCHAR(max),").append("DealerID VARCHAR(max),").append("FilterList VARCHAR(max),").append("Offer VARCHAR(max) )").append("INSERT INTO").append(DealerID).
+        String sql = new StringBuilder().append("if not exists (select * from sysobjects where name='").append(I.getDealerID()).append("' and xtype='U')").
+                append("create table ").append(I.getDealerID()).append(" (").append("IncentiveID VARCHAR(225) primary key,").append("startDate DATETIME,").append("endDate DATETIME,").
+                append("Title VARCHAR(max),").append("Disclaimer VARCHAR(max),").append("DealerID VARCHAR(max),").append("FilterList VARCHAR(max),").append("Offer VARCHAR(max) )").append("INSERT INTO").append(I.getDealerID()).
                 append(" (IncentiveID,startDate,endDate,Title,Disclaimer,DealerID,FilterList,Offer) ").append("VALUES ('").
-                append(I.getIncentiveID()).append("','").append(startDate).append("','").append(endDate).append("','").append(I.getTitle()).append("','").append(I.getDisclaimer()).append("','").append(DealerID).
+                append(I.getIncentiveID()).append("','").append(startDate).append("','").append(endDate).append("','").append(I.getTitle()).append("','").append(I.getDisclaimer()).append("','").append(I.getDealerID()).
                 append("','").append(filterList).append("','").append(offer).append("')").toString();
 
         Statement statement = connection.createStatement();
@@ -97,7 +95,6 @@ public class TableOperations {
 
     public void EditItem(Incentive I) throws SQLException, JsonProcessingException {
         CreateConnection(); //get connection;
-        String DealerID = I.getDealer().getDealerID(); //get DealerID
 
         // convert format
         String filterList = DataFormatConversion.FilterToString(I);
@@ -105,7 +102,7 @@ public class TableOperations {
         Date startDate = DateToSqlDatetime.JavaStartDateToSqlDate(I);
         Date endDate = DateToSqlDatetime.JavaEndDateToSqlDate(I);
 
-        String sql = new StringBuilder().append("UPDATE ").append(DealerID).
+        String sql = new StringBuilder().append("UPDATE ").append(I.getDealerID()).
                 append("SET startDate='"+startDate+"', endDate='"+ endDate
                         +"', Title='"+I.getTitle()+"', Disclaimer='"+I.getDisclaimer()
                         +"', FilterList='"+ filterList +"', FilterList='"+ offer +"'").
@@ -123,8 +120,7 @@ public class TableOperations {
     * */
     public static void DeleteItem(Incentive I) throws SQLException{
         CreateConnection();
-        String DealerID = I.getDealer().getDealerID();
-        String sql = new StringBuilder().append("DELETE FROM  ").append(DealerID).append(" WHERE IncentiveID = '"+I.getIncentiveID()+"';").toString();
+        String sql = new StringBuilder().append("DELETE FROM  ").append(I.getDealerID()).append(" WHERE IncentiveID = '"+I.getIncentiveID()+"';").toString();
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
         connection.close();
@@ -153,8 +149,7 @@ public class TableOperations {
                 i.setTitle(rs.getString("Title"));
                 i.setDisclaimer(rs.getString("Disclaimer"));
                 ObjectMapper mapper = new ObjectMapper();
-                Dealer d = mapper.readValue(rs.getString("dealer"), Dealer.class);
-                i.setDealer(d); // Json -> Dealer类
+                i.setDealerID(rs.getString("DealerID"));
                 List<Filter> filters = mapper.readValue(rs.getString("FilterList"), new TypeReference<List<Filter>>(){});
                 i.setConditions(filters); // JSON -> List<Filter>
                 Offer offer = mapper.readValue(rs.getString("Offer"), Offer.class);
