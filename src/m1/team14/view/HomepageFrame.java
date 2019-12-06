@@ -1,18 +1,18 @@
 package m1.team14.view;
 
-import m1.team14.controller.AbstractController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.net.URL;
+import m1.team14.controller.HomePageController;
+import m1.team14.controller.AbstractController;
+import m1.team14.view.SecondHalfViewPanel ;
 
-public class HomepageFrame extends BaseGuiFrame implements IViewPanel, ActionListener {
+public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
     // dealer icon image path(absolute path)
     private final String curDealerIconPath = "../../images/businessman64px.png";
     private final String scrollIconPath = "../../images/businessman32px.png";
@@ -20,6 +20,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel, ActionLis
     // private final String scrollIconPath = "/INFO-5100-Project/src/m1/team14/images/businessman32px.png";
     private List<String> dealers;
     private static int numOfDealers = 8;  // for test
+    private static final long serialVersionUID = 4L;
 
     List<String> getDealers(int num){
         List<String> allDealers = new ArrayList<>();
@@ -54,15 +55,18 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel, ActionLis
     private JPanel blankPanel;
 
     // Page controller
-    private AbstractController homepageUpCtrl;
+    private HomePageController homepageUpCtrl;
+    private SecondHalfViewPanel secondHalfViewPanel;
 
-    public HomepageFrame() {
+    public HomepageFrame(HomePageController homepageUpCtrl, SecondHalfViewPanel secondHalfViewPanel) {
+        super(homepageUpCtrl, secondHalfViewPanel);
+        System.out.println(secondHalfViewPanel);
     }
-
-    public HomepageFrame(AbstractController homepageUpCtrl) {
-        this.homepageUpCtrl = homepageUpCtrl;
+    @Override void init(AbstractController controller, JPanel view) {
+        this.homepageUpCtrl = (HomePageController)controller;
+        this.secondHalfViewPanel = (SecondHalfViewPanel)view;
+        super.init(controller, view);
     }
-
 
     @Override
     public void create() {
@@ -78,30 +82,22 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel, ActionLis
         buttonPanel = new JPanel();
         searchBtn = new JButton("Search");
         searchBtn.setBounds(0, 0, 100, 100);
-        searchBtn.addActionListener(this);
+        searchBtn.addActionListener(e -> {
+         this.homepageUpCtrl.gotoSearch();
+        });
         loginBtn = new JButton("Login");
-        loginBtn.addActionListener(this);
+        loginBtn.addActionListener(e -> {
+         this.homepageUpCtrl.gotoLogin();
+        });
         historyBtn = new JButton("History");
-        historyBtn.addActionListener(this);
+        historyBtn.addActionListener(e -> {
+         this.homepageUpCtrl.gotoHistory();
+        });
 
         // scroll panel
 //        scrollPanel = new JScrollPane();
         viewPanel = new JPanel();
     }
-
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == loginBtn)
-        {
-            // call the team 3's login/register page
-        }
-        if(e.getSource() == historyBtn) {
-            // call the team 1's Customer phone number request page
-        }
-        if(e.getSource() == searchBtn) {
-            // call the search option
-        }
-    }
-
     @Override
     void add(Container container) {
         // addCurDealerIcon
@@ -149,6 +145,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel, ActionLis
     private void addHeadPanel(JPanel headPanel) {
         Box hbox1 = Box.createHorizontalBox();
         Box hbox2 = Box.createHorizontalBox();
+        Box hbox3 = Box.createHorizontalBox();
 
         hbox1.add(curDealerIconPanel);
         hbox1.add(Box.createHorizontalStrut(140));
@@ -157,11 +154,14 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel, ActionLis
         scrollPanel = new JScrollPane(viewPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPanel.setPreferredSize(new Dimension(400, 100));
         hbox2.add(scrollPanel);
+        hbox3.add(secondHalfViewPanel);
 
         Box vbox1 = Box.createVerticalBox();
         vbox1.add(hbox1);
         vbox1.add(Box.createVerticalStrut(30));
         vbox1.add(hbox2);
+        vbox1.add(Box.createVerticalStrut(30));
+        vbox1.add(hbox3);
 
         headPanel.add(vbox1);
         headPanel.setBorder(new EmptyBorder(20, 10, 20, 10));
