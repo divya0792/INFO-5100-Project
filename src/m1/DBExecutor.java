@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class DBExecutor {
@@ -16,13 +17,27 @@ public class DBExecutor {
 
     private Map<String, List<RichText>> table;
 
+    private List<RichText> DEFAULT;
+
     // prevent other class create instance
     private DBExecutor() {
         // init, connect DB
         table = new HashMap<>();
+        String[] ids = {"u1", "u2", "u3", "u4", "u5", "u6", "u7", "u8"};
+        Stream.of(ids).forEach(id -> table.put(id, mockData(id)));
+
+
+        DEFAULT = new ArrayList<>();
+        DEFAULT.add(new RichText());
+        DEFAULT.add(new RichText());
+        DEFAULT.add(new RichText());
+        DEFAULT.add(new RichText());
+    }
+
+    private List<RichText> mockData(String id) {
         RichText left = new RichText();
-        left.setPlainText("left");
-        left.setHtmlString("left");
+        left.setPlainText("I am " + id);
+        left.setHtmlString("I am " + id);
         RichText right = new RichText();
         right.setPlainText("right");
         right.setHtmlString("right");
@@ -37,12 +52,13 @@ public class DBExecutor {
         row.add(left);
         row.add(right);
         row.add(footer);
-        table.put("ch", row);
+        return row;
     }
+
     private void addNewItem(String id) {
       RichText left = new RichText();
-      left.setPlainText("left");
-      left.setHtmlString("left");
+      left.setPlainText("I am " + id);
+      left.setHtmlString("I am " + id);
       RichText right = new RichText();
       right.setPlainText("right");
       right.setHtmlString("right");
@@ -62,10 +78,11 @@ public class DBExecutor {
 
     // [top, left, right, bottom]
     public List<RichText> getContent(Dealer dealer) {
-        if (!table.containsKey(dealer.getId())) {
-          addNewItem(dealer.getId());
-        }
-        List<RichText> l = table.get(dealer.getId());
+//        if (!table.containsKey(dealer.getId())) {
+//          addNewItem(dealer.getId());
+//        }
+
+        List<RichText> l = table.getOrDefault(dealer.getId(), DEFAULT);
         return l.stream().map(this::copy).collect(Collectors.toList());
     }
 
@@ -81,7 +98,11 @@ public class DBExecutor {
     }
 
     public RichText copy(RichText input) {
+
         RichText copy = new RichText();
+        if (input == null) {
+            return copy;
+        }
         copy.setId(input.getId());
         copy.setFontColor(input.getFontColor());
         copy.setBackgroundColor(input.getBackgroundColor());

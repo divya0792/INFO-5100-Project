@@ -3,7 +3,7 @@ package dataproto;
 public class RichText extends DataObject {
     private String htmlString;
     private String plainText;
-    private int fontSize;
+    private Integer fontSize;
     private boolean isBold;
 
 
@@ -44,11 +44,11 @@ public class RichText extends DataObject {
         this.plainText = plainText;
     }
 
-    public int getFontSize() {
+    public Integer getFontSize() {
         return fontSize;
     }
 
-    public void setFontSize(int fontSize) {
+    public void setFontSize(Integer fontSize) {
         this.fontSize = fontSize;
     }
 
@@ -79,6 +79,26 @@ public class RichText extends DataObject {
                 ", backgroundColor='" + backgroundColor + '\'' +
                 ", fontColor='" + fontColor + '\'' +
                 '}';
+    }
+    public String toHTMLString() {
+    	String fontstyle = "";
+    	if (isBold) {
+    		fontstyle += "bold";
+    	}
+    	if (isItalic) {
+    		fontstyle += " italic";
+    	}
+    	return "<html><div font-size='" +
+    			fontSize +
+    			"' font-style='" +
+    			fontstyle + 
+    			"' background-color='" +
+    			backgroundColor +
+    			"' color='" +
+    			fontColor +
+    			"'>" + 
+    			htmlString + 
+    			"</div></html>";
     }
 }
 
