@@ -41,10 +41,10 @@ class ContentEditorView extends JFrame {
     public void initData() {
         List<RichText> richTexts = DBExecutor.INSTANCE.getContent(this.dealer);
         System.out.println("get returns " + richTexts);
-        rTextTop = richTexts.get(0) == null ? new RichText() : richTexts.get(0);
-        rTextLeft = richTexts.get(1) == null ? new RichText() : richTexts.get(1);
-        rTextRight = richTexts.get(2) == null ? new RichText() : richTexts.get(2);
-        rTextBot = richTexts.get(3) == null ? new RichText() : richTexts.get(3);
+        rTextTop = richTexts != null && richTexts.get(0) != null ? richTexts.get(0) : new RichText();
+        rTextLeft = richTexts != null && richTexts.get(1) != null ? richTexts.get(1) : new RichText();
+        rTextRight = richTexts != null && richTexts.get(2) != null ? richTexts.get(2) : new RichText();
+        rTextBot = richTexts != null && richTexts.get(3) != null ? richTexts.get(3) : new RichText();
     }
 
     public void display() {
