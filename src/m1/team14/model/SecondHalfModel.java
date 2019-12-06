@@ -6,15 +6,17 @@ import java.lang.Integer;
 public class SecondHalfModel extends AbstractModel {
   private Object rawData;
   private int width;
+  private Dealer dealer;
 
-  public SecondHalfController() {
+  public SecondHalfModel(Dealer dealer) {
     super();
     this.width = 0;
+    this.dealer = dealer;
     this.rawData = getData();
   }
 
   private Object getData() {
-    //TODO
+    //TOD
     return new Object();
   }
 
