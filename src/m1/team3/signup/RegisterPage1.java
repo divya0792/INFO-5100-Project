@@ -105,18 +105,19 @@ public class RegisterPage1 {
 		panel.add(Address);
 	}
 	private void createPassword(JPanel panel) {
-		JLabel lblCreatePassword = new JLabel("Create Password");
+		lblCreatePassword = new JLabel("Create Password");
 		lblCreatePassword.setBounds(53,440, 151, 43);
 		panel.add(lblCreatePassword);
 	}
 	private void rewritePassword(JPanel panel) {
-		JLabel lblRewritePassword = new JLabel("Rewrite Password");
+		lblRewritePassword = new JLabel("Rewrite Password");
 		lblRewritePassword.setBounds(53,520, 151, 43);
 		panel.add(lblRewritePassword);
 	}
 	private void addlbIMsg(JPanel panel) {
-		JLabel lbIMsg = new JLabel("Warning message");
-		lbIMsg.setBounds(53,600, 151, 43);
+		lbIMsg = new JLabel("Warning message");
+		lbIMsg.setBounds(53,600, 400, 43);
+		 lbIMsg.setForeground(Color.RED);
 		panel.add(lbIMsg);
 	}
 	private void button1(JPanel panel) {
@@ -141,20 +142,20 @@ public class RegisterPage1 {
 				       String strPwd = new String(formattedTextField_5.getPassword());
 				       if (strPwd==null||strPwd.equals("")) {
 
-				    	   lbIMsg.setText("密码不能为空");
+				    	   lbIMsg.setText("PassWord cannot be empty");
 				    	   return;
 					}
 				       String strRePwd = new String(formattedTextField_6.getPassword());
 				       if (strRePwd==null||strRePwd.equals("")) {
 
-				    	   lbIMsg.setText("确认密码不能为空");
+				    	   lbIMsg.setText("confirm password cannot be empty");
 				    	   return;
 				       }
 
 				       //判断确认密码是否跟密码相同
 				       if (!strRePwd.equals(strPwd)) {
 
-				    	   lbIMsg.setText("确认密码跟密码不同");
+				    	   lbIMsg.setText("the confirm password different from origin password");
 				    	   return;
 					}
 //
@@ -166,6 +167,7 @@ public class RegisterPage1 {
 				     a.setAddress(formattedTextField_4.getText());
 				     a.setPhone(formattedTextField_3.getText());
 				     a.setPassword(formattedTextField_5.getText());
+				     list.add(a);
 //				     这里不知道密码的怎么加
 //
 
@@ -178,6 +180,7 @@ public class RegisterPage1 {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 
 			}
 		});
