@@ -32,11 +32,8 @@ public abstract class BaseGuiFrame extends JFrame {
     public BaseGuiFrame(){
         init();
         create();
-
         Container container = getContentPane();
         add(container);
-
         makeVisible();
     }
-
 }
