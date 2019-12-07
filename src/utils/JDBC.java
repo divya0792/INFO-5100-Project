@@ -5,6 +5,7 @@ import java.sql.*;
 public class JDBC {
 	private Statement stmt;
 	private static JDBC _instance;
+	private Connection conn = null;
 
 	static public JDBC getInstance() {
 		if (_instance == null) {
@@ -14,7 +15,7 @@ public class JDBC {
 	}
 
 	private JDBC() {
-		Connection conn = null;
+		
 		stmt = null;
 		try {
 			// STEP 2: Register JDBC driver
@@ -62,5 +63,17 @@ public class JDBC {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+	
+	public boolean updateDealerComment(String newComment, String leadId) {
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement("update dbo.CustomerRequest set dealerComment = ? where leadId = ?");
+			preparedStatement.setString(1, newComment);
+			preparedStatement.setString(2, leadId);
+			return preparedStatement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
