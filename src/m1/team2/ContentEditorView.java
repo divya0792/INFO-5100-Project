@@ -63,13 +63,13 @@ class ContentEditorView extends JFrame {
         newHeaderPanel();
         newContent_1Panel();
         newContent_2Panel();
-        newFootenPanel();
+        newCenterPanel();
         updatePreviewData();
 
         newFontAreaPanel();
         newPlainTextAreaPanel();
         newButtonAreaPanel();
-        newCenterPanel();
+        newFootenPanel();
     }
 
 
@@ -149,11 +149,11 @@ class ContentEditorView extends JFrame {
 //        txtpnContent_2.setText(rTextRight.getHtmlString());
         panel_Content_2.add(txtpnContent_2);
     }
-    private void newFootenPanel() {
+    private void newCenterPanel() {
         panel_Footen = new JPanel();
         txtpnFootenData = new JLabel();
         panel_Footen.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-        contentPane.add(panel_Footen, BorderLayout.SOUTH);
+        contentPane.add(panel_Footen, BorderLayout.CENTER);
         panel_Footen.setLayout(new GridLayout(0, 1, 0, 0));
 //        txtpnFootenData.setText(rTextBot.getHtmlString());
         panel_Footen.add(txtpnFootenData);
@@ -222,11 +222,11 @@ class ContentEditorView extends JFrame {
         panelButtonArea.add(btnReset);
         panelButtonArea.add(btnSubmit);
     }
-    private void newCenterPanel() {
+    private void newFootenPanel() {
         panelCenter = new JPanel();
         panelCenter.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
         panelCenter.setLayout(new BorderLayout(0, 0));
-        contentPane.add(panelCenter, BorderLayout.CENTER);
+        contentPane.add(panelCenter, BorderLayout.SOUTH);
         panelCenter.add(panelFontArea, BorderLayout.NORTH);
         panelCenter.add(panelButtonArea, BorderLayout.SOUTH);
         panelCenter.add(panelPlainTextArea, BorderLayout.CENTER);
