@@ -2,6 +2,7 @@ package m1.team14.controller;
 import java.util.List;
 import dataproto.Dealer;
 import dataproto.RichText;
+import m1.team2.DealerAllContent;
 import m1.team3.Dealers;
 import m1.team3.login.VMSLoginFrame;
 import m1.DBExecutor;
@@ -16,7 +17,7 @@ public class HomePageController extends AbstractController {
     List<Dealer> ret = Dealers.getInstance().getAllDealers();
     return ret;
   }
-  public List<RichText> getRichTextsByDealer(Dealer dealer) {
+  public DealerAllContent getRichTextsByDealer(Dealer dealer) {
     return DBExecutor.INSTANCE.getContent(dealer);
   }
   public void changeDealer(Dealer val) {
