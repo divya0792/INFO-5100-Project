@@ -11,7 +11,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import m1.team14.controller.HomePageController;
 import java.beans.PropertyChangeEvent;
+import java.util.stream.Stream;
+
 import m1.team14.Events;
+import m1.team2.DealerAllContent;
 
 public class SecondHalfViewPanel extends JPanel implements IViewPanel {
 	private JScrollPane HeaderPanel,FooterPanel, MidLeftPanel, MidRightPanel;
@@ -111,15 +114,20 @@ public class SecondHalfViewPanel extends JPanel implements IViewPanel {
   public void modelPropertyChange(final PropertyChangeEvent evt) {
     if (evt.getPropertyName().equals(Events.DEALER_ID_CHANGE)) {
       Dealer newDealer = (Dealer)evt.getNewValue();
-      List<RichText> row = controller.getRichTextsByDealer(newDealer);
+      DealerAllContent allContent = controller.getRichTextsByDealer(newDealer);
+
+
       JEditorPane[] widgets = new JEditorPane[]{HeadEdp, Sec1Edp, Sec2Edp, FootEdp};
-      if (row != null) {
-        for (int i = 0; i < widgets.length; ++i) {
-          RichText content = row.get(i);
-          widgets[i].setContentType("text/html");
-          widgets[i].setText(content == null ? "" : content.toHTMLString());
-        }
-      }
+      Stream.of(widgets).forEach(widget -> widget.setContentType("text/html"));
+
+      HeadEdp.setText(allContent.getHeader().getHtmlString());
+      Sec1Edp.setText(allContent.getLeft().getHtmlString());
+      Sec2Edp.setText(allContent.getRight().getHtmlString());
+      FootEdp.setText(allContent.getFooter().getHtmlString());
+
+
+
+
     }
   }
 }

@@ -39,12 +39,12 @@ class ContentEditorView extends JFrame {
     }
 
     public void initData() {
-        List<RichText> richTexts = DBExecutor.INSTANCE.getContent(this.dealer);
+        DealerAllContent richTexts = DBExecutor.INSTANCE.getContent(this.dealer);
         System.out.println("get returns " + richTexts);
-        rTextTop = richTexts != null && richTexts.get(0) != null ? richTexts.get(0) : new RichText();
-        rTextLeft = richTexts != null && richTexts.get(1) != null ? richTexts.get(1) : new RichText();
-        rTextRight = richTexts != null && richTexts.get(2) != null ? richTexts.get(2) : new RichText();
-        rTextBot = richTexts != null && richTexts.get(3) != null ? richTexts.get(3) : new RichText();
+        rTextTop = richTexts != null && richTexts.getHeader() != null ? richTexts.getHeader() : new RichText();
+        rTextLeft = richTexts != null && richTexts.getLeft() != null ? richTexts.getLeft() : new RichText();
+        rTextRight = richTexts != null && richTexts.getRight() != null ? richTexts.getRight() : new RichText();
+        rTextBot = richTexts != null && richTexts.getFooter() != null ? richTexts.getFooter() : new RichText();
     }
 
     public void display() {
