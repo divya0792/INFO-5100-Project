@@ -25,6 +25,7 @@ public class DealerDAOImpl implements DealerDAO{
         return dealers.stream().map(this::copy).collect(Collectors.toList());
     }
     // use ret.isPresent() to check if the dealer exist;
+    @Override
     public Optional<Dealer> getDealerWithEmail(String email) {
         if (email == null) {
             return Optional.empty();
@@ -33,6 +34,7 @@ public class DealerDAOImpl implements DealerDAO{
     }
 
     // return null if name not exist
+    @Override
     public Optional<Dealer> getDealerWithName(String name) {
         if (name == null) {
             return Optional.empty();
@@ -42,6 +44,7 @@ public class DealerDAOImpl implements DealerDAO{
 
     // update or insert new dealer
     // return false if failed
+    @Override
     public boolean updateDealer(Dealer dealer) {
         Optional<Dealer> targetOption = getDealerWithName(dealer.getName());
 
