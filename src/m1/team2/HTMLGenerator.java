@@ -10,11 +10,15 @@ class HTMLGenerator {
      */
     public static String generateHTML(RichText richText)
     {
+        // if richtext is null, return an empty string
+        if(richText == null)
+            return "";
+
         // retrieve plainText from richText object
         String plainText = richText.getPlainText();
 
         // if plainText is empty or null, return an empty string
-        if(plainText.equals("") || plainText.equals(null))
+        if(plainText == null || plainText.equals(""))
             return "";
 
         // replace new line(s) with <br> tag
