@@ -2,7 +2,7 @@ package m1.team2;
 
 import dataproto.Dealer;
 import dataproto.RichText;
-import m1.DBExecutor;
+import m1.DAO.DealerContentDAOImpl;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -26,7 +26,7 @@ class ContentEditorView extends JFrame {
     private JPanel contentPane;
     private JTextPane txtpnPlaintext;
     private JLabel txtpnHeaderData, txtpnFootenData, txtpnContent_2, txtpnContent_1;
-    private JPanel panelButtonArea, panel_Content_1, panel_Content_2, panelFontArea, panel_Header, panel_Footen, panelCenter, panelPlainTextArea, panel_CheckBoxArea;
+    private JPanel panelButtonArea, panel_Content_1, panel_Content_2, panelFontArea, panel_Header, panel_Setting, panel_Footen, panelCenter, panelPlainTextArea, panel_CheckBoxArea;
     private JComboBox<String> comboBox_Size, comboBox_Color, comboBox_BackGroundColor;
     private JComboBox<POSITION> comboBox_Position;
     private JButton btnSubmit, btnPreview, btnReset;
@@ -39,7 +39,7 @@ class ContentEditorView extends JFrame {
     }
 
     public void initData() {
-        DealerAllContent richTexts = DBExecutor.INSTANCE.getContent(this.dealer);
+        DealerAllContent richTexts = DealerContentDAOImpl.INSTANCE.getContents(this.dealer);
         System.out.println("get returns " + richTexts);
         rTextTop = richTexts != null && richTexts.getHeader() != null ? richTexts.getHeader() : new RichText();
         rTextLeft = richTexts != null && richTexts.getLeft() != null ? richTexts.getLeft() : new RichText();
@@ -61,15 +61,13 @@ class ContentEditorView extends JFrame {
         contentPane.setLayout(new BorderLayout(0, 0));
 
         newHeaderPanel();
-        newContent_1Panel();
-        newContent_2Panel();
-        newFootenPanel();
+        newCenterPanel();
         updatePreviewData();
 
         newFontAreaPanel();
         newPlainTextAreaPanel();
         newButtonAreaPanel();
-        newCenterPanel();
+        newSettingPanel();
     }
 
 
@@ -110,7 +108,7 @@ class ContentEditorView extends JFrame {
 
         editingRichText.setHtmlString(HTMLGenerator.generateHTML(editingRichText));
 
-        DBExecutor.INSTANCE.submitContentChange(dealer, rTextTop, rTextBot, rTextLeft, rTextRight);
+        DealerContentDAOImpl.INSTANCE.updateContents(dealer, new DealerAllContent(rTextTop, rTextBot, rTextLeft, rTextRight));
     }
 
     private void resetEventHandler() {
@@ -131,33 +129,44 @@ class ContentEditorView extends JFrame {
 //        txtpnHeaderData.setText(rTextTop.getHtmlString());
         panel_Header.add(txtpnHeaderData);
     }
-    private void newContent_1Panel() {
-        panel_Content_1 = new JPanel();
-        txtpnContent_1 = new JLabel();
-        panel_Content_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-        contentPane.add(panel_Content_1, BorderLayout.WEST);
-        panel_Content_1.setLayout(new GridLayout(0, 1, 0, 0));
-//        txtpnContent_1.setText(rTextLeft.getHtmlString());
-        panel_Content_1.add(txtpnContent_1);
-    }
-    private void newContent_2Panel() {
-        panel_Content_2 = new JPanel();
-        txtpnContent_2 = new JLabel();
-        panel_Content_2.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-        contentPane.add(panel_Content_2, BorderLayout.EAST);
-        panel_Content_2.setLayout(new GridLayout(0, 1, 0, 0));
-//        txtpnContent_2.setText(rTextRight.getHtmlString());
-        panel_Content_2.add(txtpnContent_2);
-    }
-    private void newFootenPanel() {
-        panel_Footen = new JPanel();
-        txtpnFootenData = new JLabel();
-        panel_Footen.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-        contentPane.add(panel_Footen, BorderLayout.SOUTH);
-        panel_Footen.setLayout(new GridLayout(0, 1, 0, 0));
-//        txtpnFootenData.setText(rTextBot.getHtmlString());
-        panel_Footen.add(txtpnFootenData);
-    }
+	private void newContent_1Panel() {
+		panel_Content_1 = new JPanel();
+		panelCenter.add(panel_Content_1, BorderLayout.WEST);
+		txtpnContent_1 = new JLabel();		
+		panel_Content_1.setBorder(new EmptyBorder(20, 5, 20, 5));
+		panel_Content_1.setLayout(new GridLayout(0, 1, 0, 0));		
+		txtpnContent_1.setText(rTextLeft.getPlainText());
+		panel_Content_1.add(txtpnContent_1);
+	}
+	private void newContent_2Panel() {
+		panel_Content_2 = new JPanel();
+		panelCenter.add(panel_Content_2, BorderLayout.CENTER);
+		txtpnContent_2 = new JLabel();
+		
+		panel_Content_2.setBorder(new EmptyBorder(20, 0, 20, 0));
+		panel_Content_2.setLayout(new GridLayout(2, 1, 0, 0));
+		txtpnContent_2.setText(rTextRight.getPlainText());
+		panel_Content_2.add(txtpnContent_2);
+	}
+	private void newFootenPanel() {
+		panel_Footen = new JPanel();
+		panelCenter.add(panel_Footen, BorderLayout.SOUTH);
+		panel_Footen.setLayout(new BorderLayout(0, 0));
+		txtpnFootenData = new JLabel();
+		panel_Footen.add(txtpnFootenData, BorderLayout.NORTH);
+		txtpnFootenData.setText(rTextBot.getPlainText());
+	}
+	private void newCenterPanel() {
+		panelCenter = new JPanel();
+		
+		panelCenter.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		contentPane.add(panelCenter, BorderLayout.CENTER);
+		panelCenter.setLayout(new BorderLayout(0, 0));
+		
+		newFootenPanel();
+		newContent_1Panel();
+		newContent_2Panel();
+	}
     private void updatePreviewData() {
         txtpnHeaderData.setText(rTextTop.getHtmlString());
         txtpnFootenData.setText(rTextBot.getHtmlString());
@@ -222,14 +231,14 @@ class ContentEditorView extends JFrame {
         panelButtonArea.add(btnReset);
         panelButtonArea.add(btnSubmit);
     }
-    private void newCenterPanel() {
-        panelCenter = new JPanel();
-        panelCenter.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-        panelCenter.setLayout(new BorderLayout(0, 0));
-        contentPane.add(panelCenter, BorderLayout.CENTER);
-        panelCenter.add(panelFontArea, BorderLayout.NORTH);
-        panelCenter.add(panelButtonArea, BorderLayout.SOUTH);
-        panelCenter.add(panelPlainTextArea, BorderLayout.CENTER);
+    private void newSettingPanel() {
+    	panel_Setting = new JPanel();
+		panel_Setting.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		contentPane.add(panel_Setting, BorderLayout.SOUTH);
+		panel_Setting.setLayout(new BorderLayout(0, 0));
+		panel_Setting.add(panelFontArea, BorderLayout.NORTH);
+		panel_Setting.add(panelButtonArea, BorderLayout.SOUTH);
+		panel_Setting.add(panelPlainTextArea, BorderLayout.CENTER);
 
         // default using topData
         comboBox_Position.setSelectedItem(POSITION.HEADER);
@@ -295,7 +304,6 @@ class ContentEditorView extends JFrame {
 
     public static void main(String[] args) {
 
-//        ContentEditorView contentEditorView = new ContentEditorView();
     }
 
 
