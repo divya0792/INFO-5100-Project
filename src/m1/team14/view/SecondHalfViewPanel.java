@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 import m1.team14.Events;
 import m1.team2.DealerAllContent;
 
-public class SecondHalfViewPanel extends JPanel implements IViewPanel {
+public class SecondHalfViewPanel extends JPanel {
 	private JScrollPane HeaderPanel,FooterPanel, MidLeftPanel, MidRightPanel;
 	private JEditorPane HeadEdp, Sec1Edp, Sec2Edp, FootEdp;
 	private JButton ClickForDetailBtn, ContactMeBtn;
@@ -110,25 +110,13 @@ public class SecondHalfViewPanel extends JPanel implements IViewPanel {
   private void localInitialization() {
 
   }
-  @Override
-  @SuppressWarnings("unchecked")
-  public void modelPropertyChange(final PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals(Events.DEALER_ID_CHANGE)) {
-      Dealer newDealer = (Dealer)evt.getNewValue();
-      DealerAllContent allContent = controller.getRichTextsByDealer(newDealer);
-
-
-      JEditorPane[] widgets = new JEditorPane[]{HeadEdp, Sec1Edp, Sec2Edp, FootEdp};
-      Stream.of(widgets).forEach(widget -> widget.setContentType("text/html"));
-
-      HeadEdp.setText(allContent.getHeader().getHtmlString());
-      Sec1Edp.setText(allContent.getLeft().getHtmlString());
-      Sec2Edp.setText(allContent.getRight().getHtmlString());
-      FootEdp.setText(allContent.getFooter().getHtmlString());
-
-
-
-
-    }
+  public void setNewDealer(Dealer newDealer) {
+    DealerAllContent allContent = controller.getRichTextsByDealer(newDealer);
+    JEditorPane[] widgets = new JEditorPane[]{HeadEdp, Sec1Edp, Sec2Edp, FootEdp};
+    Stream.of(widgets).forEach(widget -> widget.setContentType("text/html"));
+    HeadEdp.setText(allContent.getHeader().getHtmlString());
+    Sec1Edp.setText(allContent.getLeft().getHtmlString());
+    Sec2Edp.setText(allContent.getRight().getHtmlString());
+    FootEdp.setText(allContent.getFooter().getHtmlString());
   }
 }
