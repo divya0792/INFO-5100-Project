@@ -3,40 +3,38 @@ package utils;
 import java.sql.*;
 
 public class JDBC {
-//  private Statement stmt;
-//  private static JDBC _instance;
-//  static public JDBC getInstance() {
-//    if (_instance == null) {
-//      _instance = new JDBC();
-//    }
-//    return _instance;
-//  }
-//  private JDBC() {
-//    Connection conn = null;
-//    stmt = null;
-//    try{
-//       //STEP 2: Register JDBC driver
-//       Class.forName("com.mysql.jdbc.Driver");
-//
-//       //STEP 3: Open a connection
-//       System.out.println("Connecting to a selected database...");
-//       conn = DriverManager.getConnection(DB_URL, USER, PASS);
-//       System.out.println("Connected database successfully...");
-//
-//       //STEP 4: Execute a query
-//       System.out.println("Creating statement...");
-//       this.stmt = conn.createStatement();
-//      } catch(Exception e) {
-//
-//    }
-//  }
-//  public ResultSet getResults(String query) {
-//    ResultSet rs = null;
-//    try {
-//        //stmt is the connection statement
-//        rs = this.stmt.executeQuery(sql);
-//    } catch(Exception e) {
-//    }
-//    return rs;
-//  }
+    private static final String URL
+            = "jdbc:sqlserver://is-swang01.ischool.uw.edu:1433;databaseName=VechileManagementSystem";
+    private static final String USERNAME = "INFO6210";
+    private static final String PASSWORD = "NEUHusky!";
+
+    private Connection conn;
+    private static JDBC _instance;
+
+    static public JDBC getInstance() throws SQLException {
+        if (_instance == null) {
+            _instance = new JDBC();
+        }
+        return _instance;
+    }
+
+    private JDBC() throws SQLException {
+        conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    }
+
+    private PreparedStatement prepareStatement(String sql, String[] params) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        for (int i = 0; i < params.length; i++) {
+            stmt.setString(i + 1, params[i]);
+        }
+        return stmt;
+    }
+
+    public ResultSet query(String sql, String[] params) throws SQLException {
+        return prepareStatement(sql, params).executeQuery();
+    }
+
+    public int update(String sql, String[] params) throws SQLException {
+        return prepareStatement(sql, params).executeUpdate();
+    }
 }
