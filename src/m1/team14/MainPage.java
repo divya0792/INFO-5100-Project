@@ -8,10 +8,9 @@ public class MainPage {
   public MainPage() {
     HomePageController hpController = new HomePageController();
     HomePageModel hpModel = new HomePageModel();
+    hpController.addModel(hpModel);
     SecondHalfViewPanel sfView = new SecondHalfViewPanel(hpController);
     HomepageFrame hpfView = new HomepageFrame(hpController, sfView);
-    hpController.addModel(hpModel);
-    hpController.addView(sfView);
     hpController.addView(hpfView);
   }
 }
