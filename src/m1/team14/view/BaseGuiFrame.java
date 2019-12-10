@@ -8,6 +8,7 @@ import m1.team14.controller.AbstractController;
 public abstract class BaseGuiFrame extends JFrame {
     static final int WIDTH = 600;
     static final int HEIGHT = 800;
+    private static final long serialVersionUID = 4L;
 
     // init
     void init(AbstractController controller, JPanel view){

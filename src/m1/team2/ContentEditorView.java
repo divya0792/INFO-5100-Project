@@ -18,6 +18,7 @@ class ContentEditorView extends JFrame {
         LEFT,
         RIGHT
     }
+    private static final long serialVersionUID = 4L;
 
     private Dealer dealer;
 
@@ -132,9 +133,9 @@ class ContentEditorView extends JFrame {
 	private void newContent_1Panel() {
 		panel_Content_1 = new JPanel();
 		panelCenter.add(panel_Content_1, BorderLayout.WEST);
-		txtpnContent_1 = new JLabel();		
+		txtpnContent_1 = new JLabel();
 		panel_Content_1.setBorder(new EmptyBorder(20, 5, 20, 5));
-		panel_Content_1.setLayout(new GridLayout(0, 1, 0, 0));		
+		panel_Content_1.setLayout(new GridLayout(0, 1, 0, 0));
 		txtpnContent_1.setText(rTextLeft.getPlainText());
 		panel_Content_1.add(txtpnContent_1);
 	}
@@ -142,7 +143,7 @@ class ContentEditorView extends JFrame {
 		panel_Content_2 = new JPanel();
 		panelCenter.add(panel_Content_2, BorderLayout.CENTER);
 		txtpnContent_2 = new JLabel();
-		
+
 		panel_Content_2.setBorder(new EmptyBorder(20, 0, 20, 0));
 		panel_Content_2.setLayout(new GridLayout(2, 1, 0, 0));
 		txtpnContent_2.setText(rTextRight.getPlainText());
@@ -158,11 +159,11 @@ class ContentEditorView extends JFrame {
 	}
 	private void newCenterPanel() {
 		panelCenter = new JPanel();
-		
+
 		panelCenter.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		contentPane.add(panelCenter, BorderLayout.CENTER);
 		panelCenter.setLayout(new BorderLayout(0, 0));
-		
+
 		newFootenPanel();
 		newContent_1Panel();
 		newContent_2Panel();

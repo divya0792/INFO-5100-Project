@@ -21,6 +21,7 @@ public class SecondHalfViewPanel extends JPanel implements IViewPanel {
 	private JEditorPane HeadEdp, Sec1Edp, Sec2Edp, FootEdp;
 	private JButton ClickForDetailBtn, ContactMeBtn;
   private HomePageController controller;
+  private static final long serialVersionUID = 4L;
 
   public SecondHalfViewPanel(HomePageController controller) {
     this.controller = controller;
@@ -77,7 +78,7 @@ public class SecondHalfViewPanel extends JPanel implements IViewPanel {
     FooterPanel.setBorder(new LineBorder(new Color(1,1,1),2,true));
     FooterPanel.setPreferredSize(new Dimension(300,50));
     addScrollPanel(FooterPanel, 0,9,11,2,1,0.2);
-    
+
   }
 
   private void addMidRightPanel() {

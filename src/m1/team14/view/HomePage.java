@@ -12,6 +12,7 @@ public class HomePage extends JFrame{
 	private JScrollPane HeaderPanel,FooterPanel, MidLeftPanel, MidRightPanel;
 	private JEditorPane HeadEdp, Sec1Edp, Sec2Edp, FootEdp;
 	private JButton ClickForDetailBtn, ContactMeBtn;
+  private static final long serialVersionUID = 4L; 
 
     private void create() {
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
