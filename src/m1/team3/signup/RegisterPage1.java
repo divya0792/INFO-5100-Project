@@ -212,7 +212,7 @@ public class RegisterPage1 {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 771, 876);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setTitle("Register Page");
         frame.setVisible(true);
 		JPanel panel = new JPanel();
