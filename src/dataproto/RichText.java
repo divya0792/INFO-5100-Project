@@ -5,9 +5,6 @@ public class RichText extends DataObject {
     private String plainText;
     private Integer fontSize;
     private boolean isBold;
-
-
-
     private boolean isItalic;
     private String backgroundColor;
     private String fontColor;
