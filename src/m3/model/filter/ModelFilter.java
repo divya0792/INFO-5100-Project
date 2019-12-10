@@ -3,7 +3,11 @@ package m3.model.filter;
 import m3.mock.Vehicle;
 import m3.model.checker.Checker;
 
-public class ModelFilter extends ValueFilter<String>{
+public class ModelFilter extends ValueFilter<String> {
+	public ModelFilter(Checker<String> checker) {
+		super(checker);
+	}
+
 	public ModelFilter(String value, Checker<String> checker) {
 		super(value, checker);
 	}
@@ -15,17 +19,13 @@ public class ModelFilter extends ValueFilter<String>{
 	}
 
 	@Override
-	protected void setValue(String string) {
+	public void setValueFromString(String string) throws InputException {
 		char[] ch = string.toCharArray();
-		for(int i =0; i<ch.length;i++) {
-		  try{
-			  if(!Character.isLetterOrDigit(ch[i])) {
-				  throw new InputException("A model name can only contain number or letter or both.");
-			  }
-			   
-		  }catch(InputException Ie){
-			  System.out.println(Ie);
-		  }
-	  }
+		for (char c : ch) {
+			if (!Character.isLetterOrDigit(c)) {
+				throw new InputException("A model name can only contain number or letter or both.");
+			}
+		}
+		this.setValue(string);
 	}
 }

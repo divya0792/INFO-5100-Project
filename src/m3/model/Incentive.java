@@ -1,6 +1,5 @@
 package m3.model;
 
-import m3.mock.Dealer;
 import m3.model.filter.Filter;
 import m3.model.offer.Offer;
 
@@ -13,19 +12,21 @@ public class Incentive {
     private String title;
     private String disclaimer;
 
-    private Dealer dealer;
+    private String dealerID;
 
     private Offer offer;
 
     private List<Filter> conditions;
 
-    public Incentive(Date startDate, Date endDate, String title,
-                     String disclaimer, Dealer dealer, Offer offer, List<Filter> conditions) {
+    public Incentive() {
+    }
+
+    public Incentive(Date startDate, Date endDate, String title, String disclaimer, String dealerID, Offer offer, List<Filter> conditions) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.title = title;
         this.disclaimer = disclaimer;
-        this.dealer = dealer;
+        this.dealerID = dealerID;
         this.offer = offer;
         this.conditions = conditions;
     }
@@ -70,12 +71,12 @@ public class Incentive {
         this.disclaimer = disclaimer;
     }
 
-    public Dealer getDealer() {
-        return dealer;
+    public String getDealerID() {
+        return dealerID;
     }
 
-    public void setDealer(Dealer dealer) {
-        this.dealer = dealer;
+    public void setDealerID(String dealerID) {
+        this.dealerID = dealerID;
     }
 
     public Offer getOffer() {

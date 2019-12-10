@@ -3,11 +3,23 @@ package m3.view;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.*;
+import javax.imageio.spi.ServiceRegistry.Filter;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import com.toedter.calendar.*;
 
-import m3.model.*;
+import com.toedter.calendar.JDateChooser;
+
+import m3.model.Incentive;
+import m3.model.filter.BrandFilter;
+import m3.model.filter.ColorFilter;
 import m3.model.offer.CashBackOffer;
 import m3.model.offer.DiscountOffer;
 
@@ -22,6 +34,7 @@ public class SecondUI {
 	JDateChooser startDateChooser,endDateChooser;	
 	Incentive iw = new Incentive();
 	FirstUI fui;
+	FilterEditUI filterUI;
 	
 	SecondUI(FirstUI fui){
 		this.fui = fui;
@@ -109,9 +122,17 @@ public class SecondUI {
     }
     
 	private void addListeners() {
-		create.addActionListener(e -> addToTableBelow() );   // Third UI start function here
+		create.addActionListener(e -> {
+		openFilterEditUI();
+		filterUI.addWindowStateListener(l -> {addToTableBelow(filterUI.toSecondUIFilter());});
         
+		//addToTableBelow(filterUI.toSecondUIFilter())
+		}
+				);
+		
+		  // Third UI start function here
         
+		
     	// edit.addActionListener(e -> );   // Third UI start function here
         
         
@@ -182,6 +203,10 @@ public class SecondUI {
     		//frame.setVisible(false);
     	});		
 	}
+	
+	private void openFilterEditUI() {
+		filterUI = new FilterEditUI(this);
+	}
     
     private void createTable(){
 		dm = (DefaultTableModel) table.getModel();
@@ -203,12 +228,23 @@ public class SecondUI {
 		}
     }
     
-    private void addToTableBelow() {
-		String[] s1 = { "Brand", "Hyundai", "500"};
-		String[] s2 = {"Colour", "Red", "40"};
-		String[] s3 = {"Price", "Nissan", "3000"};
-		dm.addRow(s1);
-		dm.addRow(s2);
-		dm.addRow(s3);
+    public void addToTableBelow(m3.model.filter.Filter filter) {
+		dm.addRow(filterToString(filter));
+
 	}
+    
+    private String[] filterToString(m3.model.filter.Filter filter) {
+    	switch (filter.getClass().getSimpleName()) {
+		case ("BrandFilter"):
+		{	
+			return new String[] {"Brand",((BrandFilter)filter).checkerToString(),((BrandFilter)filter).getValue()};
+			}
+		case("ColorFilter"):{
+			return new String[] {"Color", ((ColorFilter)filter).checkerToString(),((ColorFilter)filter).getValue()};
+		}
+
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + filter.getClass());
+		}
+    }
 }

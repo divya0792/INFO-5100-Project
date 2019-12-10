@@ -5,16 +5,21 @@ import m3.mock.Dealer;
 import m3.mock.Vehicle;
 import m3.model.Incentive;
 import m3.model.IncentivesFinalPrice;
+import m3.model.checker.EqualChecker;
+import m3.model.filter.BrandFilter;
 import m3.model.filter.Filter;
 import m3.model.offer.DiscountOffer;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class IncentiveManager implements IncentiveManagement {
     private double calculatePrice(double price, Incentive incentive) {
         if (incentive.getOffer().getClass() == DiscountOffer.class) {
-            price = price * (1 - incentive.getOffer().getValue());
+            price = price * (1 - incentive.getOffer().getValue() / 100.0);
         } else {
             price = price - incentive.getOffer().getValue();
         }
@@ -108,6 +113,9 @@ public class IncentiveManager implements IncentiveManagement {
     }
 
     private boolean checkVehicleIncentive(Vehicle vehicle, Incentive incentive) {
+        Date now = new Date();
+        if (now.after(incentive.getEndDate()) || now.before(incentive.getStartDate()))
+            return false;
         for (Filter condition : incentive.getConditions()) {
             if (!condition.isApplicable(vehicle))
                 return false;
@@ -144,8 +152,35 @@ public class IncentiveManager implements IncentiveManagement {
     //mock
     public List<Incentive> getIncentivesByDealer(Dealer dealer) {
         // get incentive from database
-        return new ArrayList<>();
+        List<Incentive> r = new ArrayList<>();
+
+        try {
+            BrandFilter brandFilter = new BrandFilter("A", new EqualChecker());
+            List<Filter> filters = new ArrayList<>();
+            filters.add(brandFilter);
+            r.add(new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("31/11/2019"),
+                    new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2019"),
+                    "I1", "Test", "123", new DiscountOffer(10),
+                    filters));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return r;
     }
 
+    public static void main(String[] args) {
+        Dealer dealer = new Dealer("123", "B", "CCC");
+        Vehicle[] cars = new Vehicle[]{
+                new Vehicle("A", 1, dealer, 5000, "Red", "A", 2000),
+                new Vehicle("B", 2, dealer, 6000, "Black", "B", 1990),
+                new Vehicle("C", 3, dealer, 5000, "Yellow", "C", 2010),
+        };
 
+        IncentiveManagement incentiveManagement = new IncentiveManager();
+        List<IncentivesFinalPrice> incentivesFinalPrices = incentiveManagement.getVehicleFinalIncentives(cars);
+        System.out.println("hello");
+    }
 }
+

@@ -10,7 +10,6 @@ import m3.model.filter.Filter;
 import m3.model.filter.PriceFilter;
 import m3.model.offer.CashBackOffer;
 import m3.model.offer.DiscountOffer;
-import m3.model.offer.Offer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,86 +22,88 @@ import static org.junit.Assert.assertEquals;
 
 
 public class IncentiveManagerTest {
-    IncentiveManager incentiveManager = new IncentiveManager();
+    TestIncentiveManager testIncentiveManager;
 
-    Dealer bmwDealer = new Dealer("Bob", "123456");
+    Dealer bmwDealer = new Dealer("001", "Bob", "rtyui");
 
     Vehicle vehicle1 = new Vehicle("BMW", 001, bmwDealer, 50000, "black",
             "X5", 2019);
-    Vehicle vehicle2 = new Vehicle("BMW", 020, bmwDealer, 35000, "red",
+    Vehicle vehicle2 = new Vehicle("BMW", 002, bmwDealer, 35000, "red",
             "X1", 2013);
-    Vehicle[] vehicles = {vehicle1, vehicle2};
+    Vehicle vehicle3 = new Vehicle("BMW", 003, bmwDealer, 30000, "red",
+            "X11", 2023);
+    Vehicle[] vehicles = {vehicle1, vehicle2, vehicle3};
 
-    Filter brandFilter = new BrandFilter("BMW", new EqualChecker<String>());
-    Filter priceFilter = new PriceFilter(30000, new GreaterChecker<Double>());
+    Filter brandFilter = new BrandFilter("BMW", new EqualChecker<>());
+    Filter priceFilter = new PriceFilter(30000.0, new GreaterChecker());
 
     List<Filter> conditions = new ArrayList<>();
-    conditions.add(brandFilter);
-
     List<Filter> conditions2 = new ArrayList<>();
-    conditions2.add(brandFilter);
-    conditions2.add(priceFilter);
 
     Incentive discountIncentive1;
     Incentive discountIncentive2;
     Incentive cashBackIncentive1;
     Incentive cashBackIncentive2;
 
-    {
-        try {
-            discountIncentive1 = new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("20/12/2019"),
-                                               new SimpleDateFormat("dd/MM/yyyy").parse("25/12/2019"),
-                                          "X", "Test", bmwDealer, new DiscountOffer(10),
-                                               conditions);
-
-            discountIncentive2 = new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("20/12/2019"),
-                                               new SimpleDateFormat("dd/MM/yyyy").parse("25/12/2019"),
-                                          "X", "Test", bmwDealer, new DiscountOffer(20),
-                                               conditions);
-
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
+    List<Incentive> incentives = new ArrayList<>();
 
     @Before
     public void setUp() {
 
-    }
-
-    @Test
-    public void testGetVehicleFinalIncentivesWithInputOnlyDiscountOffer() {
-
-        List<Incentive> listOfBestIncentive = new ArrayList<>();
-        listOfBestIncentive.add(discountIncentive2);
-        IncentivesFinalPrice incentiveFinalPrice1 = new IncentivesFinalPrice(listOfBestIncentive, 40000);
-        IncentivesFinalPrice incentiveFinalPrice2 = new IncentivesFinalPrice(listOfBestIncentive, 28000);
-
-        List<IncentivesFinalPrice> result = new ArrayList<>();
-        result.add(incentiveFinalPrice1);
-        result.add(incentiveFinalPrice2);
-
-        assertEquals(incentiveManager.getVehicleFinalIncentives(vehicles), result);
-    }
-
-    @Test
-    public void testGetVehicleFinalIncentivesWithInputBothOffer() {
+        conditions2.add(brandFilter);
+        conditions2.add(priceFilter);
+        conditions.add(brandFilter);
 
         try {
-            cashBackIncentive1 = new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("20/12/2019"),
-                                               new SimpleDateFormat("dd/MM/yyyy").parse("25/12/2019"),
-                                          "X", "Test", bmwDealer, new CashBackOffer(1000),
-                                               conditions2);
+            discountIncentive1 = new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("1/12/2019"),
+                    new SimpleDateFormat("dd/MM/yyyy").parse("25/12/2019"),
+                    "X", "Test", "001", new DiscountOffer(10),
+                    conditions);
 
-            cashBackIncentive2 = new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("20/12/2019"),
-                                               new SimpleDateFormat("dd/MM/yyyy").parse("25/12/2019"),
-                                          "X", "Test", bmwDealer, new CashBackOffer(5000),
-                                                conditions2);
+            discountIncentive2 = new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("1/12/2019"),
+                    new SimpleDateFormat("dd/MM/yyyy").parse("25/12/2019"),
+                    "X", "Test", "001", new DiscountOffer(20),
+                    conditions);
+
+            cashBackIncentive1 = new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("1/12/2019"),
+                    new SimpleDateFormat("dd/MM/yyyy").parse("25/12/2019"),
+                    "X", "Test", "001", new CashBackOffer(1000),
+                    conditions2);
+
+            cashBackIncentive2 = new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("1/12/2019"),
+                    new SimpleDateFormat("dd/MM/yyyy").parse("25/12/2019"),
+                    "X", "Test", "001", new CashBackOffer(5000),
+                    conditions2);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
+        incentives.add(discountIncentive1);
+        incentives.add(discountIncentive2);
+        incentives.add(cashBackIncentive1);
+        incentives.add(cashBackIncentive2);
+
+        testIncentiveManager = new TestIncentiveManager(incentives);
+    }
+
+   // @Test
+//    public void testGetVehicleFinalIncentivesWithInputOnlyDiscountOffer() {
+//
+//        List<Incentive> listOfBestIncentive = new ArrayList<>();
+//        listOfBestIncentive.add(discountIncentive2);
+//        IncentivesFinalPrice incentiveFinalPrice1 = new IncentivesFinalPrice(listOfBestIncentive, 40000);
+//        IncentivesFinalPrice incentiveFinalPrice2 = new IncentivesFinalPrice(listOfBestIncentive, 28000);
+//
+//        List<IncentivesFinalPrice> result = new ArrayList<>();
+//        result.add(incentiveFinalPrice1);
+//        result.add(incentiveFinalPrice2);
+//
+//        assertEquals(incentiveManager.getVehicleFinalIncentives(vehicles), result);
+//    }
+
+    @Test
+    public void testGetVehicleFinalIncentivesWithInputBothOffer() {
         List<Incentive> vehicle1listOfBestIncentive = new ArrayList<>();
         vehicle1listOfBestIncentive.add(discountIncentive2);
         vehicle1listOfBestIncentive.add(cashBackIncentive2);
@@ -110,15 +111,22 @@ public class IncentiveManagerTest {
                                                                     35000);
 
         List<Incentive> vehicle2listOfBestIncentive = new ArrayList<>();
-        vehicle2listOfBestIncentive.add(discountIncentive2);
+        vehicle2listOfBestIncentive.add(discountIncentive1);
+        vehicle2listOfBestIncentive.add(cashBackIncentive2);
         IncentivesFinalPrice incentiveFinalPrice2 = new IncentivesFinalPrice(vehicle2listOfBestIncentive,
-                                               28000);
+                                               26500);
 
-        List<IncentivesFinalPrice> result = new ArrayList<>();
-        result.add(incentiveFinalPrice1);
-        result.add(incentiveFinalPrice2);
+        List<Incentive> vehicle3listOfBestIncentive = new ArrayList<>();
+        vehicle3listOfBestIncentive.add(discountIncentive2);
+        IncentivesFinalPrice incentiveFinalPrice3 = new IncentivesFinalPrice(vehicle3listOfBestIncentive,
+                                            24000);
 
-        assertEquals(incentiveManager.getVehicleFinalIncentives(vehicles), result);
+        List<IncentivesFinalPrice> expectedResult = new ArrayList<>();
+        expectedResult.add(incentiveFinalPrice1);
+        expectedResult.add(incentiveFinalPrice2);
+        expectedResult.add(incentiveFinalPrice3);
+
+        assertEquals(expectedResult, testIncentiveManager.getVehicleFinalIncentives(vehicles));
 
 
 

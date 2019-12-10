@@ -1,11 +1,15 @@
 package m3.model.filter;
 
-import java.util.List;
-
 import m3.mock.Vehicle;
 import m3.model.checker.Checker;
 
-public class YearsFilter extends ListFilter <Integer>{
+import java.util.List;
+
+public class YearsFilter extends ListFilter<Integer> {
+	public YearsFilter(Checker<Integer> checker) {
+		super(checker);
+	}
+
 	public YearsFilter(List<Integer> list, Checker<Integer> checker) {
         super(list, checker);
     }
@@ -16,23 +20,15 @@ public class YearsFilter extends ListFilter <Integer>{
     }
 
 	@Override
-	protected void setValue(String string) {
-		
-		String[] str = string.split(",");
-		for(int i = 0; i < str.length; i++) {
-			char[] ch = str[i].toCharArray();
-			for(int j =0; j<ch.length;j++) {
-				  try{
-					  if(Character.isLetter(ch[j])) {
-						  throw new InputException("Years cannot contain any letter.");
-					  }
-					   
-				  }catch(InputException Ie){
-					  System.out.println(Ie);
-				  }
-			  }
+	public Integer getValueFromString(String string) throws InputException {
+		char[] ch = string.toCharArray();
+		for (int j = 0; j < ch.length; j++) {
+			if (Character.isLetter(ch[j])) {
+				throw new InputException("Years cannot contain any letter.");
+			}
+
 		}
-		
+		return Integer.valueOf(string);
 	}
-	
+
 }
