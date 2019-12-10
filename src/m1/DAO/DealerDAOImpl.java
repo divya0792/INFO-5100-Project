@@ -47,7 +47,7 @@ public class DealerDAOImpl implements DealerDAO{
         return dealers.stream().filter(dealer -> name.equals(dealer.getName())).map(this::copy).findFirst();
     }
 
-    // update or insert new dealer
+    // updatedealer
     // return false if failed
     @Override
     public boolean updateDealer(Dealer dealer) {
@@ -57,14 +57,35 @@ public class DealerDAOImpl implements DealerDAO{
             // update
             Dealer dealerInData = targetOption.get();
             copy(dealerInData, dealer);
+            return true;
+
+        } else {
+            // insert
+            return false;
+
+        }
+    }
+
+    // isert dealer
+    // return false if failed
+    @Override
+    public boolean insertDealer(Dealer dealer) {
+        Optional<Dealer> targetOption = getDealerWithName(dealer.getName());
+
+        if (targetOption.isPresent()) {
+            // update
+            return false;
 
         } else {
             // insert
             dealers.add(copy(dealer));
+            return true;
 
         }
-        return true;
+
     }
+
+
 
 
     private Dealer copy(Dealer ori) {
