@@ -47,7 +47,7 @@ public class VMSLoginFrame extends JFrame{
     {
         // Set title and default close operation
         setTitle("Vehicle Management System");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         // String iconURL = "/images/dealerLogin.jpg";
         java.net.URL iconURL = null;
