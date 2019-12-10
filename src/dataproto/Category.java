@@ -1,6 +1,6 @@
 package dataproto;
 
-enum Color
+enum Category
 {
     NEW, USED;
 }
