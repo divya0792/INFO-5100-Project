@@ -2,10 +2,12 @@ package m4.Team2;
 
 import javax.swing.*;
 
-public class App {
+import dataproto.Dealer;
 
-    public static void main(String[] args) {
-        try {
+public class App {
+	
+	App(Dealer dealer) {
+    	try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -17,7 +19,13 @@ public class App {
         }
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new LeadsPage("DEA0001").setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new LeadsPage(dealer.getId()).setVisible(true));
     }
 
+    public static void main(String[] args) {
+    	Dealer a = new Dealer("DEA0001");
+    	new App(a);
+    }
+   
 }
+
