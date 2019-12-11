@@ -8,9 +8,9 @@ public class GreaterChecker extends Checker<Double> {
         return o1 > o2;
     }
 
-	@Override
-	public String ToString() {
-		// TODO Auto-generated method stub
-		return ">";
-	}
+    @Override
+    public String ToString() {
+        // TODO Auto-generated method stub
+        return ">";
+    }
 }

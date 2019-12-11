@@ -1,8 +1,8 @@
-package m3.model.TableOperation;
-
-import m3.model.Incentive;
+package m3.db;
 
 import java.util.Date;
+
+import m3.model.Incentive;
 
 public class DateToSqlDatetime {
     public static Date JavaStartDateToSqlDate(Incentive I) {

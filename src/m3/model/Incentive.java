@@ -1,10 +1,11 @@
 package m3.model;
 
-import m3.model.filter.Filter;
-import m3.model.offer.Offer;
-
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+
+import m3.model.filter.*;
+import m3.model.offer.Offer;
 
 public class Incentive {
     private String IncentiveID;
@@ -13,7 +14,7 @@ public class Incentive {
     private String title;
     private String disclaimer;
 
-    private String dealerID;
+    private String dealerName;
 
     private Offer offer;
 
@@ -22,24 +23,33 @@ public class Incentive {
     public Incentive() {
     }
 
-    public Incentive(Date startDate, Date endDate, String title, String disclaimer, String dealerID, Offer offer, List<Filter> conditions) {
-        this.IncentiveID = "";
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.title = title;
-        this.disclaimer = disclaimer;
-        this.dealerID = dealerID;
-        this.offer = offer;
-        this.conditions = conditions;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Incentive incentive = (Incentive) o;
+        return
+                Objects.equals(startDate, incentive.startDate) &&
+                Objects.equals(endDate, incentive.endDate) &&
+                Objects.equals(title, incentive.title) &&
+                Objects.equals(disclaimer, incentive.disclaimer) &&
+                Objects.equals(dealerName, incentive.dealerName) &&
+                Objects.equals(offer, incentive.offer) &&
+                Objects.equals(conditions, incentive.conditions);
     }
 
-    public Incentive(String IncentiveID, Date startDate, Date endDate, String title, String disclaimer, String dealerID, Offer offer, List<Filter> conditions) {
-        this.IncentiveID = IncentiveID;
+    @Override
+    public int hashCode() {
+
+        return Objects.hash( startDate, endDate, title, disclaimer, dealerName, offer, conditions);
+    }
+
+    public Incentive(Date startDate, Date endDate, String title, String disclaimer, String dealerName, Offer offer, List<Filter> conditions) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.title = title;
         this.disclaimer = disclaimer;
-        this.dealerID = dealerID;
+        this.dealerName = dealerName;
         this.offer = offer;
         this.conditions = conditions;
     }
@@ -92,12 +102,12 @@ public class Incentive {
         this.disclaimer = disclaimer;
     }
 
-    public String getDealerID() {
-        return dealerID;
+    public String getDealerName() {
+        return dealerName;
     }
 
-    public void setDealerID(String dealerID) {
-        this.dealerID = dealerID;
+    public void setDealerName(String dealerName) {
+        this.dealerName = dealerName;
     }
 
     public Offer getOffer() {
