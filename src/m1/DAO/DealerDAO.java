@@ -7,14 +7,16 @@ import java.util.Optional;
 
 public interface DealerDAO {
     List<Dealer> getAllDealer();
-    // return null if email not exist
+    // use ret.isPresent() to check if the dealer exist;
     Optional<Dealer> getDealerWithEmail(String email);
-
-    // return null if name not exist
     Optional<Dealer> getDealerWithName(String name);
+    Optional<Dealer> getDealerWithPhone(String phone);
 
-    // update or insert new dealer
+    // update dealer
     // return false if failed
     boolean updateDealer(Dealer dealer);
+
+    // insert new Dealer
+    boolean insertDealer(Dealer dealer);
 
 }

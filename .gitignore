@@ -1,6 +1,8 @@
 # Compiled class file
 *.class
-
+/.project
+.project
+/.project/*
 # Log file
 *.log
 /.metadata
@@ -12,8 +14,8 @@
 # idea files
 /.idea/*
 # Package Files #
-/src/*.jar
-/*.jar
+#/src/*.jar
+#/*.jar
 *.war
 *.nar
 *.ear

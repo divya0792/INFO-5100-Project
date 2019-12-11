@@ -8,11 +8,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class HomePage extends JFrame{
-	private JPanel basicPanel; 
-	private JScrollPane HeaderPanel,FooterPanel, MidLeftPanel, MidRightPanel; 
+	private JPanel basicPanel;
+	private JScrollPane HeaderPanel,FooterPanel, MidLeftPanel, MidRightPanel;
 	private JEditorPane HeadEdp, Sec1Edp, Sec2Edp, FootEdp;
 	private JButton ClickForDetailBtn, ContactMeBtn;
-	
+  private static final long serialVersionUID = 4L; 
+
     private void create() {
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	setSize(500,500);
@@ -29,7 +30,7 @@ public class HomePage extends JFrame{
     	addComponent(basicPanel, ContactMeBtn,6, 5, 2, 3, 0.3, 0.3);
     	newFooterPanel();
     }
-    
+
     public HomePage() {
     	create();
     	display();
@@ -51,7 +52,7 @@ public class HomePage extends JFrame{
 		gbc.weighty = weighty;
 		panel1.add(jsp,gbc);
 	}
-	
+
 	public void addComponent(JPanel panel1, Component cop, int col, int row, int width, int height, double weightx , double weighty) {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
@@ -81,12 +82,12 @@ public class HomePage extends JFrame{
 		addScrollPanel(basicPanel, MidRightPanel,4,2,6,1,3,2.5);
 	}
 
-		
+
 	private void addMidLeftPanel() {
 		Sec1Edp = new JEditorPane();
 		MidLeftPanel = new JScrollPane(Sec1Edp,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		Sec1Edp.setEditable(false);
-		//test 
+		//test
 		/*try {
 			Sec1Edp.setPage("http://www.google.com");
 		} catch (IOException e) {
@@ -102,9 +103,9 @@ public class HomePage extends JFrame{
 		HeaderPanel = new JScrollPane(HeadEdp, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		HeadEdp.setEditable(false);
 		HeaderPanel.setBorder(new LineBorder(new Color(1,1,1),2,true));
-		addScrollPanel(basicPanel, HeaderPanel, 0,0,11,2,1,1);	
+		addScrollPanel(basicPanel, HeaderPanel, 0,0,11,2,1,1);
 	}
-	
+
 	 public static void main(String[] args) {
 		new HomePage();
 	 }
@@ -112,6 +113,3 @@ public class HomePage extends JFrame{
 
 
 }
-		
-	
-	

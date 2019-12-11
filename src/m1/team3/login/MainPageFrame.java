@@ -39,7 +39,7 @@ public class MainPageFrame extends JFrame{
     {
         // Set title and default close operation
         setTitle("Vehicle Manage System");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
      // Set a background for JFrame
         JLabel lbl = new JLabel(pageName);

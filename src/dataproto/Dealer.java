@@ -1,16 +1,12 @@
 package dataproto;
 
-import java.util.Collection;
-
 public class Dealer extends DataObject {
   private String name;
   private String password;
   private String address;
   private String phone;
-  private Collection<Vehicle> vehicles;
   private String emailId;
-  private Collection<Incentive> incentives;
-  private Collection<Lead> leads;
+  private String iconURL;
 
   private String headInfoId;
   private String footInfoId;
@@ -49,12 +45,12 @@ public class Dealer extends DataObject {
     this.emailId = emailId;
   }
 
-  public Collection<Incentive> getIncentives() {
-    return incentives;
+  public void setIconURL(String iconURL) {
+    this.iconURL = iconURL;
   }
 
-  public void setIncentives(Collection<Incentive> incentives) {
-    this.incentives = incentives;
+  public String getIconURL() {
+    return iconURL;
   }
 
   public String getHeadInfoId() {
@@ -95,5 +91,22 @@ public class Dealer extends DataObject {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  @Override
+  public String toString() {
+    return "Dealer{" +
+            "id='" + getId() + '\'' +
+            ", name='" + name + '\'' +
+            ", password='" + password + '\'' +
+            ", address='" + address + '\'' +
+            ", phone='" + phone + '\'' +
+            ", emailId='" + emailId + '\'' +
+            ", iconURL='" + iconURL + '\'' +
+            ", headInfoId='" + headInfoId + '\'' +
+            ", footInfoId='" + footInfoId + '\'' +
+            ", leftInfoId='" + leftInfoId + '\'' +
+            ", rightInfoId='" + rightInfoId + '\'' +
+            '}';
   }
 }

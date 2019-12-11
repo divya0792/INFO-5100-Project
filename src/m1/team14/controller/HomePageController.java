@@ -5,20 +5,17 @@ import dataproto.RichText;
 import m1.team2.DealerAllContent;
 import m1.team3.Dealers;
 import m1.team3.login.VMSLoginFrame;
-import m1.DBExecutor;
+import m1.DAO.DealerContentDAOImpl;
 // For demo///////////////////
 import javax.swing.JOptionPane;
 //////////////////////////////
 public class HomePageController extends AbstractController {
-  public Dealer getInitDealer() {
-    return Dealers.getInstance().getAllDealers().get(0);
-  }
   public List<Dealer> getDealers() {
     List<Dealer> ret = Dealers.getInstance().getAllDealers();
     return ret;
   }
   public DealerAllContent getRichTextsByDealer(Dealer dealer) {
-    return DBExecutor.INSTANCE.getContent(dealer);
+    return DealerContentDAOImpl.INSTANCE.getContents(dealer);
   }
   public void changeDealer(Dealer val) {
     try {

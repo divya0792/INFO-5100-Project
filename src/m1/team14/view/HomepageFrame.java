@@ -21,7 +21,6 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
     // private final String curDealerIconPath = "/INFO-5100-Project/src/m1/team14/images/businessman64px.png";
     // private final String scrollIconPath = "/INFO-5100-Project/src/m1/team14/images/businessman32px.png";
     private static final long serialVersionUID = 4L;
-    private Dealer initDealer;
 
     // include the header part, like current dealer img, search, login, history
     private JPanel headPanel;
@@ -65,17 +64,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         curDealerIconPanel = new JPanel();
         curDealerIcon = new ImageIcon(getClass().getResource(curDealerIconPath));
         curDealerImg = new JLabel(curDealerIcon);
-        String label = "Current Dealer";
-        try {
-          if (initDealer != null) {
-            label = initDealer.getName();
-          } else {
-            label = homepageUpCtrl.getInitDealer().getName();
-          }
-        } catch(Exception e) {
-          e.printStackTrace();
-        }
-        curDealerLabel = new JLabel(label);
+        curDealerLabel = new JLabel("");
 
         // button components
         buttonPanel = new JPanel();
@@ -117,8 +106,9 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         for (Dealer dealer : dealers){
             viewPanel.add(createIconPanel(dealer));
         }
-        initDealer = dealers.get(0);
-        this.homepageUpCtrl.changeDealer(dealers.get(0));
+        Dealer initDealer = dealers.get(0);
+        this.curDealerLabel.setText(initDealer.getName());
+        this.secondHalfViewPanel.setNewDealer(initDealer);
     }
 
     private JPanel createIconPanel(Dealer dealer) {
@@ -239,6 +229,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         Dealer newDealer = (Dealer)evt.getNewValue();
         String name = newDealer.getName();
         curDealerLabel.setText(name);
+        secondHalfViewPanel.setNewDealer(newDealer);
       }
     }
 }
