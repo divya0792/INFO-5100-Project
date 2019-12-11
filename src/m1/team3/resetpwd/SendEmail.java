@@ -19,10 +19,10 @@ public class SendEmail {
 
 	Container c = frame.getContentPane();
 
-	JLabel username = new JLabel("Dealer ID:       ");
+
 	JLabel email = new JLabel("Email Address: ");
 
-	JTextField field1 = new JTextField(14);
+
 	JTextField field2 = new JTextField(14);
 
 	JButton send = new JButton("send");
@@ -51,8 +51,7 @@ public class SendEmail {
 	}
 
 	public void add() {
-		jp1.add(username);
-		jp1.add(field1);
+
 
 		jp2.add(email);
 		jp2.add(field2);
@@ -77,7 +76,9 @@ public class SendEmail {
             public void actionPerformed(ActionEvent e)
             {
             	sendEmail();
-                System.exit(0);
+            	frame.setVisible(false); 
+            	new VerifyCode();
+
             }
         });
     }
