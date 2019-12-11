@@ -86,8 +86,6 @@ public class IncentiveManagerTest {
         incentives.add(cashBackIncentive2);
 
         testIncentiveManager = new TestIncentiveManager(incentives);
-
-        Incentive.class.getName();
     }
 
     @Test
