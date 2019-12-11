@@ -1,24 +1,24 @@
 package m3.model.filter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import m3.mock.Vehicle;
 import m3.model.checker.Checker;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public abstract class ListFilter<T> extends Filter<T> {
     private List<T> list;
+
     @JsonCreator
-    public ListFilter(@JsonProperty("checker")Checker<T> checker) {
+    public ListFilter(@JsonProperty("checker") Checker<T> checker) {
         super(checker);
     }
-    
+
     @JsonCreator
-    public ListFilter(@JsonProperty("list")List<T> list, @JsonProperty("checker")Checker<T> checker) {
+    public ListFilter(@JsonProperty("list") List<T> list, @JsonProperty("checker") Checker<T> checker) {
         super(checker);
         this.list = list;
     }
@@ -69,5 +69,15 @@ public abstract class ListFilter<T> extends Filter<T> {
     @Override
     public boolean isApplicable(Vehicle vehicle) {
         return this.isApplicable(this.getVehicleValue(vehicle));
+    }
+
+    public String getStringfromList() {
+        String s = "";
+        for (T str : list) {
+            s = s.concat(str.toString());
+            s = s.concat(",");
+        }
+        return s.substring(0, s.length() - 1);
+
     }
 }

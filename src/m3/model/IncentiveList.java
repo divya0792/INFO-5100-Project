@@ -1,32 +1,59 @@
 package m3.model;
 
-import java.util.*;
+import dataproto.Dealer;
+import m3.db.TableOperations;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class IncentiveList {
-	
-	private static List<Incentive> allIncentives = new ArrayList<Incentive>();
-	
-	public static List<Incentive> getAllIncentives(){
+
+	private Dealer d;
+
+	public IncentiveList() {
+	}
+
+	;
+
+	public IncentiveList(Dealer d) {
+		this.d = d;
+	}
+
+	private List<Incentive> allIncentives = new ArrayList<Incentive>();
+
+	public List<Incentive> getAllIncentives() {
+
+		TableOperations database = new TableOperations();
+
+
+		database.getIncentiveByDealer(d.getName());
+
 		return allIncentives;
 	}
-	
-	public static void addIncentive(Incentive i){
+
+	public void addIncentive(Incentive i) {
 		allIncentives.add(i);
+		TableOperations database = new TableOperations();
+
+
+		database.Create(i);
+
 	}
-	
-	public static void addIncentive(Incentive i, int index){
+
+	public void addIncentive(Incentive i, int index) {
 		allIncentives.add(index, i);
 	}
-	
-	public static Incentive getIncentiveByIndex(int index){
-		if(index > allIncentives.size()){
+
+	public Incentive getIncentiveByIndex(int index) {
+		if (index > allIncentives.size()) {
 			// check
 		}
 		return allIncentives.get(index);
 	}
-	
-	public static void deleteIncentive(int index){
-		if(index > allIncentives.size()){
+
+	public void deleteIncentive(int index) {
+		if (index > allIncentives.size()) {
 			// check
 		}
 		allIncentives.remove(index);

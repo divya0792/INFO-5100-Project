@@ -1,11 +1,12 @@
 package m3.model;
 
+import m3.model.filter.Filter;
+import m3.model.offer.Offer;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
-import m3.model.filter.*;
-import m3.model.offer.Offer;
 
 public class Incentive {
     private String IncentiveID;
@@ -21,6 +22,7 @@ public class Incentive {
     private List<Filter> conditions;
 
     public Incentive() {
+        this.conditions = new ArrayList<>();
     }
 
     @Override
@@ -54,15 +56,19 @@ public class Incentive {
         this.conditions = conditions;
     }
 
+    public void addFilter(Filter filter) {
+        this.conditions.add(filter);
+    }
+
     public List<Filter> getConditions() {
         return conditions;
     }
 
-    public void setIncentiveID(String ID){
+    public void setIncentiveID(String ID) {
         this.IncentiveID = ID;
     }
 
-    public String getIncentiveID(){
+    public String getIncentiveID() {
         return IncentiveID;
     }
 
