@@ -11,6 +11,7 @@ public class ContentEditor {
     private ContentEditor() {}
 
     public void openEditor(Dealer dealer) {
+        System.out.println("input param " + dealer);
         ContentEditorView view = new ContentEditorView(dealer);
         view.display();
     }
