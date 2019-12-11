@@ -87,7 +87,7 @@ public class RegisterPage1 {
 		panel.add(lblEmailAddress);
 	}
 	private void addContact(JPanel panel) {
-		lblContact = new JLabel("Contact:");
+		lblContact = new JLabel("Phone:");
 		lblContact.setBounds(53, 200, 97, 43);
 		panel.add(lblContact);
 	}
@@ -113,7 +113,7 @@ public class RegisterPage1 {
 	}
 	private void addlbIMsg(JPanel panel) {
 		lbIMsg = new JLabel("");
-		lbIMsg.setBounds(53,600, 400, 43);
+		lbIMsg.setBounds(53,600, 600, 43);
 		 lbIMsg.setForeground(Color.RED);
 		panel.add(lbIMsg);
 	}
