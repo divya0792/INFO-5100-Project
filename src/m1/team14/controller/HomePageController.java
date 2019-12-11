@@ -5,13 +5,14 @@ import dataproto.RichText;
 import m1.team2.DealerAllContent;
 import m1.team3.Dealers;
 import m1.team3.login.VMSLoginFrame;
+import m1.DAO.DealerDAOImpl;
 import m1.DAO.DealerContentDAOImpl;
 // For demo///////////////////
 import javax.swing.JOptionPane;
 //////////////////////////////
 public class HomePageController extends AbstractController {
   public List<Dealer> getDealers() {
-    List<Dealer> ret = Dealers.getInstance().getAllDealers();
+    List<Dealer> ret = DealerDAOImpl.INSTANCE.getAllDealer();
     return ret;
   }
   public DealerAllContent getRichTextsByDealer(Dealer dealer) {
