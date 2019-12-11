@@ -1,14 +1,21 @@
 package m3.model.filter;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import m3.mock.Vehicle;
 import m3.model.checker.Checker;
 
+@JsonTypeName("PriceFilter")
 public class PriceFilter extends ValueFilter<Double> {
-	public PriceFilter(Checker<Double> checker) {
+	@JsonCreator
+	public PriceFilter(@JsonProperty("checker")Checker<Double> checker) {
 		super(checker);
 	}
-
-	public PriceFilter(Double value, Checker<Double> checker) {
+	
+	@JsonCreator
+	public PriceFilter(@JsonProperty("value")Double value, @JsonProperty("checker")Checker<Double> checker) {
 		super(value, checker);
 	}
 

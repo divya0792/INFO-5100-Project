@@ -1,14 +1,18 @@
 package m3.model.filter;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import m3.mock.Vehicle;
 import m3.model.checker.Checker;
 
 public class ModelFilter extends ValueFilter<String> {
-	public ModelFilter(Checker<String> checker) {
+	@JsonCreator
+	public ModelFilter(@JsonProperty("checker")Checker<String> checker) {
 		super(checker);
 	}
-
-	public ModelFilter(String value, Checker<String> checker) {
+	@JsonCreator
+	public ModelFilter(@JsonProperty("value")String value, @JsonProperty("checker")Checker<String> checker) {
 		super(value, checker);
 	}
 

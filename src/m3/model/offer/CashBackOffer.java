@@ -1,9 +1,13 @@
 package m3.model.offer;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 public class CashBackOffer extends Offer {
 
-
-    public CashBackOffer(double value) {
+    @JsonCreator
+    public CashBackOffer(@JsonProperty("value") double value) {
         super(value);
     }
 }

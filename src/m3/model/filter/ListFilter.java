@@ -1,21 +1,41 @@
 package m3.model.filter;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import m3.mock.Vehicle;
 import m3.model.checker.Checker;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class ListFilter<T> extends Filter<T> {
     private List<T> list;
-
-    public ListFilter(Checker<T> checker) {
+    @JsonCreator
+    public ListFilter(@JsonProperty("checker")Checker<T> checker) {
         super(checker);
     }
-
-    public ListFilter(List<T> list, Checker<T> checker) {
+    
+    @JsonCreator
+    public ListFilter(@JsonProperty("list")List<T> list, @JsonProperty("checker")Checker<T> checker) {
         super(checker);
         this.list = list;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ListFilter<?> that = (ListFilter<?>) o;
+        return Objects.equals(list, that.list);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), list);
     }
 
     public List<T> getList() {
