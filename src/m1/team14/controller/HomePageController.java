@@ -3,7 +3,6 @@ import java.util.List;
 import dataproto.Dealer;
 import dataproto.RichText;
 import m1.team2.DealerAllContent;
-import m1.team3.Dealers;
 import m1.team3.login.VMSLoginFrame;
 import m1.DAO.DealerDAOImpl;
 import m1.DAO.DealerContentDAOImpl;

@@ -1,7 +1,6 @@
 package m1.DAO;
 
 import dataproto.Dealer;
-import m1.team3.Dealers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
