@@ -40,6 +40,7 @@ public class IncentiveListUI {
 		addListeners();
 		frame.setVisible(true);
 		incentives = new IncentiveList(d);
+		refreshTableContents();
 
 	}
 
@@ -102,11 +103,13 @@ public class IncentiveListUI {
 	}
 
 	private void deleteSelectedRow(){
+
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 		try {
 			int rowIndex = table.getSelectedRow();
 			tableModel.removeRow(rowIndex);
 			incentives.deleteIncentive(rowIndex);
+			incentives.deleteFromDatabase(rowIndex);
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(null, "Please select a Row or No rows to delete");
 		}

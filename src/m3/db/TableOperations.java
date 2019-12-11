@@ -120,7 +120,7 @@ public class TableOperations {
 
     * */
 
-    public void EditItem(Incentive I) throws SQLException, JsonProcessingException {
+    public void EditItem(Incentive I) {
         // convert format
         String filterList = null;
         String offer = null;
@@ -136,13 +136,19 @@ public class TableOperations {
         Date endDate = DateToSqlDatetime.JavaEndDateToSqlDate(I);
 
         String sql = new StringBuilder().append("UPDATE ").append(I.getDealerName()).
-                append("SET startDate='" + startDate + "', endDate='" + endDate
+                append(" SET startDate='" + startDate + "', endDate='" + endDate
                         + "', Title='" + I.getTitle() + "', Disclaimer='" + I.getDisclaimer()
-                        + "', FilterList='" + filterList + "', FilterList='" + offer + "'").
-                append("WHERE IncentiveID='" + I.getIncentiveID() + "'").toString();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(sql);
-        connection.close();
+                        + "', FilterList='" + filterList + "', Offer='" + offer + "'").
+                append("WHERE IncentiveID=" + I.getIncentiveID()).toString();
+        System.out.println(sql);
+
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     //delete a item
@@ -151,12 +157,16 @@ public class TableOperations {
         DELETE FROM [DealerID] WHERE IncentiveID = [I.IncentiveID];
 
     * */
-    public void DeleteItem(Incentive I) throws SQLException {
+    public void DeleteItem(Incentive I) {
         CreateConnection();
         String sql = new StringBuilder().append("DELETE FROM  ").append(I.getDealerName()).append(" WHERE IncentiveID = '" + I.getIncentiveID() + "';").toString();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(sql);
-        connection.close();
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     // Get list of incentives by DealerName

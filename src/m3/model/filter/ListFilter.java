@@ -1,6 +1,7 @@
 package m3.model.filter;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import m3.mock.Vehicle;
 import m3.model.checker.Checker;
@@ -23,6 +24,7 @@ public abstract class ListFilter<T> extends Filter<T> {
         this.list = list;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,10 +40,14 @@ public abstract class ListFilter<T> extends Filter<T> {
         return Objects.hash(super.hashCode(), list);
     }
 
+
+    @JsonProperty("list")
     public List<T> getList() {
         return list;
     }
 
+
+    @JsonProperty("list")
     public void setList(List<T> list) {
         this.list = list;
     }
@@ -71,6 +77,8 @@ public abstract class ListFilter<T> extends Filter<T> {
         return this.isApplicable(this.getVehicleValue(vehicle));
     }
 
+
+    @JsonIgnore
     public String getStringfromList() {
         String s = "";
         for (T str : list) {

@@ -9,53 +9,55 @@ import java.util.List;
 
 public class IncentiveList {
 
-	private Dealer d;
+    private Dealer d;
 
-	public IncentiveList() {
-	}
+    public IncentiveList() {
+    }
 
-	;
+    public IncentiveList(Dealer d) {
+        this.d = d;
+    }
 
-	public IncentiveList(Dealer d) {
-		this.d = d;
-	}
+    private List<Incentive> allIncentives = new ArrayList<Incentive>();
 
-	private List<Incentive> allIncentives = new ArrayList<Incentive>();
+    public List<Incentive> getAllIncentives() {
 
-	public List<Incentive> getAllIncentives() {
-
-		TableOperations database = new TableOperations();
+        TableOperations database = new TableOperations();
 
 
-		database.getIncentiveByDealer(d.getName());
+        allIncentives = database.getIncentiveByDealer(d.getName());
 
-		return allIncentives;
-	}
+        return allIncentives;
+    }
 
-	public void addIncentive(Incentive i) {
-		allIncentives.add(i);
-		TableOperations database = new TableOperations();
+    public void addIncentive(Incentive i) {
+        allIncentives.add(i);
+        TableOperations database = new TableOperations();
 
 
-		database.Create(i);
+        database.Create(i);
 
-	}
+    }
 
-	public void addIncentive(Incentive i, int index) {
-		allIncentives.add(index, i);
-	}
+    public void addIncentive(Incentive i, int index) {
+        allIncentives.add(index, i);
+        TableOperations database = new TableOperations();
 
-	public Incentive getIncentiveByIndex(int index) {
-		if (index > allIncentives.size()) {
-			// check
-		}
-		return allIncentives.get(index);
-	}
+        database.EditItem(i);
 
-	public void deleteIncentive(int index) {
-		if (index > allIncentives.size()) {
-			// check
-		}
-		allIncentives.remove(index);
-	}
+
+    }
+
+    public Incentive getIncentiveByIndex(int index) {
+        return allIncentives.get(index);
+    }
+
+    public void deleteIncentive(int index) {
+        allIncentives.remove(index);
+    }
+
+    public void deleteFromDatabase(int index) {
+        TableOperations database = new TableOperations();
+        database.DeleteItem(getIncentiveByIndex(index));
+    }
 }
