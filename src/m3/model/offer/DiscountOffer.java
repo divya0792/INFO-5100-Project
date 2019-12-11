@@ -1,8 +1,11 @@
 package m3.model.offer;
 
-public class DiscountOffer extends Offer {
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public DiscountOffer(double value) {
+public class DiscountOffer extends Offer {
+    @JsonCreator
+    public DiscountOffer(@JsonProperty("value") double value) {
         super(value);
     }
 }

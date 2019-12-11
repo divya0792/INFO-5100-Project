@@ -1,10 +1,15 @@
 package m3.model.filter;
 
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import m3.mock.Vehicle;
 import m3.model.checker.Checker;
 
 public class ColorFilter extends ValueFilter<String> {
-	public ColorFilter(String value, Checker<String> checker) {
+	@JsonCreator
+	public ColorFilter(@JsonProperty("value")String value, @JsonProperty("checker")Checker<String> checker) {
 		super(value, checker);
 	}
 
