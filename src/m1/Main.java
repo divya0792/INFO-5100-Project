@@ -33,5 +33,6 @@ public class Main {
         footer.setHtmlString("footer");
         DealerAllContent content = new DealerAllContent(header, footer, left, right);
         DealerContentDAOImpl.INSTANCE.updateContents(d1, content);
+        new MainPage();
     }
 }
