@@ -65,6 +65,9 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         curDealerIcon = new ImageIcon(getClass().getResource(curDealerIconPath));
         curDealerImg = new JLabel(curDealerIcon);
         curDealerLabel = new JLabel("");
+        curDealerLabel.setMinimumSize(new Dimension(100,50));
+        curDealerLabel.setPreferredSize(new Dimension(100, 50));
+        curDealerLabel.setMaximumSize(new Dimension(100, 50));
 
         // button components
         buttonPanel = new JPanel();
@@ -228,7 +231,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
       if (evt.getPropertyName().equals(Events.DEALER_ID_CHANGE)) {
         Dealer newDealer = (Dealer)evt.getNewValue();
         String name = newDealer.getName();
-        curDealerLabel.setText(name);
+        curDealerLabel.setText(name == null ? "" : name);
         secondHalfViewPanel.setNewDealer(newDealer);
       }
     }
