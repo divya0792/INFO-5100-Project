@@ -92,4 +92,21 @@ public class Dealer extends DataObject {
   public void setPassword(String password) {
     this.password = password;
   }
+
+  @Override
+  public String toString() {
+    return "Dealer{" +
+            "id='" + getId() + '\'' +
+            ", name='" + name + '\'' +
+            ", password='" + password + '\'' +
+            ", address='" + address + '\'' +
+            ", phone='" + phone + '\'' +
+            ", emailId='" + emailId + '\'' +
+            ", iconURL='" + iconURL + '\'' +
+            ", headInfoId='" + headInfoId + '\'' +
+            ", footInfoId='" + footInfoId + '\'' +
+            ", leftInfoId='" + leftInfoId + '\'' +
+            ", rightInfoId='" + rightInfoId + '\'' +
+            '}';
+  }
 }

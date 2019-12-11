@@ -6,7 +6,11 @@ public class DBConnector {
 
     private Connection conn;
     private Statement stmt;
-    private static final DBConnector INSTANCE = new DBConnector();
+    public static final DBConnector INSTANCE = new DBConnector();
+
+    public Statement getStmt() {
+        return this.stmt;
+    }
 
     private DBConnector () {
         try {
@@ -33,6 +37,31 @@ public class DBConnector {
             e.printStackTrace();
         }
 
+    }
+
+    private PreparedStatement prepareStatement(String sql, String[] params) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        for (int i = 0; i < params.length; i++) {
+            stmt.setString(i + 1, params[i]);
+        }
+        return stmt;
+    }
+
+    public ResultSet query(String sql, String[] params) throws SQLException {
+        return prepareStatement(sql, params).executeQuery();
+    }
+
+    public int update(String sql, String[] params) throws SQLException {
+        return prepareStatement(sql, params).executeUpdate();
+    }
+
+    public String updateReturnKey(String sql, String[] params) throws SQLException {
+        PreparedStatement statement = prepareStatement(sql, params);
+        int affRows = statement.executeUpdate();
+        System.out.println("affRows " + affRows);
+        ResultSet resultSet = statement.getGeneratedKeys();
+        System.out.println(resultSet.next());
+        return resultSet.getString(1);
     }
 
 
