@@ -9,22 +9,22 @@ import m1.DAO.DealerDAOImpl;
 public class LoginServiceImpl implements LoginService {
 
 	private DealerDAO dealerDAO = DealerDAOImpl.INSTANCE;
-	
-	
 
-	public boolean validateLogin(String loginID, String pwd) {
+
+
+	public Dealer validateLogin(String loginID, String pwd) {
 
 		Dealer dealer = getDealer(loginID);
 		if (null != dealer && pwd.equals(dealer.getPassword())) {
-				return true;
+				return dealer;
 			}
-		return false;
+		return null;
 	}
 
 
 	public Dealer getDealer(String loginID) {
 		Dealer foundUser = null;
-		
+
 		Optional<Dealer> optional = dealerDAO.getDealerWithEmail(loginID);
 		if(optional.isPresent()) {
 			foundUser  = optional.get();
