@@ -2,7 +2,7 @@ package m1.team2;
 
 import dataproto.Dealer;
 import dataproto.RichText;
-import m1.DBExecutor;
+import m1.DAO.DealerContentDAOImpl;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -39,7 +39,7 @@ class ContentEditorView extends JFrame {
     }
 
     public void initData() {
-        DealerAllContent richTexts = DBExecutor.INSTANCE.getContent(this.dealer);
+        DealerAllContent richTexts = DealerContentDAOImpl.INSTANCE.getContents(this.dealer);
         System.out.println("get returns " + richTexts);
         rTextTop = richTexts != null && richTexts.getHeader() != null ? richTexts.getHeader() : new RichText();
         rTextLeft = richTexts != null && richTexts.getLeft() != null ? richTexts.getLeft() : new RichText();
@@ -108,7 +108,7 @@ class ContentEditorView extends JFrame {
 
         editingRichText.setHtmlString(HTMLGenerator.generateHTML(editingRichText));
 
-        DBExecutor.INSTANCE.submitContentChange(dealer, rTextTop, rTextBot, rTextLeft, rTextRight);
+        DealerContentDAOImpl.INSTANCE.updateContents(dealer, new DealerAllContent(rTextTop, rTextBot, rTextLeft, rTextRight));
     }
 
     private void resetEventHandler() {

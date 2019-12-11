@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
+@Deprecated
 public class DBExecutor {
     // use singleton
     // the only way to call api is like DBExecutor.INSTANCE.getContent();
@@ -26,7 +27,6 @@ public class DBExecutor {
         table = new HashMap<>();
         String[] ids = {"u1", "u2", "u3", "u4", "u5", "u6", "u7", "u8"};
         Stream.of(ids).forEach(id -> table.put(id, mockData(id)));
-
         DEFAULT = new DealerAllContent(new RichText(), new RichText(), new RichText(), new RichText());
     }
 
