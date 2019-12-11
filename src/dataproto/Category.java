@@ -1,6 +1,5 @@
 package dataproto;
 
-enum Category
-{
+enum Category {
     NEW, USED;
 }

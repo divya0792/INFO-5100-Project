@@ -13,6 +13,11 @@ public class Dealer extends DataObject {
   private String leftInfoId;
   private String rightInfoId;
 
+  public Dealer(String name, String password) {
+    this.name = name;
+    this.password = password;
+  }
+
   public String getName() {
     return name;
   }

@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import m1.team3.login.LoginService;
 import m1.team3.login.LoginServiceImpl;
 import m1.team3.login.MainPageFrame;
+import m3.view.MenuPage;
 
 public class LoginBtnListener implements ActionListener{
 	private LoginService loginService = new LoginServiceImpl();
@@ -27,7 +28,7 @@ public class LoginBtnListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
     Dealer dealer = loginService.validateLogin(txtUserId.getText(), String.valueOf(txtPWD.getPassword()));
 		if(dealer != null) {
-        ContentEditor.INSTANCE.openEditor(dealer);
+			new MenuPage(dealer);
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Login Failed ");
