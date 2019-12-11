@@ -153,10 +153,10 @@ class ContentEditorView extends JFrame {
 	private void newFootenPanel() {
 		panel_Footen = new JPanel();
 		panelCenter.add(panel_Footen, BorderLayout.SOUTH);
-		panel_Footen.setLayout(new BorderLayout(0, 0));
+		panel_Footen.setLayout(new GridLayout(0, 1, 0, 0));
 		txtpnFootenData = new JLabel();
 		txtpnFootenData.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel_Footen.add(txtpnFootenData, BorderLayout.NORTH);
+		panel_Footen.add(txtpnFootenData);
 		txtpnFootenData.setText(rTextBot.getPlainText());
 	}
 	private void newCenterPanel() {
