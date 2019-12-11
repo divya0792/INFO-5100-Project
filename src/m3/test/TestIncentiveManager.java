@@ -1,3 +1,5 @@
+package m3.test;
+
 import m3.manager.IncentiveManager;
 import m3.mock.Dealer;
 import m3.model.Incentive;

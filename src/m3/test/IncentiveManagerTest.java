@@ -1,4 +1,5 @@
-import m3.manager.IncentiveManager;
+package m3.test;
+
 import m3.mock.Dealer;
 import m3.mock.Vehicle;
 import m3.model.Incentive;
@@ -85,22 +86,9 @@ public class IncentiveManagerTest {
         incentives.add(cashBackIncentive2);
 
         testIncentiveManager = new TestIncentiveManager(incentives);
-    }
 
-   // @Test
-//    public void testGetVehicleFinalIncentivesWithInputOnlyDiscountOffer() {
-//
-//        List<Incentive> listOfBestIncentive = new ArrayList<>();
-//        listOfBestIncentive.add(discountIncentive2);
-//        IncentivesFinalPrice incentiveFinalPrice1 = new IncentivesFinalPrice(listOfBestIncentive, 40000);
-//        IncentivesFinalPrice incentiveFinalPrice2 = new IncentivesFinalPrice(listOfBestIncentive, 28000);
-//
-//        List<IncentivesFinalPrice> result = new ArrayList<>();
-//        result.add(incentiveFinalPrice1);
-//        result.add(incentiveFinalPrice2);
-//
-//        assertEquals(incentiveManager.getVehicleFinalIncentives(vehicles), result);
-//    }
+        Incentive.class.getName();
+    }
 
     @Test
     public void testGetVehicleFinalIncentivesWithInputBothOffer() {
@@ -127,10 +115,5 @@ public class IncentiveManagerTest {
         expectedResult.add(incentiveFinalPrice3);
 
         assertEquals(expectedResult, testIncentiveManager.getVehicleFinalIncentives(vehicles));
-
-
-
     }
-
-
 }

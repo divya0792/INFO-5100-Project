@@ -22,6 +22,17 @@ public class Incentive {
     public Incentive() {
     }
 
+    public Incentive(Date startDate, Date endDate, String title, String disclaimer, String dealerID, Offer offer, List<Filter> conditions) {
+        this.IncentiveID = "";
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.title = title;
+        this.disclaimer = disclaimer;
+        this.dealerID = dealerID;
+        this.offer = offer;
+        this.conditions = conditions;
+    }
+
     public Incentive(String IncentiveID, Date startDate, Date endDate, String title, String disclaimer, String dealerID, Offer offer, List<Filter> conditions) {
         this.IncentiveID = IncentiveID;
         this.startDate = startDate;
