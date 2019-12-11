@@ -77,25 +77,4 @@ public class RichText extends DataObject {
                 ", fontColor='" + fontColor + '\'' +
                 '}';
     }
-    public String toHTMLString() {
-    	String fontstyle = "";
-    	if (isBold) {
-    		fontstyle += "bold";
-    	}
-    	if (isItalic) {
-    		fontstyle += " italic";
-    	}
-    	return "<html><div font-size='" +
-    			fontSize +
-    			"' font-style='" +
-    			fontstyle + 
-    			"' background-color='" +
-    			backgroundColor +
-    			"' color='" +
-    			fontColor +
-    			"'>" + 
-    			htmlString + 
-    			"</div></html>";
-    }
 }
-
