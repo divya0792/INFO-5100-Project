@@ -1,6 +1,6 @@
-package dataproto;
-
-enum VehicleCategory
-{
-  //todo
-}
+//package dataproto;
+//
+//enum VehicleCategory
+//{
+//  //todo
+//}
