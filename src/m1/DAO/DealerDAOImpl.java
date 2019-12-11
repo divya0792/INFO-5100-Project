@@ -219,7 +219,7 @@ public class DealerDAOImpl implements DealerDAO{
                     dealer.getPhone(),
                     dealer.getPassword(),
                     dealer.getAddress(),
-                    dealer.getAddress()
+                    dealer.getIconURL()
             });
             return true;
         } catch (SQLException e) {
