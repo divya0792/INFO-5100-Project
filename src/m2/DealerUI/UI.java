@@ -2,6 +2,9 @@ package m2.dealerUI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.Date;
@@ -46,7 +49,7 @@ public class UI extends javax.swing.JFrame {
     ArrayList<Vehicle> listOfAllDealers = new ArrayList<Vehicle>();
     ArrayList<Vehicle> listOfDealersCar = new ArrayList<Vehicle>();
     private Object[][] data;
-    private String[] columnNames = {"VehicleId","Brand","Model","Date of manufacturing","Type","Category","Color","Price","Mileage"};
+    private String[] columnNames = {"Car ID","Brand","Model","Date of manufacturing","Type","Category","Color","Price","Mileage"};
     private DefaultTableModel tableModel;
     private javax.swing.JTable jTable1;
     /**
@@ -132,7 +135,8 @@ public class UI extends javax.swing.JFrame {
         jLabel1.setText("DEA0001");
 
 //update hints on date format
-        dateofmanufacturingText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+        dateofmanufacturingText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(format)));
         dateofmanufacturingText.setText("yyyy-mm-dd");
         java.awt.Color grayColor = new java.awt.Color(128, 128, 128);
         java.awt.Color blackColor = new java.awt.Color(0, 0, 0);
@@ -228,9 +232,10 @@ public class UI extends javax.swing.JFrame {
 				}
             }
         });
-
+        
         jScrollPane1 = new javax.swing.JScrollPane(jTable1);
         jScrollPane1.setViewportView(jTable1);
+        resizeColumns();
 
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -350,7 +355,19 @@ public class UI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    //    resize columns
+    float[] columnWidthPercentage = {0.15f, 0.1f, 0.1f, 0.15f, 0.1f,0.08f, 0.1f, 0.12f, 0.1f};
+    private void resizeColumns() {
+        TableColumn column;
+        TableColumnModel jTableColumnModel = jTable1.getColumnModel();
+        int tW = jTableColumnModel.getTotalColumnWidth();
+        int cantCols = jTableColumnModel.getColumnCount();
+        for (int i = 0; i < cantCols; i++) {
+            column = jTableColumnModel.getColumn(i);
+            int pWidth = Math.round(columnWidthPercentage[i] * tW);
+            column.setPreferredWidth(pWidth);
+        }
+    }
     // to link brand and models
     private void setComboBoxModel() {
         BMWComboBoxModel = new DefaultComboBoxModel();
@@ -389,19 +406,32 @@ public class UI extends javax.swing.JFrame {
         Vehicle a = read();
         CarInventoryImplementation carInventory = new  CarInventoryImplementation();
         String message = carInventory.addvehicle(a,tableModel);
+        carIDText.setText(" ");
+        dateofmanufacturingText.setText("yyyy-mm-dd");
+        priceText.setText(" ");
+        mileageText.setText(" ");
         JOptionPane.showMessageDialog(this, message);
+        
     }
 
     private void deleteButtonMousePressed(java.awt.event.MouseEvent evt) throws SQLException {
         Vehicle a = read();
         CarInventoryImplementation carInventory = new  CarInventoryImplementation();
         String message=  carInventory.deleteVehicle(a,tableModel,jTable1);
+        carIDText.setText(" ");
+        dateofmanufacturingText.setText("yyyy-mm-dd");
+        priceText.setText(" ");
+        mileageText.setText(" ");
         JOptionPane.showMessageDialog(this, message);
     }
     private void updateButtonMousePressed(java.awt.event.MouseEvent evt) throws SQLException, ParseException {
         Vehicle v = read();
         CarInventoryImplementation carInventory = new  CarInventoryImplementation();
         String message = carInventory.modifyVehicle(v,tableModel,jTable1);
+        carIDText.setText(" ");
+        dateofmanufacturingText.setText("yyyy-mm-dd");
+        priceText.setText(" ");
+        mileageText.setText(" ");
         JOptionPane.showMessageDialog(this, message);
 
     }
@@ -419,6 +449,7 @@ public class UI extends javax.swing.JFrame {
         mileageText.setText(tableModel.getValueAt(selectedRowIndex, 8).toString());
     	
     }
+
 
     private Vehicle read()
     {
