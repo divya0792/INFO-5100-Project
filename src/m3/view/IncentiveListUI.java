@@ -33,7 +33,7 @@ public class IncentiveListUI {
 		frame = new JFrame();
 		frame.setTitle("Incentive List");
 		frame.setSize(450, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		JPanel panel = new JPanel();
 		frame.add(panel);
 		placeComponent(panel);
@@ -52,7 +52,7 @@ public class IncentiveListUI {
 		});
     	  // need to store to an incentive object
     	edit.addActionListener(e -> editSelectedRow());
-    	delete.addActionListener(e -> deleteSelectedRow());			
+    	delete.addActionListener(e -> deleteSelectedRow());
 	}
 
 	private void placeComponent(JPanel panel) {
@@ -66,13 +66,13 @@ public class IncentiveListUI {
         delete = new JButton("Delete");
         delete.setBounds(310, 25, 80, 25);
         panel.add(delete);
-        
+
         JScrollPane pane = new JScrollPane(table);
         pane.setBounds(50, 65, 350, 400);
         panel.add(pane);
     }
-    
-    
+
+
     public void refreshTableContents() {
     	DefaultTableModel tableModel = new DefaultTableModel();
     	tableModel.addColumn("Title");
@@ -83,11 +83,11 @@ public class IncentiveListUI {
 		for (Incentive i : incentives.getAllIncentives()) {
 			tableModel.addRow(new String[]{i.getTitle(), i.getStartDate().toString(), i.getEndDate().toString(), i.getDisclaimer()});
 		}
-    	
+
     	table.setModel(tableModel);
 	}
 
-    	
+
     private void editSelectedRow() {
 		try {
 			int rowIndex = table.getSelectedRow();

@@ -2,10 +2,12 @@ package m3.view;
 
 import dataproto.Dealer;
 
+import m1.team2.ContentEditor;
 import javax.swing.*;
 import java.awt.*;
 
 public class MenuPage extends BasicUI {
+  private static final long serialVersionUID = 4L;
 
 	private JButton IncentivePage, DealerDetailPage, VehiclePage, LeadsPage;
 	private Dealer d;
@@ -48,7 +50,7 @@ public class MenuPage extends BasicUI {
 		});
 
 		DealerDetailPage.addActionListener(e -> {
-			//DealerDetailpage d = new DealerDetailPage(d);
+			ContentEditor.INSTANCE.openEditor(d);
 		});
 
 		VehiclePage.addActionListener(e -> {
