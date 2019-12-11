@@ -117,24 +117,12 @@ public class ResetPassword {
     } else if (!ps.equals(cps)) {
       JOptionPane.showMessageDialog(null, "Your password do not MATCH! ");
       ret = false;
-    } else if (!verifyPasswordLength(ps)) {
-      JOptionPane.showMessageDialog(null, "Password length at least 8 digits");
-      ret = false;
     } else if (!checkCharTypes(ps)) {
       JOptionPane.showMessageDialog(null, "Your password has to include at least 1 uppercase, 1 lowercase and 1 digit");
       ret = false;
     }
     return ret;
 
-  }
-
-  private boolean verifyPasswordLength(String password) {
-    // at least 8 digits
-
-    if (password == null || password.length() < 8) {
-      return false;
-    }
-    return true;
   }
 
   private boolean checkCharTypes(String password) {
