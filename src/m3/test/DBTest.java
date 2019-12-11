@@ -1,5 +1,6 @@
 package m3.test;
 
+import m3.db.TableOperations;
 import m3.model.Incentive;
 import m3.model.checker.EqualChecker;
 import m3.model.checker.GreaterChecker;

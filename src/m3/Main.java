@@ -1,11 +1,12 @@
 package m3;
 
-import m3.view.FirstUI;
-import m3.view.SecondUI;
+import dataproto.Dealer;
+import m3.view.MenuPage;
 
 public class Main {
-  public static void main(String args[]){
-	  FirstUI fui = new FirstUI();
-	  fui.start();
+  public static void main(String args[]) {
+      Dealer dealer = new Dealer();
+      dealer.setName("Jess");
+      MenuPage page = new MenuPage(dealer);
   }
 }

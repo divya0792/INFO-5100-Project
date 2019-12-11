@@ -1,8 +1,7 @@
 package m3.view;
 
-import java.awt.Container;
-
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
 
 public abstract class BasicUI extends JFrame{
 	
