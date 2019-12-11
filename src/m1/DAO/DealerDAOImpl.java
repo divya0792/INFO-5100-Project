@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 public class DealerDAOImpl implements DealerDAO{
 
     public static final String DEALER_INSERT_PATTERN = "INSERT INTO Dealer " +
-            "(EmailID, Name, Phone, Password) " +
+            "(EmailID, Name, Phone, Password, Address, icon_url) " +
             "VALUES " +
-            "(?, ?, ?, ?)";
+            "(?, ?, ?, ?, ?, ?)";
 
     public static final String GET_DEALER_BY_NAME = "SELECT * from Dealer WHERE Name = ?";
     public static final String GET_DEALER_BY_EMAIL = "SELECT * from Dealer WHERE EmailID = ?";
@@ -31,6 +31,8 @@ public class DealerDAOImpl implements DealerDAO{
             "Name = ?, " +
             "Phone = ?, " +
             "Password = ?, " +
+            "Address = ?, " +
+            "icon_url = ?, " +
             "head_info_id = ?, " +
             "foot_info_id = ?, " +
             "left_info_id = ?, " +
@@ -173,6 +175,8 @@ public class DealerDAOImpl implements DealerDAO{
                     dealer.getName(),
                     dealer.getPhone(),
                     dealer.getPassword(),
+                    dealer.getAddress(),
+                    dealer.getIconURL(),
                     dealer.getHeadInfoId(),
                     dealer.getFootInfoId(),
                     dealer.getLeftInfoId(),
@@ -213,7 +217,9 @@ public class DealerDAOImpl implements DealerDAO{
                     dealer.getEmailId(),
                     dealer.getName(),
                     dealer.getPhone(),
-                    dealer.getPassword()
+                    dealer.getPassword(),
+                    dealer.getAddress(),
+                    dealer.getAddress()
             });
             return true;
         } catch (SQLException e) {
@@ -310,6 +316,7 @@ public class DealerDAOImpl implements DealerDAO{
 //        d.setName("test");
         d.setPhone("111");
         d.setEmailId("test");
+        d.setAddress("testAddress");
 
         System.out.println(DealerDAOImpl.INSTANCE.updateDealer(d));
 //        System.out.println(DealerDAOImpl.INSTANCE.);
