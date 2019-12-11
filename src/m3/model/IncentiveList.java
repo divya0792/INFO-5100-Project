@@ -25,7 +25,7 @@ public class IncentiveList {
         TableOperations database = new TableOperations();
 
 
-        allIncentives = database.getIncentiveByDealer(d.getName());
+        allIncentives = database.getIncentiveByDealer(d.getId());
 
         return allIncentives;
     }

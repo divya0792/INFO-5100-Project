@@ -1,21 +1,20 @@
 package m3.model.filter;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import m3.mock.Vehicle;
+import dataproto.Vehicle;
 import m3.model.checker.Checker;
 
-public class BrandsFilter extends ListFilter<String> {
-	@JsonCreator
-	public BrandsFilter(@JsonProperty("checker")Checker<String> checker) {
-		super(checker);
-	}
+import java.util.List;
 
-	@JsonCreator
-	public BrandsFilter(@JsonProperty("list")List<String> list, @JsonProperty("checker")Checker<String> checker) {
+public class BrandsFilter extends ListFilter<String> {
+    @JsonCreator
+    public BrandsFilter(@JsonProperty("checker") Checker<String> checker) {
+        super(checker);
+    }
+
+    @JsonCreator
+    public BrandsFilter(@JsonProperty("list") List<String> list, @JsonProperty("checker") Checker<String> checker) {
         super(list, checker);
     }
 

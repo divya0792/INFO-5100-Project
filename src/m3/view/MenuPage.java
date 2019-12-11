@@ -7,13 +7,12 @@ import java.awt.*;
 
 public class MenuPage extends BasicUI {
 
-
 	private JButton IncentivePage, DealerDetailPage, VehiclePage, LeadsPage;
 	private Dealer d;
 
 
 	public MenuPage(Dealer d) {
-		getDealer(d);
+		setDealer(d);
 	}
 
 
@@ -23,13 +22,10 @@ public class MenuPage extends BasicUI {
 		DealerDetailPage = new JButton("MyInformation");
 		VehiclePage = new JButton("MyVehicle");
 		LeadsPage = new JButton("MyLeads");
-
-		// TODO Auto-generated method stub
-
 	}
 
 
-	public void getDealer(Dealer d) {
+	public void setDealer(Dealer d) {
 		this.d = d;
 	}
 
@@ -47,7 +43,6 @@ public class MenuPage extends BasicUI {
 
 	@Override
 	public void addListeners() {
-		// TODO Auto-generated method stub
 		IncentivePage.addActionListener(e -> {
 			IncentiveListUI i = new IncentiveListUI(d);
 		});

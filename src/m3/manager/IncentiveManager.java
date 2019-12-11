@@ -1,22 +1,20 @@
 package m3.manager;
 
+import dataproto.Vehicle;
 import m3.IncentiveManagement;
-import m3.mock.Dealer;
-import m3.mock.Vehicle;
+import m3.db.TableOperations;
 import m3.model.Incentive;
 import m3.model.IncentivesFinalPrice;
-import m3.model.checker.EqualChecker;
-import m3.model.filter.BrandFilter;
 import m3.model.filter.Filter;
 import m3.model.offer.DiscountOffer;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class IncentiveManager implements IncentiveManagement {
+    TableOperations client = new TableOperations();
+
     private double calculatePrice(double price, Incentive incentive) {
         if (incentive.getOffer().getClass() == DiscountOffer.class) {
             price = price * (1 - incentive.getOffer().getValue() / 100.0);
@@ -129,7 +127,7 @@ public class IncentiveManager implements IncentiveManagement {
         ArrayList<List<Incentive>> results = new ArrayList<>();
         for (Vehicle vehicle : vehicles) {
             ArrayList<Incentive> incentives = new ArrayList<>();
-            for (Incentive incentive : this.getIncentivesByDealer(vehicle.getDealer())) {
+            for (Incentive incentive : this.getIncentivesByDealer(vehicle.getDealerId())) {
                 if (this.checkVehicleIncentive(vehicle, incentive))
                     incentives.add(incentive);
             }
@@ -149,38 +147,10 @@ public class IncentiveManager implements IncentiveManagement {
         return results;
     }
 
-    //mock
-    public List<Incentive> getIncentivesByDealer(Dealer dealer) {
+
+    public List<Incentive> getIncentivesByDealer(String dealerID) {
         // get incentive from database
-        List<Incentive> r = new ArrayList<>();
-
-        try {
-            BrandFilter brandFilter = new BrandFilter("A", new EqualChecker());
-            List<Filter> filters = new ArrayList<>();
-            filters.add(brandFilter);
-            r.add(new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("31/11/2019"),
-                    new SimpleDateFormat("dd/MM/yyyy").parse("31/12/2019"),
-                    "I1", "Test", "123", new DiscountOffer(10),
-                    filters));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-        return r;
-    }
-
-    public static void main(String[] args) {
-        Dealer dealer = new Dealer("123", "B", "CCC");
-        Vehicle[] cars = new Vehicle[]{
-                new Vehicle("A", 1, dealer, 5000, "Red", "A", 2000),
-                new Vehicle("B", 2, dealer, 6000, "Black", "B", 1990),
-                new Vehicle("C", 3, dealer, 5000, "Yellow", "C", 2010),
-        };
-
-        IncentiveManagement incentiveManagement = new IncentiveManager();
-        List<IncentivesFinalPrice> incentivesFinalPrices = incentiveManagement.getVehicleFinalIncentives(cars);
-        System.out.println("hello");
+        return client.getIncentiveByDealer(dealerID);
     }
 }
 

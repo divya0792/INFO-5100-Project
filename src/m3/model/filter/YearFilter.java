@@ -2,8 +2,7 @@ package m3.model.filter;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import m3.mock.Vehicle;
+import dataproto.Vehicle;
 import m3.model.checker.Checker;
 
 public class YearFilter extends ValueFilter<Integer> {

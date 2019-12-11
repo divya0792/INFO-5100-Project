@@ -7,8 +7,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-
-import m3.mock.Vehicle;
+import dataproto.Vehicle;
 import m3.model.checker.Checker;
 
 import java.util.Objects;

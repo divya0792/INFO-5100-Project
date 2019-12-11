@@ -108,8 +108,8 @@ public class IncentiveListUI {
 		try {
 			int rowIndex = table.getSelectedRow();
 			tableModel.removeRow(rowIndex);
-			incentives.deleteIncentive(rowIndex);
 			incentives.deleteFromDatabase(rowIndex);
+			incentives.deleteIncentive(rowIndex);
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(null, "Please select a Row or No rows to delete");
 		}

@@ -253,7 +253,7 @@ public class IncentiveDetailUI {
 			iw.setStartDate(startDateChooser.getDate());
 			iw.setEndDate(endDateChooser.getDate());
 			iw.setDisclaimer(disclaimerText.getText());
-			iw.setDealerName(dealer.getName());
+			iw.setDealerID(dealer.getId());
 
 
 			String st = offerChoice.getSelectedItem().toString();

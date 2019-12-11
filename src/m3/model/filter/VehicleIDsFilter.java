@@ -1,38 +1,36 @@
 package m3.model.filter;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-import m3.mock.Vehicle;
+import dataproto.Vehicle;
 import m3.model.checker.Checker;
 
-public class VehicleIDsFilter extends ListFilter<Integer> {
-	@JsonCreator
-	public VehicleIDsFilter(@JsonProperty("checker")Checker<Integer> checker) {
-		super(checker);
-	}
-	
-	@JsonCreator
-    public VehicleIDsFilter(@JsonProperty("list")List<Integer> list, @JsonProperty("checker")Checker<Integer> checker) {
+import java.util.List;
+
+public class VehicleIDsFilter extends ListFilter<String> {
+    @JsonCreator
+    public VehicleIDsFilter(@JsonProperty("checker") Checker<String> checker) {
+        super(checker);
+    }
+
+    @JsonCreator
+    public VehicleIDsFilter(@JsonProperty("list") List<String> list, @JsonProperty("checker") Checker<String> checker) {
         super(list, checker);
     }
 
     @Override
-    public Integer getVehicleValue(Vehicle vehicle) {
+    public String getVehicleValue(Vehicle vehicle) {
         return vehicle.getId();
     }
 
-	@Override
-	public Integer getValueFromString(String string) throws InputException {
-		char[] ch = string.toCharArray();
-		for (int j = 0; j < ch.length; j++) {
-			if (Character.isLetter(ch[j])) {
-				throw new InputException("VehicleIDs cannot contain any letter.");
-			}
-		}
-		return Integer.valueOf(string);
-	}
+    @Override
+    public String getValueFromString(String string) throws InputException {
+        char[] ch = string.toCharArray();
+        for (int j = 0; j < ch.length; j++) {
+            if (Character.isLetter(ch[j])) {
+                throw new InputException("VehicleIDs cannot contain any letter.");
+            }
+        }
+        return string;
+    }
 }

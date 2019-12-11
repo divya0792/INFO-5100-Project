@@ -1,7 +1,7 @@
 package m3.test;
 
-import m3.mock.Dealer;
-import m3.mock.Vehicle;
+import dataproto.Dealer;
+import dataproto.Vehicle;
 import m3.model.Incentive;
 import m3.model.IncentivesFinalPrice;
 import m3.model.checker.EqualChecker;
@@ -27,16 +27,16 @@ public class IncentiveManagerTest {
 
     Dealer bmwDealer = new Dealer("001", "Bob", "rtyui");
 
-    Vehicle vehicle1 = new Vehicle("BMW", 001, bmwDealer, 50000, "black",
+    Vehicle vehicle1 = new Vehicle("BMW", "001", bmwDealer.getId(), 50000, "black",
             "X5", 2019);
-    Vehicle vehicle2 = new Vehicle("BMW", 002, bmwDealer, 35000, "red",
+    Vehicle vehicle2 = new Vehicle("BMW", "002", bmwDealer.getId(), 35000, "red",
             "X1", 2013);
-    Vehicle vehicle3 = new Vehicle("BMW", 003, bmwDealer, 30000, "red",
+    Vehicle vehicle3 = new Vehicle("BMW", "003", bmwDealer.getId(), 30000, "red",
             "X11", 2023);
     Vehicle[] vehicles = {vehicle1, vehicle2, vehicle3};
 
     Filter brandFilter = new BrandFilter("BMW", new EqualChecker<>());
-    Filter priceFilter = new PriceFilter(30000.0, new GreaterChecker());
+    Filter priceFilter = new PriceFilter(30000.0f, new GreaterChecker());
 
     List<Filter> conditions = new ArrayList<>();
     List<Filter> conditions2 = new ArrayList<>();

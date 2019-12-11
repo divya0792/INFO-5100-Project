@@ -22,7 +22,7 @@ import static junit.framework.TestCase.assertEquals;
 public class DBTest {
 
     Filter brandFilter = new BrandFilter("BMW", new EqualChecker<>());
-    Filter priceFilter = new PriceFilter(30000.0, new GreaterChecker());
+    Filter priceFilter = new PriceFilter(30000.0f, new GreaterChecker());
 
     List<Filter> conditions = new ArrayList<>();
     List<Filter> conditions2 = new ArrayList<>();
@@ -44,22 +44,22 @@ public class DBTest {
         try {
             discountIncentive1 = new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("1/12/2019"),
                     new SimpleDateFormat("dd/MM/yyyy").parse("25/12/2019"),
-                    "X", "Test", "benz", new DiscountOffer(10),
+                    "X", "Test", "001", new DiscountOffer(10),
                     conditions);
 
             discountIncentive2 = new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("1/12/2019"),
                     new SimpleDateFormat("dd/MM/yyyy").parse("25/12/2019"),
-                    "X", "Test", "benz", new DiscountOffer(20),
+                    "X", "Test", "001", new DiscountOffer(20),
                     conditions);
 
             cashBackIncentive1 = new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("1/12/2019"),
                     new SimpleDateFormat("dd/MM/yyyy").parse("25/12/2019"),
-                    "X", "Test", "benz", new CashBackOffer(1000),
+                    "X", "Test", "001", new CashBackOffer(1000),
                     conditions2);
 
             cashBackIncentive2 = new Incentive(new SimpleDateFormat("dd/MM/yyyy").parse("1/12/2019"),
                     new SimpleDateFormat("dd/MM/yyyy").parse("25/12/2019"),
-                    "X", "Test", "benz", new CashBackOffer(5000),
+                    "X", "Test", "001", new CashBackOffer(5000),
                     conditions2);
 
         } catch (ParseException e) {
@@ -80,7 +80,7 @@ public class DBTest {
             tb.Create(incentive);
         }
 
-        List<Incentive> returnedIncentives = tb.getIncentiveByDealer("benz");
+        List<Incentive> returnedIncentives = tb.getIncentiveByDealer("001");
         assertEquals(incentives, returnedIncentives);
 
     }

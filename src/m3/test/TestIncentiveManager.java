@@ -1,7 +1,6 @@
 package m3.test;
 
 import m3.manager.IncentiveManager;
-import m3.mock.Dealer;
 import m3.model.Incentive;
 
 import java.util.List;
@@ -13,7 +12,7 @@ public class TestIncentiveManager extends IncentiveManager {
         this.incentives = incentives;
     }
 
-    public List<Incentive> getIncentivesByDealer(Dealer dealer) {
+    public List<Incentive> getIncentivesByDealer(String dealerID) {
         return incentives;
     }
 }

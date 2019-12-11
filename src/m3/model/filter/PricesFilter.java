@@ -1,39 +1,39 @@
 package m3.model.filter;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import m3.mock.Vehicle;
+import dataproto.Vehicle;
 import m3.model.checker.Checker;
 
-public class PricesFilter extends ListFilter<Double> {
+import java.util.List;
 
-	@JsonCreator
-	public PricesFilter(@JsonProperty("checker")Checker<Double> checker) {
-		super(checker);
-	}
-	@JsonCreator
-	public PricesFilter(@JsonProperty("list")List<Double> list, @JsonProperty("checker")Checker<Double> checker) {
-		super(list, checker);
-	}
+public class PricesFilter extends ListFilter<Float> {
 
-	@Override
-	public Double getValueFromString(String string) throws InputException {
-		char[] ch = string.toCharArray();
-		for (int j = 0; j < ch.length; j++) {
-			if (Character.isLetter(ch[j])) {
-				throw new InputException("Prices cannot contain any letter.");
-			}
+    @JsonCreator
+    public PricesFilter(@JsonProperty("checker") Checker<Float> checker) {
+        super(checker);
+    }
 
-		}
-		return Double.valueOf(string);
-	}
+    @JsonCreator
+    public PricesFilter(@JsonProperty("list") List<Float> list, @JsonProperty("checker") Checker<Float> checker) {
+        super(list, checker);
+    }
 
-	@Override
-	public Double getVehicleValue(Vehicle vehicle) {
-		return vehicle.getPrice();
-	}
+    @Override
+    public Float getValueFromString(String string) throws InputException {
+        char[] ch = string.toCharArray();
+        for (int j = 0; j < ch.length; j++) {
+            if (Character.isLetter(ch[j])) {
+                throw new InputException("Prices cannot contain any letter.");
+            }
+
+        }
+        return Float.valueOf(string);
+    }
+
+    @Override
+    public Float getVehicleValue(Vehicle vehicle) {
+        return vehicle.getPrice();
+    }
 
 }

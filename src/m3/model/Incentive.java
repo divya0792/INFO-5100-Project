@@ -15,7 +15,7 @@ public class Incentive {
     private String title;
     private String disclaimer;
 
-    private String dealerName;
+    private String dealerID;
 
     private Offer offer;
 
@@ -32,26 +32,26 @@ public class Incentive {
         Incentive incentive = (Incentive) o;
         return
                 Objects.equals(startDate, incentive.startDate) &&
-                Objects.equals(endDate, incentive.endDate) &&
-                Objects.equals(title, incentive.title) &&
-                Objects.equals(disclaimer, incentive.disclaimer) &&
-                Objects.equals(dealerName, incentive.dealerName) &&
-                Objects.equals(offer, incentive.offer) &&
-                Objects.equals(conditions, incentive.conditions);
+                        Objects.equals(endDate, incentive.endDate) &&
+                        Objects.equals(title, incentive.title) &&
+                        Objects.equals(disclaimer, incentive.disclaimer) &&
+                        Objects.equals(dealerID, incentive.dealerID) &&
+                        Objects.equals(offer, incentive.offer) &&
+                        Objects.equals(conditions, incentive.conditions);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash( startDate, endDate, title, disclaimer, dealerName, offer, conditions);
+        return Objects.hash(startDate, endDate, title, disclaimer, dealerID, offer, conditions);
     }
 
-    public Incentive(Date startDate, Date endDate, String title, String disclaimer, String dealerName, Offer offer, List<Filter> conditions) {
+    public Incentive(Date startDate, Date endDate, String title, String disclaimer, String dealerID, Offer offer, List<Filter> conditions) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.title = title;
         this.disclaimer = disclaimer;
-        this.dealerName = dealerName;
+        this.dealerID = dealerID;
         this.offer = offer;
         this.conditions = conditions;
     }
@@ -108,12 +108,12 @@ public class Incentive {
         this.disclaimer = disclaimer;
     }
 
-    public String getDealerName() {
-        return dealerName;
+    public String getDealerID() {
+        return dealerID;
     }
 
-    public void setDealerName(String dealerName) {
-        this.dealerName = dealerName;
+    public void setDealerID(String dealerID) {
+        this.dealerID = dealerID;
     }
 
     public Offer getOffer() {

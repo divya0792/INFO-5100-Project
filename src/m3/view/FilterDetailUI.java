@@ -16,7 +16,7 @@ public class FilterDetailUI extends BasicUI {
 	private JComboBox Name;
 	private JComboBox Type;
 	private JTextField value;
-	private JButton cancle, ok;
+	private JButton cancel, ok;
 	private IncentiveDetailUI sui;
 	private JDialog jd;
 
@@ -34,11 +34,10 @@ public class FilterDetailUI extends BasicUI {
 		TypeCombo = new JLabel("type:");
 		valueInput = new JLabel("Value:");
 		value = new JTextField(10);
-		cancle = new JButton("Cancle");
+		cancel = new JButton("Cancle");
 		ok = new JButton("Okay");
-		
-		
-		
+
+
 	}
 	
 	
@@ -71,7 +70,7 @@ public class FilterDetailUI extends BasicUI {
 	
 	private void addButtonPanel(Container con) {
 		buttonPanel = new JPanel();
-		buttonPanel.add(cancle);
+		buttonPanel.add(cancel);
 		buttonPanel.add(ok);
 		con.add(buttonPanel);
 	}
@@ -134,7 +133,7 @@ public class FilterDetailUI extends BasicUI {
 		Name.addActionListener((e) -> TypeToBe(Name.getSelectedItem().toString())
 		);
 
-		cancle.addActionListener((e) -> this.dispose());
+		cancel.addActionListener((e) -> this.dispose());
 		ok.addActionListener((e) -> {
 
 					sui.addToTableBelow(toSecondUIFilter());

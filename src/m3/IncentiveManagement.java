@@ -1,6 +1,6 @@
 package m3;
 
-import m3.mock.Vehicle;
+import dataproto.Vehicle;
 import m3.model.Incentive;
 import m3.model.IncentivesFinalPrice;
 
