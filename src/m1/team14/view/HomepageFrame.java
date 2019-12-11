@@ -65,9 +65,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         curDealerIcon = new ImageIcon(getClass().getResource(curDealerIconPath));
         curDealerImg = new JLabel(curDealerIcon);
         curDealerLabel = new JLabel("");
-        curDealerLabel.setMinimumSize(new Dimension(100,50));
-        curDealerLabel.setPreferredSize(new Dimension(100, 50));
-        curDealerLabel.setMaximumSize(new Dimension(100, 50));
+        curDealerLabel.setPreferredSize(new Dimension(100, 20));
 
         // button components
         buttonPanel = new JPanel();
@@ -136,6 +134,9 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
 
         JPanel labelPanel = new JPanel();
         JLabel dealerIdLabel = new JLabel(dealer.getName());
+        Dimension current = dealerIdLabel.getPreferredSize();
+        int height = (int)current.getHeight();
+        dealerIdLabel.setPreferredSize(new Dimension((int)current.getWidth(), height > 20 ? height : 20));
         labelPanel.add(dealerIdLabel);
 
         dealerPanel.add(iconPanel, BorderLayout.CENTER);
