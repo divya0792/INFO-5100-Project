@@ -18,12 +18,10 @@ public class LoginBtnListener implements ActionListener{
 
 	JTextField txtUserId = null;
     JPasswordField txtPWD = null;
-    JCheckBox rememberMe = null;
 
-    public LoginBtnListener(JTextField txtUserId,JPasswordField txtPWD,JCheckBox rememberMe ){
+    public LoginBtnListener(JTextField txtUserId,JPasswordField txtPWD ){
     	this.txtUserId = txtUserId;
     	this.txtPWD = txtPWD;
-    	this.rememberMe = rememberMe;
     }
 	@Override
 	public void actionPerformed(ActionEvent e) {
