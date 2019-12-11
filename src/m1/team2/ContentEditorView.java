@@ -144,7 +144,6 @@ class ContentEditorView extends JFrame {
 		panel_Content_2 = new JPanel();
 		panelCenter.add(panel_Content_2, BorderLayout.CENTER);
 		txtpnContent_2 = new JLabel();
-		txtpnContent_2.setBorder(new LineBorder(2, 2, 2, 2));
 		txtpnContent_2.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_Content_2.setBorder(new EmptyBorder(20, 5, 20, 5));
 		panel_Content_2.setLayout(new GridLayout(2, 1, 0, 0));
