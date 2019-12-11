@@ -134,7 +134,7 @@ class ContentEditorView extends JFrame {
 		panel_Content_1 = new JPanel();
 		panelCenter.add(panel_Content_1, BorderLayout.WEST);
 		txtpnContent_1 = new JLabel();
-		txtpnContent_1.setBorder(new LineBorder(2, 2, 2, 2));
+		txtpnContent_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_Content_1.setBorder(new EmptyBorder(20, 5, 20, 5));
 		panel_Content_1.setLayout(new GridLayout(0, 1, 0, 0));
 		txtpnContent_1.setText(rTextLeft.getPlainText());
@@ -145,8 +145,8 @@ class ContentEditorView extends JFrame {
 		panelCenter.add(panel_Content_2, BorderLayout.CENTER);
 		txtpnContent_2 = new JLabel();
 		txtpnContent_2.setBorder(new LineBorder(2, 2, 2, 2));
-
-		panel_Content_2.setBorder(new EmptyBorder(20, 0, 20, 0));
+		txtpnContent_2.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		panel_Content_2.setBorder(new EmptyBorder(20, 5, 20, 5));
 		panel_Content_2.setLayout(new GridLayout(2, 1, 0, 0));
 		txtpnContent_2.setText(rTextRight.getPlainText());
 		panel_Content_2.add(txtpnContent_2);
@@ -156,7 +156,7 @@ class ContentEditorView extends JFrame {
 		panelCenter.add(panel_Footen, BorderLayout.SOUTH);
 		panel_Footen.setLayout(new BorderLayout(0, 0));
 		txtpnFootenData = new JLabel();
-		txtpnFootenData.setBorder(new LineBorder(2, 2, 2, 2));
+		txtpnFootenData.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_Footen.add(txtpnFootenData, BorderLayout.NORTH);
 		txtpnFootenData.setText(rTextBot.getPlainText());
 	}
@@ -306,9 +306,9 @@ class ContentEditorView extends JFrame {
         comboBox_BackGroundColor.setSelectedItem(rText.getBackgroundColor());
     }
 
-    public static void main(String[] args) {
+    //public static void main(String[] args) {
 
-    }
+    //}
 
 
 }
