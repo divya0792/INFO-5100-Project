@@ -26,7 +26,7 @@ class ContentEditorView extends JFrame {
     RichText rTextTop, rTextBot, rTextLeft, rTextRight, editingRichText;
     private JPanel contentPane;
     private JTextPane txtpnPlaintext;
-    private JLabel txtpnHeaderData, txtpnFootenData, txtpnContent_2, txtpnContent_1;
+    private JTextPane txtpnHeaderData, txtpnFootenData, txtpnContent_2, txtpnContent_1;
     private JPanel panelButtonArea, panel_Content_1, panel_Content_2, panelFontArea, panel_Header, panel_Setting, panel_Footen, panelCenter, panelPlainTextArea, panel_CheckBoxArea;
     private JComboBox<String> comboBox_Size, comboBox_Color, comboBox_BackGroundColor;
     private JComboBox<POSITION> comboBox_Position;
@@ -123,7 +123,8 @@ class ContentEditorView extends JFrame {
 
     private void newHeaderPanel() {
         panel_Header = new JPanel();
-        txtpnHeaderData = new JLabel();
+        txtpnHeaderData = new JTextPane();
+        txtpnHeaderData.setContentType("text/html");
         panel_Header.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
         contentPane.add(panel_Header, BorderLayout.NORTH);
         panel_Header.setLayout(new GridLayout(1, 2, 0, 0));
@@ -133,7 +134,8 @@ class ContentEditorView extends JFrame {
 	private void newContent_1Panel() {
 		panel_Content_1 = new JPanel();
 		panelCenter.add(panel_Content_1, BorderLayout.WEST);
-		txtpnContent_1 = new JLabel();
+		txtpnContent_1 = new JTextPane();
+		txtpnContent_1.setContentType("text/html");
 		txtpnContent_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_Content_1.setBorder(new EmptyBorder(20, 5, 20, 5));
 		panel_Content_1.setLayout(new GridLayout(0, 1, 0, 0));
@@ -143,7 +145,8 @@ class ContentEditorView extends JFrame {
 	private void newContent_2Panel() {
 		panel_Content_2 = new JPanel();
 		panelCenter.add(panel_Content_2, BorderLayout.CENTER);
-		txtpnContent_2 = new JLabel();
+		txtpnContent_2 = new JTextPane();
+		txtpnContent_2.setContentType("text/html");
 		txtpnContent_2.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_Content_2.setBorder(new EmptyBorder(20, 5, 20, 5));
 		panel_Content_2.setLayout(new GridLayout(2, 1, 0, 0));
@@ -154,7 +157,8 @@ class ContentEditorView extends JFrame {
 		panel_Footen = new JPanel();
 		panelCenter.add(panel_Footen, BorderLayout.SOUTH);
 		panel_Footen.setLayout(new GridLayout(0, 1, 0, 0));
-		txtpnFootenData = new JLabel();
+		txtpnFootenData = new JTextPane();
+		txtpnFootenData.setContentType("text/html");
 		txtpnFootenData.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_Footen.add(txtpnFootenData);
 		txtpnFootenData.setText(rTextBot.getPlainText());
@@ -202,7 +206,7 @@ class ContentEditorView extends JFrame {
         panelFontArea.add(comboBox_Color);
 
         panelFontArea.add(newHorizontalCenterAlignLabel("BackGround Color"));
-        comboBox_BackGroundColor.setModel(new DefaultComboBoxModel<String>(new String[] {"black", "white", "grey"}));
+        comboBox_BackGroundColor.setModel(new DefaultComboBoxModel<String>(new String[] {"black", "white", "green", "red", "blue"}));
         panelFontArea.add(comboBox_BackGroundColor);
     }
 
@@ -299,7 +303,7 @@ class ContentEditorView extends JFrame {
         System.out.println("init rText" + rText);
         chckbxIsBold.setSelected(rText.isBold());
         chckbxIsItalic.setSelected(rText.isItalic());
-        txtpnPlaintext.setText(rText.getPlainText());
+        txtpnPlaintext.setText(rText.getPlainText() == null ? "Please Edit Your Content Here" : rText.getPlainText());
         comboBox_Size.setSelectedItem(String.valueOf(rText.getFontSize()));
         comboBox_Color.setSelectedItem(rText.getFontColor());
         comboBox_BackGroundColor.setSelectedItem(rText.getBackgroundColor());
