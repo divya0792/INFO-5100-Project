@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
 
 import m1.DAO.DealerDAOImpl;
 
@@ -188,7 +189,7 @@ public class RegisterPage1 {
     JButton btnCancel = new JButton("Cancel");
     btnCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        System.exit(0);
+        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
       }
     });
     btnCancel.setBounds(476, 700, 193, 62);
