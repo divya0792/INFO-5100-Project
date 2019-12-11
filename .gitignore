@@ -14,8 +14,8 @@
 # idea files
 /.idea/*
 # Package Files #
-/src/*.jar
-/*.jar
+#/src/*.jar
+#/*.jar
 *.war
 *.nar
 *.ear
