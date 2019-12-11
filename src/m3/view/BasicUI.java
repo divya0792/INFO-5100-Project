@@ -1,4 +1,4 @@
-package m3.userInterface;
+package m3.view;
 
 import java.awt.Container;
 
@@ -21,7 +21,7 @@ public abstract class BasicUI extends JFrame{
 	public abstract void addListeners();
 
 	public void makeItVisible() {
-		setSize(600, 600);
+		setSize(250, 300);
 		setVisible(true);
 	}
 
