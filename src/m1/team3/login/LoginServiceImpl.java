@@ -1,49 +1,38 @@
 package m1.team3.login;
 
-import java.util.List;
+import java.util.Optional;
+
+import dataproto.Dealer;
+import m1.DAO.DealerDAO;
+import m1.DAO.DealerDAOImpl;
 
 public class LoginServiceImpl implements LoginService {
 
-	private LoginDAO loginDAO = new LoginDAOImpl();
+	private DealerDAO dealerDAO = DealerDAOImpl.INSTANCE;
 
-	public boolean validateLogin(String loginID, String pwd) {
 
-		User user = getUser(loginID);
-		if (null != user) {
-			if (rememberMe(loginID)) {
-				return true;
-			} else if (pwd.equals(user.getPwd())) {
-				return true;
+
+	public Dealer validateLogin(String loginID, String pwd) {
+
+		Dealer dealer = getDealer(loginID);
+		if (null != dealer && pwd.equals(dealer.getPassword())) {
+				return dealer;
 			}
-		}
-		return false;
+		return null;
 	}
 
-	public boolean rememberMe(String loginID) {
-		User user = getUser(loginID);
 
-		return user != null ? user.isRememberMe() : false;
-	}
+	public Dealer getDealer(String loginID) {
+		Dealer foundUser = null;
 
-	public User getUser(String loginID) {
-		List<User> allUsers = loginDAO.getAllUsers();
-
-		User foundUser = null;
-		for (User user : allUsers) {
-
-			if (user.getUserID().equals(loginID)) {
-				foundUser = user;
-				break;
-
-			} else if (user.getEmailID().equals(loginID)) {
-				foundUser = user;
-				break;
-
-			} else if (user.getPhoneNumber().equals(loginID)) {
-				foundUser = user;
-				break;
+		Optional<Dealer> optional = dealerDAO.getDealerWithEmail(loginID);
+		if(optional.isPresent()) {
+			foundUser  = optional.get();
+		}else {
+			Optional<Dealer> dealerWithPhone = dealerDAO.getDealerWithPhone(loginID);
+			if(dealerWithPhone.isPresent()) {
+				foundUser  = dealerWithPhone.get();
 			}
-
 		}
 		return foundUser;
 	}

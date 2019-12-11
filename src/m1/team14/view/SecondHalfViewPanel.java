@@ -76,7 +76,7 @@ public class SecondHalfViewPanel extends JPanel {
     FooterPanel = new JScrollPane(FootEdp,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     FootEdp.setEditable(false);
     FooterPanel.setBorder(new LineBorder(new Color(1,1,1),2,true));
-    FooterPanel.setPreferredSize(new Dimension(300,50));
+    FooterPanel.setPreferredSize(new Dimension(300,150));
     addScrollPanel(FooterPanel, 0,9,11,2,1,0.2);
 
   }
@@ -110,13 +110,16 @@ public class SecondHalfViewPanel extends JPanel {
   private void localInitialization() {
 
   }
+  private String checkAndReturnString(String input) {
+    return input == null ? "<html><body bgcolor='white'></body></html>" : input;
+  }
   public void setNewDealer(Dealer newDealer) {
     DealerAllContent allContent = controller.getRichTextsByDealer(newDealer);
     JEditorPane[] widgets = new JEditorPane[]{HeadEdp, Sec1Edp, Sec2Edp, FootEdp};
     Stream.of(widgets).forEach(widget -> widget.setContentType("text/html"));
-    HeadEdp.setText(allContent.getHeader().getHtmlString());
-    Sec1Edp.setText(allContent.getLeft().getHtmlString());
-    Sec2Edp.setText(allContent.getRight().getHtmlString());
-    FootEdp.setText(allContent.getFooter().getHtmlString());
+    HeadEdp.setText(checkAndReturnString(allContent.getHeader().getHtmlString()));
+    Sec1Edp.setText(checkAndReturnString(allContent.getLeft().getHtmlString()));
+    Sec2Edp.setText(checkAndReturnString(allContent.getRight().getHtmlString()));
+    FootEdp.setText(checkAndReturnString(allContent.getFooter().getHtmlString()));
   }
 }

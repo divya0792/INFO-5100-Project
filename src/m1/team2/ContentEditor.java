@@ -1,6 +1,8 @@
 package m1.team2;
 
 import dataproto.Dealer;
+import m1.DAO.DealerDAO;
+import m1.DAO.DealerDAOImpl;
 
 public class ContentEditor {
 
@@ -9,13 +11,13 @@ public class ContentEditor {
     private ContentEditor() {}
 
     public void openEditor(Dealer dealer) {
+        System.out.println("input param " + dealer);
         ContentEditorView view = new ContentEditorView(dealer);
         view.display();
     }
 
     public static void main(String[] args) {
-        Dealer dealer = new Dealer();
-        dealer.setId("u1");
+        Dealer dealer = DealerDAOImpl.INSTANCE.getDealerWithName("Rita").get();
         ContentEditor.INSTANCE.openEditor(dealer);
     }
 }

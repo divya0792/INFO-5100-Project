@@ -18,18 +18,15 @@ public class LoginBtnListener implements ActionListener{
 
 	JTextField txtUserId = null;
     JPasswordField txtPWD = null;
-    JCheckBox rememberMe = null;
 
-    public LoginBtnListener(JTextField txtUserId,JPasswordField txtPWD,JCheckBox rememberMe ){
+    public LoginBtnListener(JTextField txtUserId,JPasswordField txtPWD ){
     	this.txtUserId = txtUserId;
     	this.txtPWD = txtPWD;
-    	this.rememberMe = rememberMe;
     }
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(loginService.validateLogin(txtUserId.getText(), String.valueOf(txtPWD.getPassword()))) {
-        Dealer dealer = new Dealer();
-        dealer.setId(txtUserId.getText());
+    Dealer dealer = loginService.validateLogin(txtUserId.getText(), String.valueOf(txtPWD.getPassword()));
+		if(dealer != null) {
         ContentEditor.INSTANCE.openEditor(dealer);
 		}
 		else {
