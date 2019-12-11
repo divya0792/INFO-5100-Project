@@ -25,9 +25,8 @@ public class LoginBtnListener implements ActionListener{
     }
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(loginService.validateLogin(txtUserId.getText(), String.valueOf(txtPWD.getPassword()))) {
-        Dealer dealer = new Dealer();
-        dealer.setId(txtUserId.getText());
+    Dealer dealer = loginService.validateLogin(txtUserId.getText(), String.valueOf(txtPWD.getPassword()));
+		if(dealer != null) {
         ContentEditor.INSTANCE.openEditor(dealer);
 		}
 		else {
