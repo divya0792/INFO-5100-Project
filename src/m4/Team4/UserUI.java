@@ -80,11 +80,10 @@ public class UserUI extends JFrame{
 			}
 		};
 		button1.addActionListener(actionListerner);
-    UserUI that = this;
 		ActionListener bt2_ls=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-        that.dispatchEvent(new WindowEvent(that, WindowEvent.WINDOW_CLOSING));
+        jFrame.dispose();
 			}
 		};
 		button2.addActionListener(bt2_ls);
