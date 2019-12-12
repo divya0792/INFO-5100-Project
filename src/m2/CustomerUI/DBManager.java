@@ -3,78 +3,83 @@ package m2.CustomerUI;
 import java.sql.*;
 import java.util.ArrayList;
 
-
 public class DBManager {
-	public ResultSet data;
-	public String dealerId = "DEA0001";
+    public ResultSet data;
+    public String dealerId;
 
-	/* getting the DB Connection */
+    public DBManager(String dealerId) {
+        this.dealerId = dealerId;
+    }
 
-	public  Connection getDBConnection() throws SQLException {
-		
-		String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-		String dbURL = "jdbc:sqlserver://is-swang01.ischool.uw.edu:1433; DatabaseName=VechileManagementSystem";
+    /* getting the DB Connection */
 
-		String userid = "INFO6210";
-		String passwd = "NEUHusky!";
+    public Connection getDBConnection() throws SQLException {
 
-		Connection conn = null;
+        String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+        String dbURL = "jdbc:sqlserver://is-swang01.ischool.uw.edu:1433; DatabaseName=VechileManagementSystem";
 
-		try {
-			Class.forName(driverName);
-			conn = DriverManager.getConnection(dbURL, userid, passwd);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return conn;
-	}
+        String userid = "INFO6210";
+        String passwd = "NEUHusky!";
 
-	/* fetching all the data without filters */
+        Connection conn = null;
 
-	public  ResultSet getAllData() throws SQLException {
-		String query = "select * from CarInventory where dealerID = '"+ this.dealerId+"'";
-		System.out.println(query);
+        try {
+            Class.forName(driverName);
+            conn = DriverManager.getConnection(dbURL, userid, passwd);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return conn;
+    }
 
-		data = queryExecution(query);
-		return data;
-	}
+    /* fetching all the data without filters */
 
-	/* fetching all the data with filters */
+    public ResultSet getAllData() throws SQLException {
+        String query = "select * from CarInventory where dealerID = '" + this.dealerId + "'";
+        //	String query = "select count(vechileId) from CarInventory where dealerID = '"+this.dealerId+"'";
+        System.out.println(query);
 
-	public  ResultSet getAllDataWithFilters(String parameters) throws SQLException {
-		String queryWithFilters = "select * from CarInventory where " + parameters+" "+"and"+" "+"dealerID = '"+ this.dealerId+"'";
-		data = queryExecution(queryWithFilters);
-		return data;
-	}
-	
-	public ResultSet filterValues(String parameter) throws SQLException {
-		String queryWithFilters = "select distinct "+parameter+" "+"from CarInventory " ;
-		data = queryExecution(queryWithFilters);
-		return data;
-	}
+        data = queryExecution(query);
+        return data;
+    }
 
-	/*
-	 * executing the query, where query is passed as a parameter to the below
-	 * function
-	 */
+    /* fetching all the data with filters */
 
-	public  ResultSet queryExecution(String query) throws SQLException {
-		Connection con = null;
-		con = getDBConnection();
+    public ResultSet getAllDataWithFilters(String parameters) throws SQLException {
+        String queryWithFilters = "select * from CarInventory where " + parameters + " " + "and" + " " + "dealerID = '" + this.dealerId + "'";
+        data = queryExecution(queryWithFilters);
+        return data;
+    }
 
-		try {
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery(query);
-			return rs;
-		}
-	
+    public ResultSet filterValues(String parameter) throws SQLException {
+        String queryWithFilters = "select distinct " + parameter + " " + "from CarInventory " + "where" + " " + "dealerID = '" + this.dealerId + "'";
+        data = queryExecution(queryWithFilters);
+        return data;
+    }
 
-		catch (SQLException ex) {
-			ex.printStackTrace();
-		} 
-		return null;
-	}
+    public ResultSet getAllModels(String parameters) throws SQLException {
+        String queryWithFilters = "select distinct model from CarInventory where brand = '" + parameters + "'" + "  " + "and" + " " + "dealerID = '" + this.dealerId + "'";
+        data = queryExecution(queryWithFilters);
+        return data;
+    }
 
-	
-	}
+    /*
+     * executing the query, where query is passed as a parameter to the below
+     * function
+     */
+
+    public ResultSet queryExecution(String query) throws SQLException {
+        Connection con = null;
+        con = getDBConnection();
+
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            return rs;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+}
 

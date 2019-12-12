@@ -25,16 +25,21 @@ public class Vehicle extends DataObject{
 	return id;
 }
 
-public int getYear() {
-	int ret = 0;
-	try  {
-		ret = Integer.parseInt(dateofmanufacturing.split("-")[0]);
-	} catch(Exception e) {
-		e.printStackTrace();
+	public int getYear() {
+		int ret = 0;
+		try {
+			ret = Integer.parseInt(dateofmanufacturing.split("-")[0]);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
-	return ret;
-}
-public void setId(String id) {
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public void setId(String id) {
 	this.id = id;
 }
 
@@ -118,7 +123,31 @@ public void setFlag(String flag) {
 	this.flag = flag;
 }
 
-public Vehicle() {
+	public Collection<Incentive> getMatchedIncentives() {
+		return matchedIncentives;
+	}
+
+	public void setMatchedIncentives(Collection<Incentive> matchedIncentives) {
+		this.matchedIncentives = matchedIncentives;
+	}
+
+	public int getPeopleExpressingInterestInThisCar() {
+		return peopleExpressingInterestInThisCar;
+	}
+
+	public void setPeopleExpressingInterestInThisCar(int peopleExpressingInterestInThisCar) {
+		this.peopleExpressingInterestInThisCar = peopleExpressingInterestInThisCar;
+	}
+
+	public float getSalePrice() {
+		return salePrice;
+	}
+
+	public void setSalePrice(float salePrice) {
+		this.salePrice = salePrice;
+	}
+
+	public Vehicle() {
 	
 }
 	public Vehicle(String carIDString, String dealerIDString, String brandString, String modelString,

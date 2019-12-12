@@ -1,17 +1,21 @@
 package m2.CustomerUI;
 
+import dataproto.Vehicle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailPage extends JFrame{
+public class DetailPage extends JFrame {
     private int i;
-    private JLabel brand, model,year,type,category,color,price,mileage,saleprice;
-    private JLabel brandvalue, modelvalue,yearvalue,typevalue,categoryvalue,pricevalue,colorvalue,mileagevalue,salepricevalue;
+    private JLabel brand, model, year, type, category, color, price, mileage, saleprice;
+    private JLabel brandvalue, modelvalue, yearvalue, typevalue, categoryvalue, pricevalue, colorvalue, mileagevalue, salepricevalue;
     private JLabel space;
-//    private CarManagerFileImp manager ;
-private ModuleIntegrator manager;
+    private Button interest;
+
+    private ModuleIntegrator manager;
+
     public DetailPage(String i) throws Exception {
         this.i = Integer.parseInt(i);
         create(this.i);
@@ -30,34 +34,33 @@ private ModuleIntegrator manager;
         }
         Container con = getContentPane();
 
-        add(con,i);
+        add(con, i);
     }
 
-    public void add(Container con,int i) {
-        ArrayList<VehicleObj> list = manager.integratorGetAllVehicles();
+    public void add(Container con, int i) {
+        ArrayList<dataproto.Vehicle> list = manager.integratorGetAllVehicles();
 
-        
-        VehicleObj car = list.get(i);
+        dataproto.Vehicle car = list.get(i);
         //GridLayout gl = new GridLayout(list.size(),1);
         JPanel basepanel = new JPanel();
-        FlowLayout fl =  new FlowLayout();
+        FlowLayout fl = new FlowLayout();
         con.add(basepanel);
-        con.setSize(50,30);
+        con.setSize(50, 30);
         basepanel.setLayout(fl);
-        newComponent(basepanel,car);
+        newComponent(basepanel, car);
 
     }
 
-    public void newComponent(JPanel panel,VehicleObj car){
+    public void newComponent(JPanel panel, dataproto.Vehicle car) {
 
         this.brand = new JLabel("Brand : ");
         this.brandvalue = new JLabel(car.getBrand() + "  - ");
         this.model = new JLabel("Model : ");
-        this.modelvalue = new JLabel(car.getModel()  + "                    ");
+        this.modelvalue = new JLabel(car.getModel() + "                    ");
         this.year = new JLabel("Year : ");
         this.yearvalue = new JLabel(String.valueOf(car.getYear()) + "                ");
         this.type = new JLabel("Type : ");
-        this.typevalue = new JLabel(car.getType()  + "         " );
+        this.typevalue = new JLabel(car.getType() + "         ");
         this.category = new JLabel("Category : ");
         this.categoryvalue = new JLabel(car.getCategory() + "                 ");
         this.color = new JLabel("Color : ");
@@ -69,48 +72,56 @@ private ModuleIntegrator manager;
         this.saleprice = new JLabel("Saleprice:");
         this.salepricevalue = new JLabel(String.valueOf("$" + car.getSalePrice()) + "0" + "         ");
         this.space = new JLabel("");
-        addPanelLeft(panel,brandvalue,modelvalue,year,yearvalue,type, typevalue,color,colorvalue,categoryvalue,mileage,mileagevalue);
-        addPanelRight(panel,price,pricevalue,saleprice,salepricevalue,space);
+        this.interest = new Button("Interest");
+        addPanelLeft(panel, brandvalue, modelvalue, year, yearvalue, type, typevalue, color, colorvalue, categoryvalue, mileage, mileagevalue);
+        addPanelRight(panel, price, pricevalue, saleprice, salepricevalue, space, interest);
     }
 
-    public void addPanelLeft(JPanel panel, JLabel brandvalue, JLabel modelvalue, JLabel year, JLabel yearvalue,JLabel type,JLabel typevalue,JLabel color,JLabel colorvalue, JLabel categoryvalue,JLabel mileage,JLabel mileagevalue){
+    public void addPanelLeft(JPanel panel, JLabel brandvalue, JLabel modelvalue, JLabel year, JLabel yearvalue, JLabel type, JLabel typevalue, JLabel color, JLabel colorvalue, JLabel categoryvalue, JLabel mileage, JLabel mileagevalue) {
         JPanel jp = new JPanel();
-        BoxLayout bl1 = new BoxLayout(jp,BoxLayout.Y_AXIS);
+        BoxLayout bl1 = new BoxLayout(jp, BoxLayout.Y_AXIS);
         jp.setLayout(bl1);
-        addPanel2(jp,brandvalue,modelvalue);
-        addPanel2(jp,year, yearvalue);
-        addPanel2(jp,type,typevalue);
-        addPanel2(jp,color,colorvalue);
-        addPanel1(jp,categoryvalue);
-        addPanel2(jp,mileage,mileagevalue);
+        addPanel2(jp, brandvalue, modelvalue);
+        addPanel2(jp, year, yearvalue);
+        addPanel2(jp, type, typevalue);
+        addPanel2(jp, color, colorvalue);
+        addPanel1(jp, categoryvalue);
+        addPanel2(jp, mileage, mileagevalue);
         panel.add(jp);
     }
 
-    public void addPanelRight(JPanel panel, JLabel price,JLabel pricevalue,JLabel saleprice,JLabel salepricevalue,JLabel space){
+    public void addPanelRight(JPanel panel, JLabel price, JLabel pricevalue, JLabel saleprice, JLabel salepricevalue, JLabel space, Button interest) {
         JPanel jp1 = new JPanel();
-        BoxLayout bl2 = new BoxLayout(jp1,BoxLayout.Y_AXIS);
+        BoxLayout bl2 = new BoxLayout(jp1, BoxLayout.Y_AXIS);
         jp1.setLayout(bl2);
-        addPanel2(jp1,price,pricevalue);
-        addPanel1(jp1,space);
-        addPanel2(jp1,saleprice,salepricevalue);
-        addPanel1(jp1,space);
+        addPanel2(jp1, price, pricevalue);
+        addPanel1(jp1, space);
+        addPanel2(jp1, saleprice, salepricevalue);
+        addPanel1(jp1, space);
+        addPanelButton(jp1, interest);
 
         panel.add(jp1);
     }
 
-    public void addPanel1(JPanel panel,JLabel value){
+    public void addPanel1(JPanel panel, JLabel value) {
         JPanel jp2 = new JPanel();
         jp2.setLayout(new FlowLayout(FlowLayout.LEFT));
         jp2.add(value);
         panel.add(jp2);
     }
 
-    public void addPanel2(JPanel panel, JLabel value1,JLabel value2) {
+    public void addPanelButton(JPanel panel, Button button) {
+        JPanel jp2 = new JPanel();
+        jp2.setLayout(new FlowLayout(FlowLayout.LEFT));
+        jp2.add(button);
+        panel.add(jp2);
+    }
+
+    public void addPanel2(JPanel panel, JLabel value1, JLabel value2) {
         JPanel jp2 = new JPanel();
         jp2.setLayout(new FlowLayout(FlowLayout.LEFT));
         jp2.add(value1);
         jp2.add(value2);
         panel.add(jp2);
     }
-
 }

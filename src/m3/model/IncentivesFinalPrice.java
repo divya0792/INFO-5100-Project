@@ -7,6 +7,22 @@ public class IncentivesFinalPrice {
     private List<Incentive> incentives;
     private double finalPrice;
 
+    public List<Incentive> getIncentives() {
+        return incentives;
+    }
+
+    public void setIncentives(List<Incentive> incentives) {
+        this.incentives = incentives;
+    }
+
+    public double getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(double finalPrice) {
+        this.finalPrice = finalPrice;
+    }
+
     public IncentivesFinalPrice(List<Incentive> incentives, double finalPrice) {
         this.incentives = incentives;
         this.finalPrice = finalPrice;
