@@ -53,7 +53,7 @@ public class UI extends javax.swing.JFrame {
     private DefaultTableModel tableModel;
     private javax.swing.JTable jTable1;
     private  String DealerIdString;
-  
+
     /**
      * Creates new form UI
      * @throws SQLException
@@ -109,7 +109,7 @@ public class UI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         dealerID.setText("Dealer ID: ");
         carID.setText("Car ID: ");
         brand.setText("Brand:");
@@ -231,8 +231,8 @@ public class UI extends javax.swing.JFrame {
         data = CarInventory.convert2Data(listOfDealersCar);
         tableModel = new DefaultTableModel(data, columnNames);
         jTable1 = new JTable(tableModel);
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {     	
-            public void mouseClicked(java.awt.event.MouseEvent evt) {    
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
             	try {
 					jTable1MouseClicked(evt);
 				} catch (ParseException e) {
@@ -241,7 +241,7 @@ public class UI extends javax.swing.JFrame {
 				}
             }
         });
-        
+
         jScrollPane1 = new javax.swing.JScrollPane(jTable1);
         jScrollPane1.setViewportView(jTable1);
         resizeColumns();
@@ -420,7 +420,7 @@ public class UI extends javax.swing.JFrame {
         priceText.setText(" ");
         mileageText.setText(" ");
         JOptionPane.showMessageDialog(this, message);
-        
+
     }
 
     private void deleteButtonMousePressed(java.awt.event.MouseEvent evt) throws SQLException {
@@ -456,7 +456,7 @@ public class UI extends javax.swing.JFrame {
         colorChoice.setSelectedItem(tableModel.getValueAt(selectedRowIndex, 6).toString());
         priceText.setText(tableModel.getValueAt(selectedRowIndex, 7).toString());
         mileageText.setText(tableModel.getValueAt(selectedRowIndex, 8).toString());
-    	
+
     }
 
 
@@ -479,15 +479,15 @@ public class UI extends javax.swing.JFrame {
     }
     /**
      * @param args the command line arguments
-     * @throws SQLException 
-     * @throws ClassNotFoundException 
+     * @throws SQLException
+     * @throws ClassNotFoundException
      */
     public static void main(String args[]) throws SQLException, ClassNotFoundException {
-    	
+
     	 Dealer d = new Dealer();
     	 d.setId("DEA0001");
          new UI(d);
-    	
+
 
     }
 

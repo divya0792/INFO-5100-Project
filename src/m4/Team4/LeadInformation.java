@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class LeadInformation extends JFrame {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	public JFrame frame;
@@ -18,11 +18,11 @@ public class LeadInformation extends JFrame {
 	JPanel panels[] = {panel, panel_1};
 	JTextField textFields[] = {carBrandTextField, carTypeTextField, carYearTextField, carModelTextField, customerFirstNameTextField, customerLastNameTextField, customerEmailTextField, customerPhoneNumberTextField};
 	JLabel labels[] = {carInfoLabel, carBrand, carModel, carYear, carType, customerInfoLabel, customerFirstName, customerLastName, customerEmailId, customerPhoneNo, customerQueryLabel, dealerResponseLabel};
-	String str[] = {"Car Information","Car Brand", "Car Model", "Car Year", "Car Type", "Customer Information", "First Name", "Last Name","Email ID", "Phone No", "Customer comment:", "Dealer comment:"};   
+	String str[] = {"Car Information","Car Brand", "Car Model", "Car Year", "Car Type", "Customer Information", "First Name", "Last Name","Email ID", "Phone No", "Customer comment:", "Dealer comment:"};
 
 	private Lead lead;
 	private Vehicle vehicle;
-	
+
 	public LeadInformation() {
 		initializeAndAddComponents();
 		setLayout();
@@ -46,7 +46,7 @@ public class LeadInformation extends JFrame {
 			textAreas[0].setText(lead.getComment());
 			textAreas[1].setText(lead.getDealerComment());
 
-			
+
 			textFields[0].setText(vehicle.getBrand());
 			textFields[1].setText(vehicle.getType());
 			textFields[2].setText(vehicle.getYear());
@@ -57,13 +57,13 @@ public class LeadInformation extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void initializeAndAddComponents() {
 		frame = new JFrame();
 		frame.setBounds(70, 70, 782, 778);
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		Font defaultFont = new Font("Tahoma", Font.PLAIN, 20);
 
@@ -93,9 +93,9 @@ public class LeadInformation extends JFrame {
 					textFields[i].setBounds(133, 81, 96, 30);
 				} else if( i == 3) {
 					textFields[i].setBounds(399, 81, 96, 30);
-				} 
+				}
 				panels[0].add(textFields[i]);
-			} else {			
+			} else {
 				if( i == 4) {
 					textFields[i].setBounds(133, 52, 96, 30);
 				} else if( i == 5) {
@@ -124,7 +124,7 @@ public class LeadInformation extends JFrame {
 					labels[i].setBounds(25, 81, 69, 30);
 				}else {
 					labels[i].setBounds(311, 52, 69, 30);
-				}		
+				}
 				panels[0].add(labels[i]);
 			} else if( i > 4 & i < 10) {
 				if( i == 5) {
@@ -138,14 +138,14 @@ public class LeadInformation extends JFrame {
 					labels[i].setBounds(25, 83, 69, 30);
 				}else {
 					labels[i].setBounds(25, 119, 69, 30);
-				}					
+				}
 				panels[1].add(labels[i]);
 			}else {
 				labels[i].setFont(defaultFont);
 			}
 		}
 	}
-	
+
 	private void setLayout() {
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(

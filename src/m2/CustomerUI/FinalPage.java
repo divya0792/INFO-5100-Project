@@ -369,7 +369,7 @@ public class FinalPage extends JFrame implements ItemListener {
         // set the attribute of frame
         frame.setSize(900, 600);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     public String[] convertRange(String s) {
@@ -578,5 +578,3 @@ public class FinalPage extends JFrame implements ItemListener {
         }
     }
 }
-
-

@@ -33,12 +33,12 @@ public class SubmitResponse extends JFrame {
 	private JLabel[] labels = {carInfoLabel, carBrand, carModel, carYear, carType, customerInfoLabel, customerFirstName, customerLastName, customerEmailId, customerPhoneNo, customerQueryLabel, dealerResponseLabel};
 	private String[] str = {"Car Information","Car Brand", "Car Model", "Car Year", "Car Type", "Customer Information", "First Name", "Last Name","Email ID", "Phone No", "Query from customer:", "Reply to customer:"};
 	private Lead lead;
-	
+
 	private SubmitResponse() {
 		initializeAndAddComponents();
 		setLayout();
 	}
-	
+
 	SubmitResponse(String leadId) {
 		this();
 		fillData();
@@ -90,7 +90,7 @@ public class SubmitResponse extends JFrame {
 	private void initializeAndAddComponents() {
 		frame = new JFrame();
 		frame.setBounds(70, 70, 600, 650);
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		Font defaultFont = new Font("Tahoma", Font.PLAIN, 20);
 

@@ -112,7 +112,7 @@ class LeadsPage extends javax.swing.JFrame {
         );
         jTable_Leads.setRowHeight(DEFAULT_ROW_HEIGHT);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         leadsLabel.setFont(new java.awt.Font("Times New Roman", Font.BOLD | Font.ITALIC, 24)); // NOI18N
         leadsLabel.setText("Leads");
