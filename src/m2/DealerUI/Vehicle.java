@@ -1,127 +1,110 @@
-package m2.dealerUI;
-
-import java.util.ArrayList;
+package m2.CustomerUI;
 
 public class Vehicle {
     private String id;
-    private String dealerId;
     private String brand;
     private String model;
-    private String dateofmanufacturing;
+    private int year;
     private String type;
     private String category;
     private String color;
     private float price;
     private float mileage;
-    private String flag;
-    
-    Vehicle(){}
+    private float salePrice;
 
-	public String getId() {
-	return id;
-}
+    public void setId(String id){
+        this.id = id;
+    }
 
-public void setId(String id) {
-	this.id = id;
-}
+    public String getId(){
+        return this.id;
+    }
 
-public String getDealerId() {
-	return dealerId;
-}
+    public void setBrand(String brand){
+        this.brand = brand;
+    }
 
-public void setDealerId(String dealerId) {
-	this.dealerId = dealerId;
-}
+    public String getBrand(){
+        return this.brand;
+    }
 
-public String getBrand() {
-	return brand;
-}
+    public void setModel(String model){
+        this.model = model;
+    }
 
-public void setBrand(String brand) {
-	this.brand = brand;
-}
+    public String getModel(){
+        return this.model;
+    }
 
-public String getModel() {
-	return model;
-}
+    public void setYear(int year){
+        this.year = year;
+    }
 
-public void setModel(String model) {
-	this.model = model;
-}
+    public int getYear(){
+        return this.year;
+    }
 
-public String getDateofmanufacturing() {
-	return dateofmanufacturing;
-}
+    public void setType(String type){
+        this.type = type;
+    }
 
-public void setDateofmanufacturing(String dateofmanufacturing) {
-	this.dateofmanufacturing = dateofmanufacturing;
-}
+    public String getType(){
+        return this.type;
+    }
 
-public String getType() {
-	return type;
-}
+    public void setCategory(String used){
+        this.category = used;
+    }
 
-public void setType(String type) {
-	this.type = type;
-}
+    public String getCategory(){
+        return this.category;
+    }
 
-public String getCategory() {
-	return category;
-}
+    public void setMileage(float mileage){
+        this.mileage = mileage;
+    }
 
-public void setCategory(String category) {
-	this.category = category;
-}
+    public float getMileage(){
+        return this.mileage;
+    }
 
-public String getColor() {
-	return color;
-}
+    public void setSalePrice(float salePrice){
+        this.salePrice = salePrice;
+    }
 
-public void setColor(String color) {
-	this.color = color;
-}
+    public float getSalePrice(){
+        return this.salePrice;
+    }
 
-public float getPrice() {
-	return price;
-}
+    public void setPrice(float price){
+        this.price = price;
+    }
 
-public void setPrice(float price) {
-	this.price = price;
-}
+    public double getPrice(){
+        return this.price;
+    }
 
-public float getMileage() {
-	return mileage;
-}
+    public void setColor(String color){
+        this.color = color;
+    }
 
-public void setMileage(float mileage) {
-	this.mileage = mileage;
-}
+    public String getColor(){
+        return this.color;
+    }
 
-public String getFlag() {
-	return flag;
-}
 
-public void setFlag(String flag) {
-	this.flag = flag;
-}
 
-	public Vehicle(String carIDString, String dealerIDString, String brandString, String modelString,
-			String dateofmanufacturingString, String typeString, String categoryString,
-			String colorString,float price,  float mileage) {
-		// TODO Auto-generated constructor stub
-		  id = carIDString;
-          dealerId = dealerIDString;
-          brand = brandString;
-          model = modelString;
-         
-          dateofmanufacturing = dateofmanufacturingString;
-          type = typeString;
-          category = categoryString;
-          color = colorString;     
-          this.price = price;
-          this.mileage = mileage;
+    public Vehicle(String id,String brand, String model, int year, String type, String category, String color,float price, float mileage,float salePrice){
+        this.id = id;
+        this.brand = brand;
+        this.price = price;
+        this.color = color;
+        this.model = model;
+        this.year = year;
+        this.type = type;
+        this.category = category;
+        this.mileage = mileage;
+        this.salePrice = salePrice;
 
-	}
-	
-
+    }
 }
