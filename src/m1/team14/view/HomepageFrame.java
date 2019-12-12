@@ -108,6 +108,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
             viewPanel.add(createIconPanel(dealer));
         }
         Dealer initDealer = dealers.get(0);
+        this.homepageUpCtrl.changeDealer(initDealer);
         this.curDealerLabel.setText(initDealer.getName());
         this.secondHalfViewPanel.setNewDealer(initDealer);
     }

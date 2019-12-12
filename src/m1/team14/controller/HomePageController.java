@@ -2,6 +2,7 @@ package m1.team14.controller;
 import java.util.List;
 import dataproto.Dealer;
 import dataproto.RichText;
+import m1.team14.model.HomePageModel;
 import m1.team2.DealerAllContent;
 import m1.team3.login.VMSLoginFrame;
 import m1.DAO.DealerDAOImpl;
@@ -11,7 +12,11 @@ import m4.Team4.UserUI;
 import javax.swing.JOptionPane;
 //////////////////////////////
 public class HomePageController extends AbstractController {
-	private Dealer currentDealer;
+  private HomePageModel model;
+  public void addModel(HomePageModel model) {
+      this.model = model;
+      super.addModel(model);
+  }
   public List<Dealer> getDealers() {
     List<Dealer> ret = DealerDAOImpl.INSTANCE.getAllDealer();
     return ret;
@@ -19,9 +24,11 @@ public class HomePageController extends AbstractController {
   public DealerAllContent getRichTextsByDealer(Dealer dealer) {
     return DealerContentDAOImpl.INSTANCE.getContents(dealer);
   }
+  public Dealer getCurrentDealer() {
+    return model.getCurrentDealer();
+  }
   public void changeDealer(Dealer val) {
     try {
-    	currentDealer = val;
       this.setModelProperty("CurrentDealer", val);
     } catch(Exception ex) {
       ex.printStackTrace();
@@ -34,7 +41,6 @@ public class HomePageController extends AbstractController {
     new UserUI();
   }
   public void gotoSearch() {
-	
     // For demo///////////////////
     JOptionPane.showMessageDialog(null, "Go to search page");
     //////////////////////////////
