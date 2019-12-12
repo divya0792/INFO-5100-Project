@@ -13,7 +13,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import dataproto.Dealer;
 /**
  *
  * @author yiyizhou
@@ -52,14 +52,19 @@ public class UI extends javax.swing.JFrame {
     private String[] columnNames = {"Car ID","Brand","Model","Date of manufacturing","Type","Category","Color","Price","Mileage"};
     private DefaultTableModel tableModel;
     private javax.swing.JTable jTable1;
+    private  String DealerIdString;
+  
     /**
      * Creates new form UI
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public UI() throws SQLException, ClassNotFoundException {
-
+    public UI(Dealer dealer) throws SQLException, ClassNotFoundException {
+    	ConnectToDatabase connect = new ConnectToDatabase();
+		connect.getConnections();
+		DealerIdString=dealer.getId();//Dealer
         initComponents();
+        this.setVisible(true);
     }
 
     /**
@@ -132,8 +137,8 @@ public class UI extends javax.swing.JFrame {
         manufactureDate.setText("Manufacture date:");
 
         //plan to get dealer id from another module
-        jLabel1.setText("DEA0001");
-
+       // jLabel1.setText("DEA0001");
+        jLabel1.setText(DealerIdString);
 //update hints on date format
         DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         dateofmanufacturingText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(format)));
@@ -471,45 +476,14 @@ public class UI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      * @throws SQLException 
+     * @throws ClassNotFoundException 
      */
-    public static void main(String args[]) throws SQLException {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-    	ConnectToDatabase connect = new ConnectToDatabase();
-		connect.getConnections();
-
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new UI().setVisible(true);
-                } catch (SQLException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-//
-        });
+    public static void main(String args[]) throws SQLException, ClassNotFoundException {
+    	
+    	 Dealer d = new Dealer();
+    	 d.setId("DEA0001");
+         new UI(d);
+    	
 
     }
 
