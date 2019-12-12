@@ -3,6 +3,7 @@ package m3.view;
 import dataproto.Dealer;
 
 import m1.team2.ContentEditor;
+import m4.Team2.App;
 import javax.swing.*;
 import java.awt.*;
 
@@ -58,7 +59,7 @@ public class MenuPage extends BasicUI {
 		});
 
 		LeadsPage.addActionListener(e -> {
-			//LeadsPage l = new LeadsPage(d);
+      new App(d);
 		});
 	}
 

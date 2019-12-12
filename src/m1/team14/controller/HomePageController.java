@@ -6,6 +6,7 @@ import m1.team2.DealerAllContent;
 import m1.team3.login.VMSLoginFrame;
 import m1.DAO.DealerDAOImpl;
 import m1.DAO.DealerContentDAOImpl;
+import m4.Team4.UserUI;
 // For demo///////////////////
 import javax.swing.JOptionPane;
 //////////////////////////////
@@ -28,10 +29,7 @@ public class HomePageController extends AbstractController {
     new VMSLoginFrame();
   }
   public void gotoHistory() {
-    // For demo///////////////////
-    JOptionPane.showMessageDialog(null, "Go to customers' contact history enterance page");
-    //////////////////////////////
-
+    new UserUI();
   }
   public void gotoSearch() {
     // For demo///////////////////

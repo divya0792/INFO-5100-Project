@@ -8,13 +8,14 @@ public class Vehicle extends DataObject {
     private String model;//Accord
     private int year;
     private String type;//SEDAN, SUV, VAN, PICKUP; private VehicleType type;
-    private VehicleCategory category;//enum Category{ NEW, USED };
+    private String category;//enum Category{ NEW, USED };
     private String color;
     private float price;
     private float mileage;
     private Collection<Incentive> matchedIncentives;
     private float salePrice;
     private int peopleExpressingInterestInThisCar;
+
 
     public Vehicle(String model, String ID, String dealerId, float price, String color, String type, int year) {
         this.setId(ID);
@@ -66,11 +67,11 @@ public class Vehicle extends DataObject {
         this.type = type;
     }
 
-    public VehicleCategory getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(VehicleCategory category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
