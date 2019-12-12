@@ -4,8 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.Map;
- 
+
 public class UserUI extends JFrame{
 	private Map<String, Lead> leadMap;
 	private LeadSearchImp leadManager;
@@ -20,7 +21,7 @@ public class UserUI extends JFrame{
     	create();
     	addListeners();
 	}
-    
+
     public void create() {
     	Font font =new Font("PLAIN", Font.PLAIN, 20);
     	jFrame=new JFrame("Sign In");
@@ -30,37 +31,37 @@ public class UserUI extends JFrame{
 		jAdmin=new JLabel("Phone Number");
 		jAdmin.setBounds(40, 50, 250, 50);
 		jAdmin.setFont(font);
-		
+
 		button1=new JButton("Login");
 		button1.setBounds(90, 150, 100, 50);
 		button1.setFont(font);
- 
+
 		button2=new JButton("Exit");
 		button2.setBounds(250, 150, 100, 50);
 		button2.setFont(font);
 		jLable.add(jAdmin);
 		jLable.add(button1);
 		jLable.add(button2);
-		
+
 		jtext1=new JTextField();
 		jtext1.setBounds(200, 50, 200, 50);
 		jtext1.setFont(font);
-		
-		
+
+
 		jLable.add(jtext1);
-		
+
 		jFrame.add(jLable);
 		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		jFrame.setLocation(300,400);
     }
-    
+
     public void addListeners() {
     	ActionListener actionListerner=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				String phoneNumber=jtext1.getText(); 
+				String phoneNumber=jtext1.getText();
 				leadManager = new LeadSearchImp();
 				leadManager.getLead(phoneNumber);
 				leadMap = leadManager.getLeadMap();
@@ -79,17 +80,18 @@ public class UserUI extends JFrame{
 			}
 		};
 		button1.addActionListener(actionListerner);
+    UserUI that = this;
 		ActionListener bt2_ls=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+        that.dispatchEvent(new WindowEvent(that, WindowEvent.WINDOW_CLOSING));
 			}
 		};
-		button2.addActionListener(bt2_ls);		
+		button2.addActionListener(bt2_ls);
     }
-    
-    
-	public static void main(String[] args) {	 
+
+
+	public static void main(String[] args) {
 		UserUI userUI =new UserUI();
 	}
 }

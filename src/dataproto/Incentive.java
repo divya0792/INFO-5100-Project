@@ -5,7 +5,7 @@ import java.util.Date;
 
 class Incentive extends DataObject {
     public Incentive(String id) {
-        super(id);
+        this.setId(id);
         // TODO Auto-generated constructor stub
     }
 

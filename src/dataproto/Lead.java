@@ -12,7 +12,7 @@ public class Lead extends DataObject {
 
     public Lead(String id, String dealerId, String vehicleId, String userId, Date dateOfExpressingInterest,
             String consumerComment) {
-        super(id);
+        this.setId(id);
         this.dealerId = dealerId;
         this.vehicleId = vehicleId;
         this.userId = userId;

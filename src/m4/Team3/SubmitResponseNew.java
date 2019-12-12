@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 public class SubmitResponseNew extends JFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6375909820518138040L;
 	public JFrame frame;
@@ -40,12 +40,12 @@ public class SubmitResponseNew extends JFrame {
 
 	private String leadId;
 	private Lead lead;
-	
+
 	public SubmitResponseNew() {
 		initializeAndAddComponents();
 		setLayout();
 	}
-	
+
 	public SubmitResponseNew(String leadId) {
 		this();
 		this.leadId = leadId;
@@ -69,7 +69,7 @@ public class SubmitResponseNew extends JFrame {
 //				System.out.println("customerrequest cannot be found in database: " + leadId);
 //				return;
 //			}
-			
+
 //			textFields[4].setText(leadInfo.getString("firstName"));
 //			textFields[5].setText(leadInfo.getString("lastName"));
 //			textFields[6].setText(leadInfo.getString("email"));
@@ -81,7 +81,7 @@ public class SubmitResponseNew extends JFrame {
 			textAreas[0].setText(lead.getComment());
 			textAreas[1].setText(lead.getDealerComment());
 
-			
+
 //			String vehicleId = leadInfo.getString("vehicleId");
             String vehicleId = lead.getVehicleId();
 			String vehicleSql = String.format("select * from dbo.CarInventory where vechileId = '%s'", vehicleId);
@@ -100,7 +100,7 @@ public class SubmitResponseNew extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void initializeAndAddComponents() {
@@ -141,7 +141,7 @@ public class SubmitResponseNew extends JFrame {
 					textFields[i].setBounds(399, 81, 96, 30);
 				}
 				panels[0].add(textFields[i]);
-			} else {			
+			} else {
 				if( i == 4) {
 					textFields[i].setBounds(133, 52, 96, 30);
 				} else if( i == 5) {
@@ -184,7 +184,7 @@ public class SubmitResponseNew extends JFrame {
 					labels[i].setBounds(25, 83, 69, 30);
 				}else {
 					labels[i].setBounds(25, 119, 69, 30);
-				}					
+				}
 				panels[1].add(labels[i]);
 			}else {
 				labels[i].setFont(defaultFont);
@@ -195,7 +195,7 @@ public class SubmitResponseNew extends JFrame {
 		submitButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textAreas[1].getText().isEmpty()) {					
+				if(textAreas[1].getText().isEmpty()) {
 					JOptionPane.showMessageDialog(frame, "Response field is empty");
 				}else {
 					int result = JOptionPane.showConfirmDialog(frame, "are you sure you want to send response?",
@@ -205,8 +205,8 @@ public class SubmitResponseNew extends JFrame {
 						try {
 							String updateSql = String.format("update dbo.CustomerRequest set dealerComment = '%s' where leadId = '%s'", textAreas[1].getText(), lead.getLeadId());
 //							System.out.println(lead.getDealerId());
-							JDBC.getInstance().update(updateSql);
-							
+							JDBC.getInstance().updateOldversion(updateSql);
+
 							SendEmailTest2.gmailSender(textFields[6].getText(), "You got a response from dealer!", HTMLGenerator());
 //							SendEmailTest2.gmailSender("info5100finaltestr@gmail.com", "You got a response from dealer!", HTMLGenerator());
 
@@ -221,7 +221,7 @@ public class SubmitResponseNew extends JFrame {
 				}
 			}
 		});
-		
+
 
 		resetButton = new JButton("Reset");
 		resetButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -232,7 +232,7 @@ public class SubmitResponseNew extends JFrame {
 		});
 
 	}
-	
+
 	private void setLayout() {
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(

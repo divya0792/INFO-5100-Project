@@ -3,64 +3,67 @@ package utils;
 import java.sql.*;
 
 public class JDBC {
-	private Statement stmt;
-	private static JDBC _instance;
+    private static final String URL
+            = "jdbc:sqlserver://is-swang01.ischool.uw.edu:1433;databaseName=VechileManagementSystem";
+    private static final String USERNAME = "INFO6210";
+    private static final String PASSWORD = "NEUHusky!";
 
-	static public JDBC getInstance() {
-		if (_instance == null) {
-			_instance = new JDBC();
+    private Connection conn;
+    private static JDBC _instance;
+    private Statement stmt;
+
+    static public JDBC getInstance() throws SQLException {
+        if (_instance == null) {
+            _instance = new JDBC();
+        }
+        return _instance;
+    }
+
+    private JDBC() throws SQLException {
+        conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+				this.stmt = conn.createStatement();
+    }
+
+    private PreparedStatement prepareStatement(String sql, String[] params) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        for (int i = 0; i < params.length; i++) {
+            stmt.setString(i + 1, params[i]);
+        }
+        return stmt;
+    }
+
+    public ResultSet query(String sql, String[] params) throws SQLException {
+        return prepareStatement(sql, params).executeQuery();
+    }
+
+    public int update(String sql, String[] params) throws SQLException {
+        return prepareStatement(sql, params).executeUpdate();
+    }
+		public ResultSet getResults(String query) {
+			ResultSet rs = null;
+			try {
+				// stmt is the connection statement
+				// System.out.println("select sql query: " + query);
+				rs = this.stmt.executeQuery(query);
+				/**
+				 *
+				 * rs = this.stmt.executeQuery("select * from dbo.CustomerRequest"); while
+				 * (rs.next()) { System.out.println(rs.getString("leadId") +
+				 * rs.getString("firstName")); }
+				 */
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return rs;
 		}
-		return _instance;
-	}
-
-	private JDBC() {
-		Connection conn = null;
-		stmt = null;
-		try {
-			// STEP 2: Register JDBC driver
-			// Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-
-			// STEP 3: Open a connection
-			System.out.println("Connecting to a selected database...");
-			conn = DriverManager.getConnection(
-					"jdbc:sqlserver://is-swang01.ischool.uw.edu:1433;databaseName=VechileManagementSystem", "INFO6210",
-					"NEUHusky!");
-			System.out.println("Connected database successfully...");
-
-			// STEP 4: Execute a query
-			System.out.println("Creating statement...");
-			this.stmt = conn.createStatement();
-		} catch (Exception e) {
-			e.printStackTrace();
+		public int updateOldversion(String sql) {
+			try {
+				// System.out.println("update sql query: " + sql);
+				return this.stmt.executeUpdate(sql);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return 0;
 		}
-	}
-
-	public ResultSet getResults(String query) {
-		ResultSet rs = null;
-		try {
-			// stmt is the connection statement
-			System.out.println("select sql query: " + query);
-			rs = this.stmt.executeQuery(query);
-			/**
-			 * 
-			 * rs = this.stmt.executeQuery("select * from dbo.CustomerRequest"); while
-			 * (rs.next()) { System.out.println(rs.getString("leadId") +
-			 * rs.getString("firstName")); }
-			 */
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return rs;
-	}
-
-	public int update(String sql) {
-		try {
-			System.out.println("update sql query: " + sql);
-			return this.stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
 }

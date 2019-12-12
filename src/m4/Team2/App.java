@@ -5,8 +5,8 @@ import javax.swing.*;
 import dataproto.Dealer;
 
 public class App {
-	
-	App(Dealer dealer) {
+
+	public App(Dealer dealer) {
     	try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -23,9 +23,8 @@ public class App {
     }
 
     public static void main(String[] args) {
-    	Dealer a = new Dealer("DEA0001");
+			Dealer a = new Dealer("DEA0001", "sdf", "09238490");
     	new App(a);
     }
-   
-}
 
+}

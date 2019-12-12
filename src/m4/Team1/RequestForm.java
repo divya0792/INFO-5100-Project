@@ -12,9 +12,9 @@ import m4.Team1.database.utils.Constants;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
 import java.util.Optional;
 
 public class RequestForm extends JFrame {
@@ -119,7 +119,7 @@ public class RequestForm extends JFrame {
 
 	/**
 	 * Function to add car and dealer panel
-	 * 
+	 *
 	 * @param con
 	 */
 	private void addCarDealerPanel(Container con) {
@@ -168,7 +168,7 @@ public class RequestForm extends JFrame {
 
 	/**
 	 * Function to add Submit button Panel
-	 * 
+	 *
 	 * @param con
 	 */
 	private void addSubmitPanel(Container con) {
@@ -211,7 +211,7 @@ public class RequestForm extends JFrame {
 
 		submitButton.addActionListener((ActionEvent ae) -> {
 			writeToTable();
-			System.exit(0);
+			this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 		});
 
 		phoneNumField.getDocument().addDocumentListener(new DocumentListener() {
@@ -292,13 +292,13 @@ public class RequestForm extends JFrame {
 		requestFormController.updateInterestedPeopleCount();
 	}
 
-	public static void main(String[] args) {
+	public static void RequestFormAPI(String carID,String dealerID) {
 		RequestFormController controller = new RequestFormController(
 				new VehicleTableDao(Constants.sqlUrl, Constants.carTableName), new DealerTableDao(),
 				new CustomerRequestTableDao(Constants.sqlUrl, Constants.customerRequestTableName));
-		JFrame f = controller.createRequestForm("SED2018001", "DEA0001");
+		JFrame f = controller.createRequestForm(carID, dealerID);
 		f.setTitle("Customer Request Form");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		f.setSize(600, 600);
 		f.setVisible(true);
 	}

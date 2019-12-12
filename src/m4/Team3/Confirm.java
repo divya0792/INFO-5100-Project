@@ -1,4 +1,4 @@
-
+package m4.Team3;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 public class Confirm extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	
+
 	private static Confirm dialog = null;
 
 
