@@ -24,7 +24,6 @@ public class CarInventoryImplementation implements CarInventoryInterface {
 		
 		try {
 			
-			System.out.println(vehicle.getId());
 			 ConnectToDatabase connectToSql = new ConnectToDatabase();
 			  Connection connection = connectToSql.getConn();
 			 String query = "select *  FROM dbo.CarInventory WHERE vechileId  = ? "
@@ -56,8 +55,8 @@ public class CarInventoryImplementation implements CarInventoryInterface {
 	        	 stmt.close();
 	             if (affectedRows > 0) {
 	            	 String message = "Details are succesfully entered";
-	            	 tableModel.addRow(new Object[]{vehicle.getId(),vehicle.getBrand(),vehicle.getModel(),vehicle.getDateofmanufacturing(),vehicle.getType(),vehicle.getCategory(),vehicle.getColor(),vehicle.getPrice(),vehicle.getMileage()});
-	            	 return message;
+	            	 tableModel.addRow(new Object[]{vehicle.getId(),vehicle.getBrand(),vehicle.getModel(),vehicle.getDateofmanufacturing(),vehicle.getType(),vehicle.getCategory(),vehicle.getColor(),vehicle.getPrice(),vehicle.getMileage()});            	 
+	                  	 return message;
 	             }
 	             
 	        }
@@ -73,6 +72,8 @@ public class CarInventoryImplementation implements CarInventoryInterface {
 		return "Error occured while registering";
 		
 	}
+
+	
 
 	public int getRowCount(Connection conn) throws SQLException {
 		 ConnectToDatabase connectToSql = new ConnectToDatabase();
@@ -122,6 +123,7 @@ public class CarInventoryImplementation implements CarInventoryInterface {
          {
         	 return "No entries exist for the dealer and car";
          }
+       
 	            
 	}
 
