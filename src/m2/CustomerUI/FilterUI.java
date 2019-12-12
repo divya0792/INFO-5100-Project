@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.awt.*;
 import java.util.Vector;
 import javax.swing.*;
+import dataproto.Dealer;
 
 public class FilterUI extends JFrame implements ItemListener {
     private JFrame frame;
@@ -25,10 +26,17 @@ public class FilterUI extends JFrame implements ItemListener {
 
     private ModuleIntegrator manager;
     SelectData sd = new SelectData();
-    String dealerID = "DEA0001";
+    String dealerID = "";
     DBManager mg = new DBManager(dealerID);
 
-    FilterUI() {
+    public FilterUI(Dealer dealer) {
+      dealerID = dealer.getId();
+      try {
+
+        createFilterUI();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
 
     public void createFilterUI() throws Exception {
@@ -152,7 +160,7 @@ public class FilterUI extends JFrame implements ItemListener {
         p3.setLayout(new GridLayout(2, 2));
 
         try {
-            manager = new ModuleIntegrator();
+            manager = new ModuleIntegrator(dealerID);
         } catch (Exception e) {
         }
 
@@ -169,7 +177,7 @@ public class FilterUI extends JFrame implements ItemListener {
     public void addFullResult(Container con) {
         con.revalidate();
         frame.add(con, BorderLayout.EAST);
-        manager = new ModuleIntegrator();
+        manager = new ModuleIntegrator(dealerID);
         ArrayList<dataproto.Vehicle> list = manager.integratorGetAllVehicles();
         //GridLayout gl = new GridLayout(list.size(),1);
         JPanel basepanel = new JPanel();
@@ -297,7 +305,7 @@ public class FilterUI extends JFrame implements ItemListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new DetailPage(seeDetail.getName());
+                    new DetailPage(seeDetail.getName(), dealerID);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -431,7 +439,9 @@ public class FilterUI extends JFrame implements ItemListener {
     }
 
     public static void main(String[] args) throws Exception {
-        FilterUI ui = new FilterUI();
+      Dealer testDealer = new Dealer();
+      testDealer.setId("0");
+        FilterUI ui = new FilterUI(testDealer);
         ui.createFilterUI();
 
 

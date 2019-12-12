@@ -13,7 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModuleIntegrator {
-    DBManager db = new DBManager("DEA0001");
+    DBManager db;
+    public ModuleIntegrator(String dealerID) {
+      db = new DBManager(dealerID);
+    }
 
     public ArrayList<Vehicle> integratorGetAllVehicles() {
 
@@ -60,15 +63,9 @@ public class ModuleIntegrator {
 
         //get incentives for vehicles
 
-        IncentiveManagement incentiveManagement = new IncentiveManager();
-        List<IncentivesFinalPrice> finalIncentiveList = incentiveManagement.getVehicleFinalIncentives((Vehicle[]) vehicleList.toArray());
-
-
-
+        // IncentiveManagement incentiveManagement = new IncentiveManager();
+        // List<IncentivesFinalPrice> finalIncentiveList = incentiveManagement.getVehicleFinalIncentives((Vehicle[]) vehicleList.toArray());
         return vehicleList;
-
-
-
     }
 
     public ArrayList<Vehicle> integratorGetFilteredVehiclesFor(String searchString) {

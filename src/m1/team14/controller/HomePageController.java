@@ -8,6 +8,7 @@ import m1.team3.login.VMSLoginFrame;
 import m1.DAO.DealerDAOImpl;
 import m1.DAO.DealerContentDAOImpl;
 import m4.Team4.UserUI;
+import m2.CustomerUI.FilterUI;
 // For demo///////////////////
 import javax.swing.JOptionPane;
 //////////////////////////////
@@ -41,9 +42,7 @@ public class HomePageController extends AbstractController {
     new UserUI();
   }
   public void gotoSearch() {
-    // For demo///////////////////
-    JOptionPane.showMessageDialog(null, "Go to search page");
-    //////////////////////////////
+    new FilterUI(getCurrentDealer());
   }
   public void gotoDetail() {
     // For demo///////////////////

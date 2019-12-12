@@ -13,11 +13,13 @@ public class DetailPage extends JFrame {
     private JLabel brandvalue, modelvalue, yearvalue, typevalue, categoryvalue, pricevalue, colorvalue, mileagevalue, salepricevalue;
     private JLabel space;
     private Button interest;
+    private String dealerID;
 
     private ModuleIntegrator manager;
 
-    public DetailPage(String i) throws Exception {
+    public DetailPage(String i, String dealerID) throws Exception {
         this.i = Integer.parseInt(i);
+        this.dealerID = dealerID;
         create(this.i);
         makeItVisible();
     }
@@ -29,7 +31,7 @@ public class DetailPage extends JFrame {
 
     public void create(int i) {
         try {
-            manager = new ModuleIntegrator();
+            manager = new ModuleIntegrator(dealerID);
         } catch (Exception e) {
         }
         Container con = getContentPane();
