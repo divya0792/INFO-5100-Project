@@ -6,6 +6,7 @@ import m1.team2.ContentEditor;
 import m4.Team2.App;
 import javax.swing.*;
 import java.awt.*;
+import m2.DealerUI.UI;
 
 public class MenuPage extends BasicUI {
   private static final long serialVersionUID = 4L;
@@ -55,7 +56,7 @@ public class MenuPage extends BasicUI {
 		});
 
 		VehiclePage.addActionListener(e -> {
-			//VehiclePage v = new VehiclePage(d);
+			new UI(d);
 		});
 
 		LeadsPage.addActionListener(e -> {

@@ -1,4 +1,4 @@
-package m2.dealerUI;
+package m2.DealerUI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +13,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import dataproto.Dealer;
+import dataproto.*;
 /**
  *
  * @author yiyizhou
@@ -59,12 +59,16 @@ public class UI extends javax.swing.JFrame {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public UI(Dealer dealer) throws SQLException, ClassNotFoundException {
-    	ConnectToDatabase connect = new ConnectToDatabase();
-		connect.getConnections();
-		DealerIdString=dealer.getId();//Dealer
-        initComponents();
-        this.setVisible(true);
+    public UI(Dealer dealer) {
+    	try {
+			ConnectToDatabase connect = new ConnectToDatabase();
+			connect.getConnections();
+			DealerIdString=dealer.getId();//Dealer
+			initComponents();
+			this.setVisible(true);
+    	} catch( Exception e) {
+    		e.printStackTrace();
+    	}
     }
 
     /**

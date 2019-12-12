@@ -27,12 +27,9 @@ public class IncentiveManagerTest {
 
     Dealer bmwDealer = new Dealer("001", "Bob", "rtyui");
 
-    Vehicle vehicle1 = new Vehicle("BMW", "001", bmwDealer.getId(), 50000, "black",
-            "X5", 2019);
-    Vehicle vehicle2 = new Vehicle("BMW", "002", bmwDealer.getId(), 35000, "red",
-            "X1", 2013);
-    Vehicle vehicle3 = new Vehicle("BMW", "003", bmwDealer.getId(), 30000, "red",
-            "X11", 2023);
+    Vehicle vehicle1 = new Vehicle("001", bmwDealer.getId(), "BMW", "X5", "2019-01-01", "VAN", "NEW", "black", 50000.0f, 0.0f);
+    Vehicle vehicle2 = new Vehicle("002", bmwDealer.getId(), "BMW", "X1", "2013-01-01", "VAN", "NEW", "red", 35000.0f, 0.0f);
+    Vehicle vehicle3 = new Vehicle("003", bmwDealer.getId(), "BMW", "X11", "2023-01-01", "VAN", "NEW", "red", 30000.0f, 0.0f);
     Vehicle[] vehicles = {vehicle1, vehicle2, vehicle3};
 
     Filter brandFilter = new BrandFilter("BMW", new EqualChecker<>());

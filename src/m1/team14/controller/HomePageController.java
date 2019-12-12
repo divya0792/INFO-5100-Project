@@ -11,6 +11,7 @@ import m4.Team4.UserUI;
 import javax.swing.JOptionPane;
 //////////////////////////////
 public class HomePageController extends AbstractController {
+	private Dealer currentDealer;
   public List<Dealer> getDealers() {
     List<Dealer> ret = DealerDAOImpl.INSTANCE.getAllDealer();
     return ret;
@@ -20,6 +21,7 @@ public class HomePageController extends AbstractController {
   }
   public void changeDealer(Dealer val) {
     try {
+    	currentDealer = val;
       this.setModelProperty("CurrentDealer", val);
     } catch(Exception ex) {
       ex.printStackTrace();
@@ -32,6 +34,7 @@ public class HomePageController extends AbstractController {
     new UserUI();
   }
   public void gotoSearch() {
+	
     // For demo///////////////////
     JOptionPane.showMessageDialog(null, "Go to search page");
     //////////////////////////////

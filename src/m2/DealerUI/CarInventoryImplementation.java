@@ -1,4 +1,4 @@
-package m2.dealerUI;
+package m2.DealerUI;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import dataproto.*;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;

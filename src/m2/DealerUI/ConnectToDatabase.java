@@ -1,4 +1,4 @@
-package m2.dealerUI;
+package m2.DealerUI;
 
 
 import java.sql.DriverManager;
