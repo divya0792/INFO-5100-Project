@@ -20,15 +20,15 @@ public class DetailInfo extends JFrame {
 	private JLabel dealerLable;
 	private JTextField userComment;
 	private JTextField dealerComment;
-  
- 
+
+
     public DetailInfo(String leadId, Lead lead) {
     	font = new Font("PLAIN", Font.PLAIN, 20);
     	this.leadId = leadId;
     	this.lead = lead;
         init();
         makeItVisible();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     public void init() {
@@ -45,11 +45,11 @@ public class DetailInfo extends JFrame {
 		jVehicleIdLable = new JLabel("Vehicle Id: " + lead.getVehicleId());
 		jVehicleIdLable.setBounds(80, 80, 350, 50);
 		jVehicleIdLable.setFont(font);
-		
+
 		jEmailLable = new JLabel("Email: " + lead.getEmail());
 		jEmailLable.setBounds(280, 80, 350, 50);
 		jEmailLable.setFont(font);
-		
+
 		ImageIcon background = new ImageIcon(VehicleManageFrame.class.getResource("user1.PNG"));
 		userLable = new JLabel(background);
 		userLable.setBounds(20, 150, background.getIconWidth(), background.getIconHeight());
@@ -61,7 +61,7 @@ public class DetailInfo extends JFrame {
 		dealerLable.setBounds(470, 350, background1.getIconWidth(), background1.getIconHeight());
 		dealerComment = new JTextField("Dealer comment: " + lead.getDealerComment());
 		dealerComment.setBounds(150, 350, 300, 150);
-		
+
 		jLable.add(jLeadIdLable);
 		jLable.add(jDealerIdLable);
 		jLable.add(jVehicleIdLable);
@@ -73,10 +73,10 @@ public class DetailInfo extends JFrame {
 
 		jFrame.add(jLable);
     }
-    
+
     public void makeItVisible() {
 		jFrame.setSize(600, 600);
 		jFrame.setVisible(true);
 	}
-    
+
 }
