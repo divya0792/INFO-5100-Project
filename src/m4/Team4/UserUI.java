@@ -7,16 +7,21 @@ import java.awt.event.ActionListener;
 import java.util.Map;
  
 public class UserUI extends JFrame{
-	private static Map<String, Lead> leadMap;
-	private static LeadSearchImp leadManager;
-	private static int count=0;
-	private static JButton button1;
-	private static JButton button2;
-	private static JLabel jLable;
-	private static JFrame jFrame;
-    private static JTextField jtext1;
-    private static JLabel jAdmin;
+	private Map<String, Lead> leadMap;
+	private LeadSearchImp leadManager;
+	private int count=0;
+	private JButton button1;
+	private JButton button2;
+	private JLabel jLable;
+	private JFrame jFrame;
+    private JTextField jtext1;
+    private JLabel jAdmin;
     public UserUI(){
+    	create();
+    	addListeners();
+	}
+    
+    public void create() {
     	Font font =new Font("PLAIN", Font.PLAIN, 20);
     	jFrame=new JFrame("Sign In");
     	jFrame.setSize(450, 280);
@@ -48,11 +53,10 @@ public class UserUI extends JFrame{
 		jFrame.setVisible(true);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jFrame.setLocation(300,400);
-	}
-	public static void main(String[] args) {
-		 
-		UserUI userUI =new UserUI();
-		ActionListener actionListerner=new ActionListener() {
+    }
+    
+    public void addListeners() {
+    	ActionListener actionListerner=new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -63,13 +67,13 @@ public class UserUI extends JFrame{
 				if(leadMap.size() != 0)
 				{
 					VehicleManageFrame ml=new VehicleManageFrame(leadMap);
-					userUI.jFrame.dispose();
+					jFrame.dispose();
 				}
 				else {
 					count++;
 					JOptionPane.showMessageDialog(jFrame, "Phone Number does not exist!");
 					if(count==3){
-						userUI.jFrame.dispose();
+						jFrame.dispose();
 					}
 				}
 			}
@@ -82,5 +86,10 @@ public class UserUI extends JFrame{
 			}
 		};
 		button2.addActionListener(bt2_ls);		
-     }
+    }
+    
+    
+	public static void main(String[] args) {	 
+		UserUI userUI =new UserUI();
+	}
 }
