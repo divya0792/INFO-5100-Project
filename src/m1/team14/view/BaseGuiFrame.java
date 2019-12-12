@@ -31,12 +31,15 @@ public abstract class BaseGuiFrame extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
+    public void createALL() {
+      create();
+      Container container = getContentPane();
+      add(container);
+      makeVisible();
+    }
 
     public BaseGuiFrame(AbstractController controller, JPanel view){
         init(controller, view);
-        create();
-        Container container = getContentPane();
-        add(container);
-        makeVisible();
+        createALL();
     }
 }

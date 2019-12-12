@@ -1,9 +1,9 @@
 ### TO RUN
 # Compile:
 ```
-find . -name "*.java" -print | xargs javac
+find . -name "*.java" -print | xargs javac -cp "../lib/*"
 ```
 # Run:
 ```
-java m1.Main
+java -cp .:../lib/sqljdbc4.jar Main
 ```
