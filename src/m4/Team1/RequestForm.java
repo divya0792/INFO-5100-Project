@@ -292,17 +292,6 @@ public class RequestForm extends JFrame {
 		requestFormController.updateInterestedPeopleCount();
 	}
 
-	public static void RequestFormAPI(String carID,String dealerID) {
-		RequestFormController controller = new RequestFormController(
-				new VehicleTableDao(Constants.sqlUrl, Constants.carTableName), new DealerTableDao(),
-				new CustomerRequestTableDao(Constants.sqlUrl, Constants.customerRequestTableName));
-		JFrame f = controller.createRequestForm(carID, dealerID);
-		f.setTitle("Customer Request Form");
-		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		f.setSize(600, 600);
-		f.setVisible(true);
-	}
-
 	public static class RequestFormBuilder {
 		private VehicleDetails carDetails;
 		private DealerDetails dealerDetails;
