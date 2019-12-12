@@ -1,6 +1,6 @@
 package m4.Team2;
 
-import m4.Team3.SubmitResponseNew;
+import m4.Team3.SubmitResponse;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +41,8 @@ class TableButtonEditor extends DefaultCellEditor
 
         if (clicked) {
             // TODO: Add page redirection logic here
-            SubmitResponseNew window = new SubmitResponseNew(leadList.get(row));
+            SubmitResponse window = new SubmitResponse(leadList.get(row));
+//            DealerPesponsePage window = new DealerPesponsePage(leadList.get(row));
 //            JOptionPane.showMessageDialog(button, "Lead Id: " + leadList.get(row).getLeadId());
         }
         clicked = false;
