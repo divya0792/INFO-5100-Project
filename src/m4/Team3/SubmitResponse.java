@@ -18,7 +18,7 @@ import java.sql.ResultSet;
 public class SubmitResponse extends JFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6375909820518138040L;
 	private JFrame frame;
@@ -84,7 +84,7 @@ public class SubmitResponse extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private void initializeAndAddComponents() {
@@ -125,7 +125,7 @@ public class SubmitResponse extends JFrame {
 					textFields[i].setBounds(399, 81, 96, 30);
 				}
 				panels[0].add(textFields[i]);
-			} else {			
+			} else {
 				if( i == 4) {
 					textFields[i].setBounds(133, 52, 96, 30);
 				} else if( i == 5) {
@@ -168,7 +168,7 @@ public class SubmitResponse extends JFrame {
 					labels[i].setBounds(25, 83, 69, 30);
 				}else {
 					labels[i].setBounds(25, 119, 69, 30);
-				}					
+				}
 				panels[1].add(labels[i]);
 			}else {
 				labels[i].setFont(defaultFont);
@@ -177,18 +177,20 @@ public class SubmitResponse extends JFrame {
 
 		submitButton = new JButton("Submit");
 		submitButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		submitButton.addActionListener(e -> {
-			if(textAreas[1].getText().isEmpty()) {
-				JOptionPane.showMessageDialog(frame, "Response field is empty");
-			}else {
-				int result = JOptionPane.showConfirmDialog(frame, "are you sure you want to send response?",
-						"alert", JOptionPane.OK_CANCEL_OPTION);
-				if (result == 0) {
-					try {
-						JDBC.getInstance().updateDealerComment(textAreas[1].getText(), lead.getLeadId());
-						SendEmail.gmailSender(textFields[6].getText(), "You got a response from dealer!", HTMLGenerator());
-						JOptionPane.showMessageDialog(frame, "Response sent! An email also sent to customer.");
-						//close the window after submit:
+		submitButton.addActionListener(e ->  {
+
+				if(textAreas[1].getText().isEmpty()) {
+					JOptionPane.showMessageDialog(frame, "Response field is empty");
+				}else {
+					int result = JOptionPane.showConfirmDialog(frame, "are you sure you want to send response?",
+							"alert", JOptionPane.OK_CANCEL_OPTION);
+					if (result == 0) {
+						try {
+							String updateSql = String.format("update dbo.CustomerRequest set dealerComment = '%s' where leadId = '%s'", textAreas[1].getText(), lead.getLeadId());
+							JDBC.getInstance().updateOldversion(updateSql);
+							SendEmail.gmailSender(textFields[6].getText(), "You got a response from dealer!", HTMLGenerator());
+							JOptionPane.showMessageDialog(frame, "Response sent! An email also sent to customer.");
+							//close the window after submit:
 //							frame.setVisible(false);
 					} catch (Exception exp) {
 						exp.printStackTrace();
@@ -197,14 +199,14 @@ public class SubmitResponse extends JFrame {
 				}
 			}
 		});
-		
+
 
 		resetButton = new JButton("Reset");
 		resetButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		resetButton.addActionListener(e -> textAreas[1].setText(""));
 
 	}
-	
+
 	private void setLayout() {
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(

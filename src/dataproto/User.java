@@ -7,7 +7,7 @@ public class User extends DataObject {
     private String phone;
 
     public User(String id, String firstname, String lastname, String email, String phone) {
-        super(id);
+        this.setId(id);
         System.out.println("user success construct");
         this.firstname = firstname;
         this.lastname = lastname;

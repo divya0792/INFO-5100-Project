@@ -12,7 +12,7 @@ import java.util.ArrayList;
 class LeadsPage extends javax.swing.JFrame {
 
     private static int DEFAULT_ROW_HEIGHT = 40;
-    private static String DEFAULT_BUTTON_LABEL = "Contact Me";
+    private static String DEFAULT_BUTTON_LABEL = "Respond";
 
     private String dealerId;
     private JTable jTable_Leads;
