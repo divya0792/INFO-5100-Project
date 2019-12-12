@@ -36,7 +36,8 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
     private JButton searchBtn;
     private JButton loginBtn;
     private JButton historyBtn;
-     private JLabel headerLabel;
+    private JButton refreshBtn;
+    private JLabel headerLabel;
 
     // scrollable bar
     private JScrollPane scrollPanel;
@@ -84,7 +85,15 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         historyBtn.addActionListener(e -> {
          this.homepageUpCtrl.gotoHistory();
         });
-
+        refreshBtn = new JButton("Refresh");
+        HomepageFrame that = this;
+        refreshBtn.addActionListener(e -> {
+          Container container = that.getContentPane();
+          container.removeAll();
+          container.revalidate();
+          container.repaint();
+          that.createALL();
+        });
         // scroll panel
 //        scrollPanel = new JScrollPane();
         viewPanel = new JPanel();
@@ -193,6 +202,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         fillButtonPanel(buttonPanel, searchBtn, constraints, 0, 0, 1, 1, 0.6, 1, GridBagConstraints.NONE, GridBagConstraints.NORTH);
         fillButtonPanel(buttonPanel, historyBtn, constraints, 1, 0, 1, 1, 0.2, 1, GridBagConstraints.NONE, GridBagConstraints.NORTH);
         fillButtonPanel(buttonPanel, loginBtn, constraints, 2, 0, 1, 1, 0.2, 1, GridBagConstraints.NONE, GridBagConstraints.NORTH);
+        fillButtonPanel(buttonPanel,refreshBtn,constraints,3,0,1,1,0.2,1,GridBagConstraints.NONE,GridBagConstraints.NORTH);
 
     }
 
@@ -232,6 +242,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
 
     private void addToMain(Container mainPanel) {
         mainPanel.add(headPanel, BorderLayout.NORTH);
+        headerLabel = new JLabel("VEHICLE MANAGEMENT STUDIO");
     }
 
     private void addCurDealerIcon(JPanel curDealerIconPanel) {
