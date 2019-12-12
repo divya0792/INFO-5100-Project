@@ -19,7 +19,7 @@ import m1.team2.DealerAllContent;
 public class SecondHalfViewPanel extends JPanel {
 	private JScrollPane HeaderPanel,FooterPanel, MidLeftPanel, MidRightPanel;
 	private JEditorPane HeadEdp, Sec1Edp, Sec2Edp, FootEdp;
-	private JButton ClickForDetailBtn, ContactMeBtn;
+	private JButton ClickForDetailBtn;
   private HomePageController controller;
   private static final long serialVersionUID = 4L;
 
@@ -35,15 +35,10 @@ public class SecondHalfViewPanel extends JPanel {
     ClickForDetailBtn.addActionListener(e -> {
      this.controller.gotoDetail();
     });
-    ContactMeBtn = new JButton("Contact Me");
-    ContactMeBtn.addActionListener(e -> {
-     this.controller.gotoDetail();
-    });
     newHeaderPanel();
     addMidLeftPanel();
     addMidRightPanel();
-    addComponent(ClickForDetailBtn, 4, 5, 1, 2, 0.1, 0.1);
-    addComponent(ContactMeBtn, 6, 5, 2, 3, 0.1, 0.1);
+    addComponent(ClickForDetailBtn, 4, 5, 3, 2, 0.1, 0.1);
     newFooterPanel();
   }
   public void addScrollPanel(JScrollPane jsp, int col, int row, int width, int height, double weightx , double weighty) {

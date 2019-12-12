@@ -10,8 +10,10 @@ import java.net.URL;
 import m1.team14.controller.HomePageController;
 import m1.team14.controller.AbstractController;
 import m1.team14.view.SecondHalfViewPanel;
+import java.awt.Container;
 import dataproto.Dealer;
 import m1.team14.Events;
+import java.awt.Image;
 
 
 public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
@@ -34,7 +36,8 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
     private JButton searchBtn;
     private JButton loginBtn;
     private JButton historyBtn;
-     private JLabel headerLabel;
+    private JButton refreshBtn;
+    private JLabel headerLabel;
 
     // scrollable bar
     private JScrollPane scrollPanel;
@@ -82,7 +85,15 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         historyBtn.addActionListener(e -> {
          this.homepageUpCtrl.gotoHistory();
         });
-
+        refreshBtn = new JButton("Refresh");
+        HomepageFrame that = this;
+        refreshBtn.addActionListener(e -> {
+          Container container = that.getContentPane();
+          container.removeAll();
+          container.revalidate();
+          container.repaint();
+          that.createALL();
+        });
         // scroll panel
 //        scrollPanel = new JScrollPane();
         viewPanel = new JPanel();
@@ -108,7 +119,19 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
             viewPanel.add(createIconPanel(dealer));
         }
         Dealer initDealer = dealers.get(0);
+        this.homepageUpCtrl.changeDealer(initDealer);
         this.curDealerLabel.setText(initDealer.getName());
+
+        String iconURL = initDealer.getIconURL();
+        ImageIcon dealImg = setImageFromInternet(iconURL, curDealerIconPath);
+        Container parent = curDealerImg.getParent();
+        parent.remove(curDealerImg);
+        parent.validate();
+        parent.repaint();
+        curDealerIcon = new ImageIcon(dealImg.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH));
+        curDealerImg = new JLabel(curDealerIcon);
+        parent.add(curDealerImg);
+
         this.secondHalfViewPanel.setNewDealer(initDealer);
     }
 
@@ -119,7 +142,10 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         JPanel dealerPanel = new JPanel(new BorderLayout());
 
         JPanel iconPanel = new JPanel();
-        ImageIcon dealImg = new ImageIcon(getClass().getResource(scrollIconPath));
+        ImageIcon dealImg = null;
+        String iconURL = dealer.getIconURL();
+        dealImg = setImageFromInternet(iconURL, scrollIconPath);
+        dealImg.setImage(dealImg.getImage().getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH));
         JButton iconLabel = new JButton(dealImg);
         iconLabel.setFocusPainted(false);
         iconLabel.setMargin(new Insets(0, 0, 0, 0));
@@ -176,6 +202,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         fillButtonPanel(buttonPanel, searchBtn, constraints, 0, 0, 1, 1, 0.6, 1, GridBagConstraints.NONE, GridBagConstraints.NORTH);
         fillButtonPanel(buttonPanel, historyBtn, constraints, 1, 0, 1, 1, 0.2, 1, GridBagConstraints.NONE, GridBagConstraints.NORTH);
         fillButtonPanel(buttonPanel, loginBtn, constraints, 2, 0, 1, 1, 0.2, 1, GridBagConstraints.NONE, GridBagConstraints.NORTH);
+        fillButtonPanel(buttonPanel,refreshBtn,constraints,3,0,1,1,0.2,1,GridBagConstraints.NONE,GridBagConstraints.NORTH);
 
     }
 
@@ -215,6 +242,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
 
     private void addToMain(Container mainPanel) {
         mainPanel.add(headPanel, BorderLayout.NORTH);
+        headerLabel = new JLabel("VEHICLE MANAGEMENT STUDIO");
     }
 
     private void addCurDealerIcon(JPanel curDealerIconPanel) {
@@ -227,12 +255,36 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
         curDealerIconPanel.add(curDealerLabel, BorderLayout.SOUTH);
     }
 
+    private ImageIcon setImageFromInternet(String iconURL, String defaultURL) {
+      ImageIcon dealImg = null;
+      if (iconURL != null) {
+        URL url = null;
+        try {
+          url = new URL(iconURL);
+        } catch (Exception e) {
+          url = getClass().getResource(defaultURL);
+        }
+        dealImg = new ImageIcon(url);
+      } else {
+        dealImg = new ImageIcon(getClass().getResource(defaultURL));
+      }
+      return dealImg;
+    }
     @Override
     public void modelPropertyChange(PropertyChangeEvent evt) {
       if (evt.getPropertyName().equals(Events.DEALER_ID_CHANGE)) {
         Dealer newDealer = (Dealer)evt.getNewValue();
         String name = newDealer.getName();
         curDealerLabel.setText(name == null ? "" : name);
+        String iconURL = newDealer.getIconURL();
+        ImageIcon dealImg = setImageFromInternet(iconURL, curDealerIconPath);
+        Container parent = curDealerImg.getParent();
+        parent.remove(curDealerImg);
+        parent.validate();
+        parent.repaint();
+        curDealerIcon = new ImageIcon(dealImg.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH));
+        curDealerImg = new JLabel(curDealerIcon);
+        parent.add(curDealerImg);
         secondHalfViewPanel.setNewDealer(newDealer);
       }
     }
