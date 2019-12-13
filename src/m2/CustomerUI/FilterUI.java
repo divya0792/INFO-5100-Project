@@ -15,7 +15,7 @@ public class FilterUI extends JFrame implements ItemListener {
     private JFrame frame;
     private JLabel headingLabel, brandLabel, modelLabel, typeLabel, categoryLabel, colorLabel, priceLabel,
             priceMinLabel, priceMaxLabel, yearLabel, yearFromLabel, yearToLabel, mileageLabel;
-    JComboBox brand, model, type, category, color, priceMin, priceMax, yearSta, yearTo, mileage;
+    JComboBox brand, model, type, category, color, priceMin, priceMax, selectYear, mileage;
     private JButton clearButton;
 
     private JLabel brand1, model1, year, type1, category1, color1, price, mileage1, saleprice;
@@ -66,8 +66,9 @@ public class FilterUI extends JFrame implements ItemListener {
         model = new JComboBox(new String[]{""});
         priceMin = new JComboBox(new String[]{"0", "10000", "20000", "30000", "40000", "50000"});
         priceMax = new JComboBox(new String[]{"10000", "20000", "30000", "40000", "50000", "50000+"});
-        yearSta = new JComboBox(new String[]{"2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018"});
-        yearTo = new JComboBox(new String[]{"2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"});
+        //yearSta = new JComboBox(new String[]{"2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018"});
+        selectYear = new JComboBox(new String[]{"2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"});
+        //yearTo = new JComboBox(new String[]{"2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"});
         reset();
         clearButton = new JButton("Clear All");
 
@@ -78,8 +79,9 @@ public class FilterUI extends JFrame implements ItemListener {
         color.setEditable(false);
         priceMin.setEditable(false);
         priceMax.setEditable(false);
-        yearSta.setEditable(false);
-        yearTo.setEditable(false);
+        selectYear.setEditable(false);
+        //yearSta.setEditable(false);
+        //yearTo.setEditable(false);
         mileage.setEditable(false);
 
         headingLabel = new JLabel("Choose Your Car Preference");
@@ -92,8 +94,8 @@ public class FilterUI extends JFrame implements ItemListener {
         priceMinLabel = new JLabel("Min");
         priceMaxLabel = new JLabel("Max");
         yearLabel = new JLabel("  Year");
-        yearFromLabel = new JLabel("From");
-        yearToLabel = new JLabel("To");
+        //yearFromLabel = new JLabel("From");
+        //yearToLabel = new JLabel("To");
         mileageLabel = new JLabel("  Mileage");
 
         Font font1 = new Font("Courier", Font.PLAIN, 16);
@@ -106,8 +108,8 @@ public class FilterUI extends JFrame implements ItemListener {
         priceMinLabel.setFont(font1);
         priceMaxLabel.setFont(font1);
         yearLabel.setFont(font1);
-        yearFromLabel.setFont(font1);
-        yearToLabel.setFont(font1);
+        //yearFromLabel.setFont(font1);
+        //yearToLabel.setFont(font1);
         mileageLabel.setFont(font1);
 
         //Set the pattern of title label l
@@ -151,16 +153,17 @@ public class FilterUI extends JFrame implements ItemListener {
         p2.add(priceMax);
 
         p.add(yearLabel);
-        p.add(p3);
-        p3.add(yearFromLabel);
-        p3.add(yearSta);
-        p3.add(yearToLabel);
-        p3.add(yearTo);
+        p.add(selectYear);
+        //p3.add(yearFromLabel);
+        //p3.add(yearSta);
+        //p3.add(yearToLabel);
+        //p3.add(yearTo);
+
         p.add(clearButton);
 
         p.setLayout(new GridLayout(0, 2));
         p2.setLayout(new GridLayout(2, 2));
-        p3.setLayout(new GridLayout(2, 2));
+        //p3.setLayout(new GridLayout(2, 2));
 
         try {
             manager = new ModuleIntegrator(dealerID);
@@ -346,8 +349,8 @@ public class FilterUI extends JFrame implements ItemListener {
         category.addItemListener(this);
         priceMin.addItemListener(this);
         priceMax.addItemListener(this);
-        yearSta.addItemListener(this);
-        yearTo.addItemListener(this);
+        selectYear.addItemListener(this);
+//        yearTo.addItemListener(this);
         mileage.addItemListener(this);
         clearButton.addActionListener(new ActionListener() {
 
@@ -376,12 +379,12 @@ public class FilterUI extends JFrame implements ItemListener {
         if (!(color.getSelectedItem() == null)) {
             selectData.put("color", (String) color.getSelectedItem());
         }
-        if (!(yearSta.getSelectedItem() == null)) {
-            selectData.put("yearSta", (String) yearSta.getSelectedItem());
+        if (!(selectYear.getSelectedItem() == null)) {
+            selectData.put("yearSta", (String) selectYear.getSelectedItem());
         }
-        if (!(yearTo.getSelectedItem() == null)) {
-            selectData.put("yearTo", (String) yearTo.getSelectedItem());
-        }
+//        if (!(yearTo.getSelectedItem() == null)) {
+//            selectData.put("yearTo", (String) yearTo.getSelectedItem());
+//        }
         if (!(priceMin.getSelectedItem() == null)) {
             selectData.put("priceMin", (String) priceMin.getSelectedItem());
         }
@@ -435,8 +438,9 @@ public class FilterUI extends JFrame implements ItemListener {
         model.setSelectedItem(null);
         priceMin.setSelectedItem(null);
         priceMax.setSelectedItem(null);
-        yearSta.setSelectedItem(null);
-        yearTo.setSelectedItem(null);
+        selectYear.setSelectedItem(null);
+        //yearSta.setSelectedItem(null);
+        //yearTo.setSelectedItem(null);
         con.removeAll();
         addFullResult(con);
 
