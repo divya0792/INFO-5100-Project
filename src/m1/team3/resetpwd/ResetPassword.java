@@ -33,7 +33,7 @@ public class ResetPassword {
   JPasswordField field2 = new JPasswordField(14);
   JPasswordField field3 = new JPasswordField(14);
 
-  JButton confirm = new JButton("confirm");
+  JButton confirm = new JButton("save");
   JButton cancel = new JButton("cancel");
 
   JPanel jp1 = new JPanel();
@@ -47,7 +47,6 @@ public class ResetPassword {
     frame.setSize(400, 500);
     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     frame.setLocationRelativeTo(null);
-
     add();
     cancelHandle();
     confirmHandle();
@@ -105,10 +104,7 @@ public class ResetPassword {
   }
 
   private boolean checkPassword(char[] password, String ps) {
-
-    // char[] password = field2.getPassword();
     char[] comfirmPassword = field3.getPassword();
-    // String ps = String.valueOf(password);
     String cps = String.valueOf(comfirmPassword);
     boolean ret = true;
     if (ps.length() <= 0 && cps.length() <= 0) {
