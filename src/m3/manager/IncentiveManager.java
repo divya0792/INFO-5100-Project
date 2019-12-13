@@ -8,12 +8,11 @@ import m3.model.IncentivesFinalPrice;
 import m3.model.filter.Filter;
 import m3.model.offer.DiscountOffer;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class IncentiveManager implements IncentiveManagement {
     TableOperations client = new TableOperations();
+    Map<String, List<Incentive>> cache = new HashMap<>();
 
     private double calculatePrice(double price, Incentive incentive) {
         if (incentive.getOffer().getClass() == DiscountOffer.class) {
@@ -150,7 +149,12 @@ public class IncentiveManager implements IncentiveManagement {
 
     public List<Incentive> getIncentivesByDealer(String dealerID) {
         // get incentive from database
-        return client.getIncentiveByDealer(dealerID);
+        if (this.cache.containsKey(dealerID))
+            return this.cache.get(dealerID);
+
+        List<Incentive> list = client.getIncentiveByDealer(dealerID);
+        this.cache.put(dealerID, list);
+        return list;
     }
 }
 
