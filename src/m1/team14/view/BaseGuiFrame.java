@@ -29,7 +29,7 @@ public abstract class BaseGuiFrame extends JFrame {
     // set the default attributes of the frame
     public void makeVisible(){
         setVisible(true);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     public void createALL() {
       create();
