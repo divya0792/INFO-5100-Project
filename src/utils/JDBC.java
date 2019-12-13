@@ -10,6 +10,7 @@ public class JDBC {
 
     private Connection conn;
     private static JDBC _instance;
+    private Statement stmt;
 
     static public JDBC getInstance() throws SQLException {
         if (_instance == null) {
@@ -20,6 +21,7 @@ public class JDBC {
 
     private JDBC() throws SQLException {
         conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+				this.stmt = conn.createStatement();
     }
 
     private PreparedStatement prepareStatement(String sql, String[] params) throws SQLException {
@@ -37,4 +39,31 @@ public class JDBC {
     public int update(String sql, String[] params) throws SQLException {
         return prepareStatement(sql, params).executeUpdate();
     }
+		public ResultSet getResults(String query) {
+			ResultSet rs = null;
+			try {
+				// stmt is the connection statement
+				// System.out.println("select sql query: " + query);
+				rs = this.stmt.executeQuery(query);
+				/**
+				 *
+				 * rs = this.stmt.executeQuery("select * from dbo.CustomerRequest"); while
+				 * (rs.next()) { System.out.println(rs.getString("leadId") +
+				 * rs.getString("firstName")); }
+				 */
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return rs;
+		}
+		public int updateOldversion(String sql) {
+			try {
+				// System.out.println("update sql query: " + sql);
+				return this.stmt.executeUpdate(sql);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return 0;
+		}
 }

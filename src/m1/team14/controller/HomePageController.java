@@ -2,20 +2,30 @@ package m1.team14.controller;
 import java.util.List;
 import dataproto.Dealer;
 import dataproto.RichText;
+import m1.team14.model.HomePageModel;
 import m1.team2.DealerAllContent;
 import m1.team3.login.VMSLoginFrame;
 import m1.DAO.DealerDAOImpl;
 import m1.DAO.DealerContentDAOImpl;
+import m4.Team4.UserUI;
 // For demo///////////////////
 import javax.swing.JOptionPane;
 //////////////////////////////
 public class HomePageController extends AbstractController {
+  private HomePageModel model;
+  public void addModel(HomePageModel model) {
+      this.model = model;
+      super.addModel(model);
+  }
   public List<Dealer> getDealers() {
     List<Dealer> ret = DealerDAOImpl.INSTANCE.getAllDealer();
     return ret;
   }
   public DealerAllContent getRichTextsByDealer(Dealer dealer) {
     return DealerContentDAOImpl.INSTANCE.getContents(dealer);
+  }
+  public Dealer getCurrentDealer() {
+    return model.getCurrentDealer();
   }
   public void changeDealer(Dealer val) {
     try {
@@ -28,10 +38,7 @@ public class HomePageController extends AbstractController {
     new VMSLoginFrame();
   }
   public void gotoHistory() {
-    // For demo///////////////////
-    JOptionPane.showMessageDialog(null, "Go to customers' contact history enterance page");
-    //////////////////////////////
-
+    new UserUI();
   }
   public void gotoSearch() {
     // For demo///////////////////

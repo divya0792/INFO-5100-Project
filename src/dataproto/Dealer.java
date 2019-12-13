@@ -1,5 +1,7 @@
 package dataproto;
 
+import java.util.Collection;
+
 public class Dealer extends DataObject {
   private String name;
   private String password;
@@ -13,7 +15,11 @@ public class Dealer extends DataObject {
   private String leftInfoId;
   private String rightInfoId;
 
-  public Dealer(String name, String password) {
+  public Dealer() {
+    
+  }
+  public Dealer(String id, String name, String password) {
+    this.setId(id);
     this.name = name;
     this.password = password;
   }

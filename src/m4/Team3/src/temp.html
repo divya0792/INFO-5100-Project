@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html><html lang="en">
+	<head>
+	    <meta charset="UTF-8"/>
+	    <meta http-equiv="content-type" content="text/html"/>
+	    <title>Email to Customer</title>
+	    <style type="text/css">
+			.content{
+				font-size: 20px;
+				background: rgba(238,147,44,0.3);
+				padding: 5px;
+			}
+			.header{
+				font-family: Gill Sans, sans-serif;
+				font-size: 35px;
+				background: rgb(237,125,50);
+				padding: 5px;
+			}
+			.response{
+				background: white;
+				padding: 5px;
+				font-family: Courier New;
+			}
+			.query{
+				background: white;
+				padding: 5px;
+				font-family: Courier New;
+			}
+			.vehicle{
+				background: white;
+				padding: 5px;
+				font-family: Courier New;
+			}
+	    </style>
+  	</head>
+  	<body>
+  		<div class="header">INFO5100 car sale, your best choice ever!</div>
+  		<div class="content">
+  			Hello, <span id="name">Mike</span>!<br/><br/>
+  			<div>The vehicle you interested in is:</div><br/>
+  			<div class="vehicle">
+  				<span id="vehicleinfo">TESLA,SEDAN,2018-01-10,S</span>
+  			</div><br/>
+  			<div>Your query is:</div><br/>
+  			<div class="query">
+  				<span id="customerquery">Checking for this</span>
+  			</div><br/>
+  			<div>Here is the response from dealer:</div><br/>
+  			<div class="response">
+  				<span id="dealermessage">Hi Mike</span>
+  			</div>
+  		</div>
+  	</body>
+</html>

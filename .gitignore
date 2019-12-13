@@ -27,3 +27,9 @@
 hs_err_pid*
 .DS_Store
 
+.idea
+.metadata
+
+/.metadata/
+/out
+*.iml
