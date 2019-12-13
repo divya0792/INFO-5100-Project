@@ -42,12 +42,10 @@ public class HomePageController extends AbstractController {
     new UserUI();
   }
   public void gotoSearch() {
-    new FilterUI(getCurrentDealer());
+    // new FilterUI(getCurrentDealer());
   }
   public void gotoDetail() {
-    // For demo///////////////////
-    JOptionPane.showMessageDialog(null, "Go to detail page");
-    //////////////////////////////
+    new FilterUI(getCurrentDealer());
   }
   public void contactMe() {
     // For demo///////////////////
