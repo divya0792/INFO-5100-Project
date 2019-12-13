@@ -219,6 +219,7 @@ public class IncentiveDetailUI {
 		cancel.addActionListener(e -> {
 			frame.dispose();
 			fui.frame.setEnabled(true);
+            fui.refreshTableContents();
 		});
 
 
