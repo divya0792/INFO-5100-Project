@@ -14,8 +14,9 @@ import java.util.List;
 
 public class ModuleIntegrator {
     DBManager db;
+
     public ModuleIntegrator(String dealerID) {
-      db = new DBManager(dealerID);
+        db = new DBManager(dealerID);
     }
 
     public ArrayList<Vehicle> integratorGetAllVehicles() {
@@ -57,15 +58,29 @@ public class ModuleIntegrator {
 
                 vehicleList.add(vehicle);
             }
-        }
-        catch (SQLException se) {
+        } catch (SQLException se) {
             se.printStackTrace();
         }
 
         //get incentives for vehicles
 
-        // IncentiveManagement incentiveManagement = new IncentiveManager();
-        // List<IncentivesFinalPrice> finalIncentiveList = incentiveManagement.getVehicleFinalIncentives((Vehicle[]) vehicleList.toArray());
+        Vehicle[] arrayOfVehicles = new Vehicle[vehicleList.size()];
+
+        for (int i = 0; i < vehicleList.size(); i++) {
+            arrayOfVehicles[i] = vehicleList.get(i);
+        }
+
+        IncentiveManagement incentiveManagement = new IncentiveManager();
+        List<IncentivesFinalPrice> finalIncentiveList = incentiveManagement.getVehicleFinalIncentives(arrayOfVehicles);
+
+        for (int i = 0; i < vehicleList.size(); i++) {
+            IncentivesFinalPrice ifp = finalIncentiveList.get(i);
+            Vehicle vehicle = vehicleList.get(i);
+
+            vehicle.setSalePrice(ifp.getFinalPrice());
+            vehicle.setMatchedIncentives(ifp.getIncentives());
+        }
+
         return vehicleList;
     }
 
@@ -106,12 +121,42 @@ public class ModuleIntegrator {
 
                 vehicleList.add(vehicle);
             }
-        }
-        catch (SQLException se) {
+        } catch (SQLException se) {
             se.printStackTrace();
         }
 
+        //get incentives for vehicles
+
+        Vehicle[] arrayOfVehicles = new Vehicle[vehicleList.size()];
+
+        for (int i = 0; i < vehicleList.size(); i++) {
+            arrayOfVehicles[i] = vehicleList.get(i);
+        }
+
+        IncentiveManagement incentiveManagement = new IncentiveManager();
+        List<IncentivesFinalPrice> finalIncentiveList = incentiveManagement.getVehicleFinalIncentives(arrayOfVehicles);
+
+        for (int i = 0; i < vehicleList.size(); i++) {
+            IncentivesFinalPrice ifp = finalIncentiveList.get(i);
+            Vehicle vehicle = vehicleList.get(i);
+
+            vehicle.setSalePrice(ifp.getFinalPrice());
+            vehicle.setMatchedIncentives(ifp.getIncentives());
+        }
 
         return vehicleList;
     }
+
+
+    public String getIncentiveForVehicle(Vehicle selectedVehicle) {
+        StringBuilder sb = new StringBuilder();
+
+        for (Incentive inc : selectedVehicle.getMatchedIncentives()) {
+            sb.append(inc.getTitle() + " - " + inc.getDisclaimer());
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
 }

@@ -423,7 +423,7 @@ public class FilterUI extends JFrame implements ItemListener {
     public void makeVisible() {
         frame.setSize(900, 600);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     public void reset() {
