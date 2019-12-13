@@ -7,11 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="javax.mail" level="project" />
-    <orderEntry type="library" name="activation" level="project" />
-    <orderEntry type="library" name="smtp-1.6.2" level="project" />
-    <orderEntry type="library" name="dom4j-2.1.1" level="project" />
+    <orderEntry type="library" name="mssql-jdbc-6.2.2.jre8" level="project" />
     <orderEntry type="library" name="sqljdbc4" level="project" />
-    <orderEntry type="library" name="activation1" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
