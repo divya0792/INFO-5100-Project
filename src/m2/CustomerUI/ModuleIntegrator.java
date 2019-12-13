@@ -30,6 +30,7 @@ public class ModuleIntegrator {
             while (rs.next()) {
                 Vehicle vehicle = new Vehicle();
 
+                vehicle.setId(rs.getString(1));
                 vehicle.setDealerId(rs.getString(2));
                 vehicle.setBrand(rs.getString(3));
                 vehicle.setModel(rs.getString(4));
@@ -79,12 +80,12 @@ public class ModuleIntegrator {
             while (rs.next()) {
                 Vehicle vehicle = new Vehicle();
 
+                vehicle.setId(rs.getString(1));
                 vehicle.setDealerId(rs.getString(2));
                 vehicle.setBrand(rs.getString(3));
                 vehicle.setModel(rs.getString(4));
 
-                String[] year = rs.getString(5).split("-");
-                vehicle.setYear(Integer.parseInt(year[0]));
+                vehicle.setDateofmanufacturing(rs.getString(5));
                 vehicle.setType(rs.getString(6));
 
                 String category = rs.getString(7);

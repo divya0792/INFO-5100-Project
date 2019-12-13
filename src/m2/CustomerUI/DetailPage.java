@@ -1,27 +1,39 @@
 package m2.CustomerUI;
 
 import dataproto.Vehicle;
+import m4.Team1.RequestFormAPI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DetailPage extends JFrame {
-    private int i;
+    //    private int i;
     private JLabel brand, model, year, type, category, color, price, mileage, saleprice;
     private JLabel brandvalue, modelvalue, yearvalue, typevalue, categoryvalue, pricevalue, colorvalue, mileagevalue, salepricevalue;
     private JLabel space;
     private Button interest;
     private String dealerID;
+    private Vehicle selectedVehicle;
 
     private ModuleIntegrator manager;
 
-    public DetailPage(String i, String dealerID) throws Exception {
-        this.i = Integer.parseInt(i);
+    public DetailPage(Vehicle selectedVehicle, String dealerID) {
+        this.selectedVehicle = selectedVehicle;
         this.dealerID = dealerID;
-        create(this.i);
+
+        displayDetails();
+    }
+
+    public void displayDetails() {
         makeItVisible();
+
+        Container con = getContentPane();
+
+        add(con);
     }
 
     public void makeItVisible() {
@@ -39,18 +51,13 @@ public class DetailPage extends JFrame {
         add(con, i);
     }
 
-    public void add(Container con, int i) {
-        ArrayList<dataproto.Vehicle> list = manager.integratorGetAllVehicles();
-
-        dataproto.Vehicle car = list.get(i);
-        //GridLayout gl = new GridLayout(list.size(),1);
+    public void add(Container con) {
         JPanel basepanel = new JPanel();
         FlowLayout fl = new FlowLayout();
         con.add(basepanel);
         con.setSize(50, 30);
         basepanel.setLayout(fl);
-        newComponent(basepanel, car);
-
+        newComponent(basepanel, this.selectedVehicle);
     }
 
     public void newComponent(JPanel panel, dataproto.Vehicle car) {
@@ -75,6 +82,15 @@ public class DetailPage extends JFrame {
         this.salepricevalue = new JLabel(String.valueOf("$" + car.getSalePrice()) + "0" + "         ");
         this.space = new JLabel("");
         this.interest = new Button("Interest");
+
+        this.interest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("User is interested!!");
+                new RequestFormAPI(selectedVehicle.getId(), dealerID);
+            }
+        });
+
         addPanelLeft(panel, brandvalue, modelvalue, year, yearvalue, type, typevalue, color, colorvalue, categoryvalue, mileage, mileagevalue);
         addPanelRight(panel, price, pricevalue, saleprice, salepricevalue, space, interest);
     }
@@ -126,4 +142,7 @@ public class DetailPage extends JFrame {
         jp2.add(value2);
         panel.add(jp2);
     }
+
+    //Action listeners
+
 }

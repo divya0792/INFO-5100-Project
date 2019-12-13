@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.Vector;
 import javax.swing.*;
 import dataproto.Dealer;
+import dataproto.Vehicle;
 
 public class FilterUI extends JFrame implements ItemListener {
     private JFrame frame;
@@ -27,16 +28,18 @@ public class FilterUI extends JFrame implements ItemListener {
     private ModuleIntegrator manager;
     SelectData sd = new SelectData();
     String dealerID = "";
-    DBManager mg = new DBManager(dealerID);
+    DBManager mg;
 
     public FilterUI(Dealer dealer) {
-      dealerID = dealer.getId();
-      try {
+        dealerID = dealer.getId();
+        mg = new DBManager(dealerID);
 
-        createFilterUI();
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+        try {
+
+            createFilterUI();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void createFilterUI() throws Exception {
@@ -275,7 +278,7 @@ public class FilterUI extends JFrame implements ItemListener {
         this.space = new JLabel("");
 
         addPanelLeft(panel, brandvalue, modelvalue, year, yearvalue, categoryvalue, mileage1, mileagevalue);
-        addPanelRight(i, panel, colorvalue, saleprice, salepricevalue, space, seeDetail);
+        addPanelRight(car, panel, colorvalue, saleprice, salepricevalue, space, seeDetail);
 
     }
 
@@ -290,8 +293,8 @@ public class FilterUI extends JFrame implements ItemListener {
         panel.add(jp);
     }
 
-    public void addPanelRight(int i, JPanel panel, JLabel colorvalue, JLabel saleprice, JLabel salepricevalue, JLabel space, Button seeDetail) {
-        String i1 = Integer.toString(i);
+    public void addPanelRight(Vehicle selectedVehicle, JPanel panel, JLabel colorvalue, JLabel saleprice, JLabel salepricevalue, JLabel space, Button seeDetail) {
+//        String i1 = Integer.toString(i);
         JPanel jp1 = new JPanel();
         BoxLayout bl2 = new BoxLayout(jp1, BoxLayout.Y_AXIS);
         jp1.setLayout(bl2);
@@ -300,12 +303,14 @@ public class FilterUI extends JFrame implements ItemListener {
         addPanel2(jp1, saleprice, salepricevalue);
         addPanel1(jp1, space);
         jp1.add(seeDetail);
-        seeDetail.setName(i1);
+//        seeDetail.setName(i1);
         seeDetail.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new DetailPage(seeDetail.getName(), dealerID);
+                    new DetailPage(selectedVehicle, dealerID);
+
+//                    new DetailPage(seeDetail.getName(), dealerID);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
