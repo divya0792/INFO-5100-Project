@@ -1,40 +1,44 @@
 package dataproto;
 
 import java.util.Collection;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class Vehicle extends DataObject{
     private String id;
     private String dealerId;
-    private String brand;
-    private String model;
-    private int year;
-    private String dateofmanufacturing;
-    private String type;
-    private String category;
-    private String color;
-    private float price;
-    private float mileage;
-    private String flag;
-    private Collection<Incentive> matchedIncentives;
-    private float salePrice;
-    private int peopleExpressingInterestInThisCar;
-    
-	public String getId() {
-	return id;
-}
+	private String brand;
+	private String model;
+	private int year;
+	private String dateofmanufacturing;
+	private String type;
+	private String category;
+	private String color;
+	private float price;
+	private float mileage;
+	private String flag;
+	private List<m3.model.Incentive> matchedIncentives;
+	private double salePrice;
+	private int peopleExpressingInterestInThisCar;
 
-public int getYear() {
-	int ret = 0;
-	try  {
-		ret = Integer.parseInt(dateofmanufacturing.split("-")[0]);
-	} catch(Exception e) {
-		e.printStackTrace();
+	public String getId() {
+		return id;
 	}
-	return ret;
-}
-public void setId(String id) {
+
+	public int getYear() {
+		int ret = 0;
+		try {
+			ret = Integer.parseInt(dateofmanufacturing.split("-")[0]);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public void setId(String id) {
 	this.id = id;
 }
 
@@ -110,20 +114,45 @@ public void setMileage(float mileage) {
 	this.mileage = mileage;
 }
 
-public String getFlag() {
-	return flag;
-}
+	public String getFlag() {
+		return flag;
+	}
 
-public void setFlag(String flag) {
-	this.flag = flag;
-}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 
-public Vehicle() {
-	
-}
+	public List<m3.model.Incentive> getMatchedIncentives() {
+		return matchedIncentives;
+	}
+
+	public void setMatchedIncentives(List<m3.model.Incentive> matchedIncentives) {
+		this.matchedIncentives = matchedIncentives;
+	}
+
+	public int getPeopleExpressingInterestInThisCar() {
+		return peopleExpressingInterestInThisCar;
+	}
+
+	public void setPeopleExpressingInterestInThisCar(int peopleExpressingInterestInThisCar) {
+		this.peopleExpressingInterestInThisCar = peopleExpressingInterestInThisCar;
+	}
+
+	public double getSalePrice() {
+		return salePrice;
+	}
+
+	public void setSalePrice(double salePrice) {
+		this.salePrice = salePrice;
+	}
+
+	public Vehicle() {
+
+	}
+
 	public Vehicle(String carIDString, String dealerIDString, String brandString, String modelString,
-			String dateofmanufacturingString, String typeString, String categoryString,
-			String colorString,float price,  float mileage) {
+				   String dateofmanufacturingString, String typeString, String categoryString,
+				   String colorString, float price, float mileage) {
 		// TODO Auto-generated constructor stub
 		  id = carIDString;
           dealerId = dealerIDString;
