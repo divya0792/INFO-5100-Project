@@ -119,7 +119,7 @@ public class TableOperations {
             filterList = DataFormatConversion.FilterToString(I);
             offer = DataFormatConversion.OfferToString(I);
         } catch (Exception e) {
-           
+
             e.printStackTrace();
         }
 
@@ -167,7 +167,7 @@ public class TableOperations {
     * */
     public List<Incentive> getIncentiveByDealer(String dealerID) {
         List<Incentive> incentives = new ArrayList<>();
-        String sql = "SELECT * from Incentive";
+        String sql = "SELECT * FROM Incentive WHERE dealerID='" + dealerID + "'";
         System.out.println(sql);
         try {
             Statement st = connection.createStatement();
@@ -198,4 +198,3 @@ public class TableOperations {
     }
 
 }
-
