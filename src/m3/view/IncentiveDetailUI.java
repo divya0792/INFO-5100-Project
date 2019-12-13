@@ -11,8 +11,12 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class IncentiveDetailUI {
 
@@ -33,12 +37,14 @@ public class IncentiveDetailUI {
 	private Incentive iw;
 
 	private String[] row;
+    private Set<String> filterSet;
 
 
 	IncentiveDetailUI(IncentiveListUI fui, int rowIndex, Dealer dealer) {
 		this.fui = fui;
 		this.rowIndex = rowIndex;
 		this.dealer = dealer;
+        filterSet = new HashSet<>();
 	}
 
 	//public SecondUI(FirstUI firstUI, String title, String string2, String string3, String disclaimer) {
@@ -49,13 +55,21 @@ public class IncentiveDetailUI {
 		iw = new Incentive();
 		frame = new JFrame();
 		frame.setSize(450, 600);
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel panel = new JPanel();
 		frame.add(panel);
+
 		placeComponent(panel);
 		addListeners();
 
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                fui.frame.setEnabled(true);
+            }
+        });
+
 		frame.setVisible(true);
+
 
 	}
 
@@ -64,8 +78,13 @@ public class IncentiveDetailUI {
 
 		Incentive i = rowIndex == -1 ? null : fui.incentives.getIncentiveByIndex(rowIndex);
 
-		if (i != null)
-			iw = i;
+		if (i != null) {
+            iw = i;
+            for (Filter f : iw.getConditions()) {
+                filterSet.add(filterToString(f)[0]);
+            }
+        }
+
 		panel.setLayout(null);
 		JLabel title = new JLabel("Title");
 		title.setBounds(50, 25, 200, 25);
@@ -170,21 +189,23 @@ public class IncentiveDetailUI {
 	private void addListeners() {
 		create.addActionListener(e -> {
 			openFilterEditUI();
-			filterUI.addWindowStateListener(l -> {
-				addToTableBelow(filterUI.toSecondUIFilter());
-				//filterList.add(filterUI.toSecondUIFilter());
-			});
+//			filterUI.addWindowStateListener(l -> {
+//				addToTableBelow(filterUI.toSecondUIFilter());
+//				//filterList.add(filterUI.toSecondUIFilter());
+//			});
 		});
 
 
 		edit.addActionListener(e -> {
 
 			row = getRow();
-			openFilterEditUI();
+            editFilterUI();
 			filterUI.modifyFilter(row);
 			filterUI.addWindowStateListener(l -> {
-				addToTableBelow(filterUI.toSecondUIFilter());
-				deleteSelectedRow();
+
+                modifyRow(filterUI.toSecondUIFilter());
+                //addToTableBelow(filterUI.toSecondUIFilter());
+
 			});
 		});   // Third UI start function here
 
@@ -198,6 +219,7 @@ public class IncentiveDetailUI {
 		cancel.addActionListener(e -> {
 			frame.dispose();
 			fui.frame.setEnabled(true);
+            fui.refreshTableContents();
 		});
 
 
@@ -248,7 +270,7 @@ public class IncentiveDetailUI {
 			); 
     	
     	ok.addActionListener(e -> {
-
+            try {
 			iw.setTitle(titleText.getText());
 			iw.setStartDate(startDateChooser.getDate());
 			iw.setEndDate(endDateChooser.getDate());
@@ -263,6 +285,13 @@ public class IncentiveDetailUI {
 				iw.setOffer(new CashBackOffer(Double.parseDouble(offerText.getText())));
 			}
 			iw.setDisclaimer(disclaimerText.getText());
+                if (iw.getConditions().isEmpty() == true)
+                    throw new java.lang.NullPointerException();
+
+                if (iw.getOffer().getClass().equals(DiscountOffer.class) && (iw.getOffer().getValue() > 100 || iw.getOffer().getValue() < 0)) {
+                    throw new java.lang.NumberFormatException();
+                }
+
 
 			if (rowIndex == -1) {
 				fui.incentives.addIncentive(iw);
@@ -272,7 +301,12 @@ public class IncentiveDetailUI {
 			}
 			frame.dispose();
 			fui.frame.setEnabled(true);
-			fui.refreshTableContents();
+                fui.refreshTableContents();
+            } catch (java.lang.NumberFormatException exce) {
+                JOptionPane.showMessageDialog(null, "Please check your input, there's something wrong.");
+            } catch (java.lang.NullPointerException NullExce) {
+                JOptionPane.showMessageDialog(null, "Please check your input, there's something wrong.");
+            }
 		});
 
 
@@ -280,17 +314,29 @@ public class IncentiveDetailUI {
 
 	private void refreshFilterTable() {
 
+
 	}
 
 
 	public void addFiltertoIncentive(m3.model.filter.Filter f) {
-		iw.addFilter(f);
+
+        if (filterSet.contains(filterToString(f)[0])) {
+            JOptionPane.showMessageDialog(null, "You can't add two same types of filters");
+        } else {
+            iw.addFilter(f);
+            dm.addRow(filterToString(f));
+            filterSet.add(filterToString(f)[0]);
+        }
 	}
 
 
 	private void openFilterEditUI() {
 		filterUI = new FilterDetailUI(this);
 	}
+
+    private void editFilterUI() {
+        filterUI = new FilterDetailUI(this, 1);
+    }
 
 	private void createTable() {
 
@@ -301,11 +347,23 @@ public class IncentiveDetailUI {
 	}
 
 
+    public void modifyRow(Filter f) {
+        dm = (DefaultTableModel) table.getModel();
+        try {
+            int rowIndex = table.getSelectedRow();
+            iw.getConditions().set(rowIndex, f);
+            dm.removeRow(rowIndex);
+            dm.addRow(filterToString(f));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please select a Row or No rows to delete");
+        }
+    }
 	private void deleteSelectedRow() {
 		dm = (DefaultTableModel) table.getModel();
 		try {
 			int rowIndex = table.getSelectedRow();
 			dm.removeRow(rowIndex);
+            iw.getConditions().remove(rowIndex);
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Please select a Row or No rows to delete");
@@ -326,7 +384,7 @@ public class IncentiveDetailUI {
 	}
 
 	public void addToTableBelow(m3.model.filter.Filter filter) {
-		dm.addRow(filterToString(filter));
+        //dm.addRow(filterToString(filter));
 		addFiltertoIncentive(filter);
 
 	}
@@ -348,6 +406,9 @@ public class IncentiveDetailUI {
 			case ("ModelFilter"): {
 				return new String[]{"Model", ((ModelFilter) filter).checkerToString(), ((ModelFilter) filter).getValue()};
 			}
+            case ("PriceFilter"): {
+                return new String[]{"Price", ((PriceFilter) filter).checkerToString(), ((PriceFilter) filter).getValue().toString()};
+            }
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + filter.getClass());
 		}

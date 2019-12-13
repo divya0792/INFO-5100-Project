@@ -19,16 +19,23 @@ public class FilterDetailUI extends BasicUI {
 	private JButton cancel, ok;
 	private IncentiveDetailUI sui;
 	private JDialog jd;
+    private int Modify;
 
 	FilterDetailUI(IncentiveDetailUI sui) {
 		this.sui = sui;
-	}
+        Modify = 0;
+    }
+
+    FilterDetailUI(IncentiveDetailUI sui, int i) {
+        this.sui = sui;
+        Modify = i;
+    }
 
 	@Override
 	public void create() {
 
 		UIName = new JLabel("Condition");
-		Name = new JComboBox(new String[]{"Brand", "Year", "VehicleIDs", "Color", "Model"});
+        Name = new JComboBox(new String[]{"Brand", "Year", "VehicleIDs", "Color", "Model", "Price"});
 		Type = new JComboBox(new String[]{"="});
 		NameCombo = new JLabel("name:");
 		TypeCombo = new JLabel("type:");
@@ -106,6 +113,13 @@ public class FilterDetailUI extends BasicUI {
 				Type.addItem("=");
 				break;
 			}
+            case ("Price"): {
+                Type.removeAllItems();
+                Type.addItem("<");
+                Type.addItem(">");
+                break;
+
+            }
 
 
 		}
@@ -136,11 +150,16 @@ public class FilterDetailUI extends BasicUI {
 		cancel.addActionListener((e) -> this.dispose());
 		ok.addActionListener((e) -> {
 
-					sui.addToTableBelow(toSecondUIFilter());
+                    if (Modify == 1) {
+                        sui.modifyRow(toSecondUIFilter());
+                    } else
+                        sui.addToTableBelow(toSecondUIFilter());
 
-					this.dispose();
+                    this.dispose();
+                }
 
-				}
+
+
 
 		);
 	}
@@ -171,7 +190,6 @@ public class FilterDetailUI extends BasicUI {
 					ColorFilter c = new ColorFilter((Checker) new EqualChecker());
 					c.setValue(value);
 					return c;
-
 				}
 				case("VehicleIDs"): {
 					VehicleIDsFilter v = new VehicleIDsFilter(new EqualChecker());
@@ -181,21 +199,11 @@ public class FilterDetailUI extends BasicUI {
 				case("Year"):{
 					if (type.equals("<")) {
 						YearFilter y = new YearFilter((Checker) new GreaterChecker());
-						try {
 							y.setValueFromString(value);
-						} catch (InputException e) {
-
-							e.printStackTrace();
-						}
 						return y;
 					} else {
 						YearFilter y = new YearFilter((Checker) new LessChecker());
-						try {
 							y.setValueFromString(value);
-						} catch (InputException e) {
-
-							e.printStackTrace();
-						}
 						return y;
 					}
 				}
@@ -204,6 +212,17 @@ public class FilterDetailUI extends BasicUI {
 					m.setValue(value);
 					return m;
 				}
+                case ("Price"): {
+                    if (type.equals("<")) {
+                        PriceFilter p = new PriceFilter((Checker) new LessChecker());
+                        p.setValueFromString(value);
+                        return p;
+                    } else {
+                        PriceFilter p = new PriceFilter((Checker) new GreaterChecker());
+                        p.setValueFromString(value);
+                        return p;
+                    }
+                }
 			}
 		} catch (InputException e) {
 			JOptionPane.showMessageDialog(null, e.toString());
