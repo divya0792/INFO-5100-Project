@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ModuleIntegrator {
@@ -151,9 +152,15 @@ public class ModuleIntegrator {
     public String getIncentiveForVehicle(Vehicle selectedVehicle) {
         StringBuilder sb = new StringBuilder();
 
-        for (Incentive inc : selectedVehicle.getMatchedIncentives()) {
-            sb.append(inc.getTitle() + " - " + inc.getDisclaimer());
-            sb.append("\n");
+        for (int i = 0; i < selectedVehicle.getMatchedIncentives().size(); i++) {
+            Incentive inc = selectedVehicle.getMatchedIncentives().get(i);
+
+            if(i == selectedVehicle.getMatchedIncentives().size()-1) {
+                sb.append(inc.getTitle() + " (" + inc.getDisclaimer() + ")");
+            }
+            else {
+                sb.append(inc.getTitle() + " (" + inc.getDisclaimer() + "), ");
+            }
         }
 
         return sb.toString();

@@ -272,7 +272,7 @@ public class FilterUI extends JFrame implements ItemListener {
         this.pricevalue = new JLabel(String.valueOf(car.getPrice()) + "0" + "         ");
         this.mileage1 = new JLabel("Mileage: ");
         this.mileagevalue = new JLabel(String.valueOf(car.getMileage()) + "                       ");
-        this.saleprice = new JLabel("Saleprice:");
+        this.saleprice = new JLabel("Price:");
         this.salepricevalue = new JLabel(String.valueOf("$" + car.getSalePrice()) + "0" + "         ");
         this.seeDetail = new Button("see detail");
         this.space = new JLabel("");
