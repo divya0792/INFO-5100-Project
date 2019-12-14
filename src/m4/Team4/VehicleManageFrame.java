@@ -43,8 +43,10 @@ public class VehicleManageFrame extends JFrame {
 		
 		try {
 			vehiclesMap = new HashMap<String, Vehicle>();
-			for (String l : leadId) {				
-				vehicleManager.getVehicle(leadMap.get(l).getVehicleId());				
+			for (String l : leadId) {						
+				vehicleManager.getVehicle(leadMap.get(l).getVehicleId());
+				if (vehicleManager.getVehicle() == null)
+					continue;				
 				vehiclesMap.put(l, vehicleManager.getVehicle());
 			}
 			model = new VehicleInformationSystem(leadMap, vehiclesMap);
