@@ -57,14 +57,15 @@ public class SelectData implements ItemListener {
         }
 
         if(data.containsKey("yearSta")) {
-            if(data.containsKey("yearTo")) {
+         //   if(data.containsKey("yearTo")) {
 
                 if(sb.length() > 0)
                 {
                     sb.append(" and ");
                 }
-                sb.append("dateofmanufacturing between " + Integer.parseInt(data.get("yearSta"))+" and "+Integer.parseInt(data.get("yearTo")));
-            }
+                //                sb.append("dateofmanufacturing like %" + Integer.parseInt(data.get("yearSta"))+"% "+Integer.parseInt(data.get("yearTo")));
+                sb.append("dateofmanufacturing like '%" + Integer.parseInt(data.get("yearSta"))+"%'");
+           // }
         }
 
         if(data.containsKey("priceMin")) {
@@ -73,7 +74,14 @@ public class SelectData implements ItemListener {
                 {
                     sb.append(" and ");
                 }
-                sb.append("price between "+Integer.parseInt(data.get("priceMin"))+" and "+Integer.parseInt(data.get("priceMax")));
+                String price = data.get("priceMax");
+                if(price.contains("+")){
+                    sb.append("price >= "+Integer.parseInt(price.substring(0, price.length()-1)));
+
+                }
+                else
+                    sb.append("price between "+Integer.parseInt(data.get("priceMin"))+" and "+Integer.parseInt(data.get("priceMax")));
+//                sb.append("price between "+Integer.parseInt(data.get("priceMin"))+" and "+Integer.parseInt(data.get("priceMax")));
 
             }
         }
