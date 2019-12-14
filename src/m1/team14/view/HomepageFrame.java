@@ -33,7 +33,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
     private JLabel curDealerLabel;
 
     private JPanel buttonPanel;
-    private JButton searchBtn;
+    // private JButton searchBtn;
     private JButton loginBtn;
     private JButton historyBtn;
     private JButton refreshBtn;
@@ -72,11 +72,11 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
 
         // button components
         buttonPanel = new JPanel();
-        searchBtn = new JButton("Search");
-        searchBtn.setBounds(0, 0, 100, 100);
-        searchBtn.addActionListener(e -> {
-         this.homepageUpCtrl.gotoSearch();
-        });
+        // searchBtn = new JButton("Search");
+        // searchBtn.setBounds(0, 0, 100, 100);
+        // searchBtn.addActionListener(e -> {
+        //  this.homepageUpCtrl.gotoSearch();
+        // });
         loginBtn = new JButton("Login");
         loginBtn.addActionListener(e -> {
          this.homepageUpCtrl.gotoLogin();
@@ -199,7 +199,7 @@ public class HomepageFrame extends BaseGuiFrame implements IViewPanel {
     private void addButtons(JPanel buttonPanel) {
         buttonPanel.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        fillButtonPanel(buttonPanel, searchBtn, constraints, 0, 0, 1, 1, 0.6, 1, GridBagConstraints.NONE, GridBagConstraints.NORTH);
+        // fillButtonPanel(buttonPanel, searchBtn, constraints, 0, 0, 1, 1, 0.6, 1, GridBagConstraints.NONE, GridBagConstraints.NORTH);
         fillButtonPanel(buttonPanel, historyBtn, constraints, 1, 0, 1, 1, 0.2, 1, GridBagConstraints.NONE, GridBagConstraints.NORTH);
         fillButtonPanel(buttonPanel, loginBtn, constraints, 2, 0, 1, 1, 0.2, 1, GridBagConstraints.NONE, GridBagConstraints.NORTH);
         fillButtonPanel(buttonPanel,refreshBtn,constraints,3,0,1,1,0.2,1,GridBagConstraints.NONE,GridBagConstraints.NORTH);
