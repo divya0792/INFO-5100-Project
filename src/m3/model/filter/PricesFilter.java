@@ -10,12 +10,12 @@ import java.util.List;
 public class PricesFilter extends ListFilter<Float> {
 
     @JsonCreator
-    public PricesFilter(@JsonProperty("checker") Checker<Float> checker) {
+    public PricesFilter(@JsonProperty("checker") Checker checker) {
         super(checker);
     }
 
     @JsonCreator
-    public PricesFilter(@JsonProperty("list") List<Float> list, @JsonProperty("checker") Checker<Float> checker) {
+    public PricesFilter(@JsonProperty("list") List<Float> list, @JsonProperty("checker") Checker checker) {
         super(list, checker);
     }
 

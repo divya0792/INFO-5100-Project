@@ -9,12 +9,12 @@ import m3.model.checker.Checker;
 @JsonTypeName("PriceFilter")
 public class PriceFilter extends ValueFilter<Float> {
 	@JsonCreator
-	public PriceFilter(@JsonProperty("checker") Checker<Float> checker) {
+	public PriceFilter(@JsonProperty("checker") Checker checker) {
 		super(checker);
 	}
 
 	@JsonCreator
-	public PriceFilter(@JsonProperty("value") Float value, @JsonProperty("checker") Checker<Float> checker) {
+	public PriceFilter(@JsonProperty("value") Float value, @JsonProperty("checker") Checker checker) {
 		super(value, checker);
 	}
 

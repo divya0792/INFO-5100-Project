@@ -7,12 +7,12 @@ import m3.model.checker.Checker;
 
 public class YearFilter extends ValueFilter<Integer> {
 	@JsonCreator
-	public YearFilter(@JsonProperty("checker")Checker<Integer> checker) {
+	public YearFilter(@JsonProperty("checker") Checker checker) {
 		super(checker);
 	}
 	
 	@JsonCreator
-	public YearFilter(@JsonProperty("value")Integer value, @JsonProperty("checker")Checker<Integer> checker) {
+	public YearFilter(@JsonProperty("value") Integer value, @JsonProperty("checker") Checker checker) {
         super(value, checker);
     }
 

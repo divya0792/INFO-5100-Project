@@ -1,11 +1,11 @@
 package m3.model.checker;
 
 
-public class GreaterChecker extends Checker<Float> {
+public class GreaterChecker extends Checker<Object> {
 
     @Override
-    public boolean check(Float o1, Float o2) {
-        return o1 > o2;
+    public boolean check(Object o1, Object o2) {
+        return Double.valueOf(o1.toString()) > Double.valueOf(o2.toString());
     }
 
     @Override

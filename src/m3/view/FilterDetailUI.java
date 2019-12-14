@@ -197,7 +197,7 @@ public class FilterDetailUI extends BasicUI {
 					return v;
 				}
 				case("Year"):{
-					if (type.equals("<")) {
+                    if (type.equals(">")) {
 						YearFilter y = new YearFilter((Checker) new GreaterChecker());
 							y.setValueFromString(value);
 						return y;

@@ -9,12 +9,12 @@ import java.util.List;
 
 public class YearsFilter extends ListFilter<Integer> {
     @JsonCreator
-    public YearsFilter(@JsonProperty("checker") Checker<Integer> checker) {
+    public YearsFilter(@JsonProperty("checker") Checker checker) {
         super(checker);
     }
 
     @JsonCreator
-    public YearsFilter(@JsonProperty("list") List<Integer> list, @JsonProperty("checker") Checker<Integer> checker) {
+    public YearsFilter(@JsonProperty("list") List<Integer> list, @JsonProperty("checker") Checker checker) {
         super(list, checker);
     }
 
